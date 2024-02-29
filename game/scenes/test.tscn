@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://oawfcifwqyje"]
+
+[ext_resource type="Script" path="res://scripts/GlobalShortcuts.gd" id="1_bafbo"]
+[ext_resource type="Texture2D" uid="uid://5le6pmk876a8" path="res://icon.svg" id="1_p2fcu"]
+[ext_resource type="Script" path="res://scripts/Shit.gd" id="3_3hdfc"]
+
+[node name="Root" type="Node"]
+
+[node name="GlobalShortcuts" type="Node" parent="."]
+script = ExtResource("1_bafbo")
+
+[node name="shit" type="Sprite2D" parent="."]
+position = Vector2(333, 181)
+scale = Vector2(0.351563, 0.351563)
+texture = ExtResource("1_p2fcu")
+script = ExtResource("3_3hdfc")
+speed = 200.0
