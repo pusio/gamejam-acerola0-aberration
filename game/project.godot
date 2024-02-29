@@ -26,6 +26,10 @@ window/stretch/mode="canvas_items"
 
 import/blender/enabled=false
 
+[gui]
+
+theme/custom_font="res://misc/font/PressStart2P.tres"
+
 [input]
 
 toggle_fullscreen={
