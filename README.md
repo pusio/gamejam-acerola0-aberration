@@ -14,4 +14,4 @@ This repo contains my entry for [Acerola Jam 0](https://itch.io/jam/acerola-jam-
 # todo
 
 -   make README.md normal (this file right now is an aberration of README.md)
--   figure out idea for the game, gameplay loop, how is it abberant
+-   figure out idea for the game, gameplay loop, how is it aberrant
