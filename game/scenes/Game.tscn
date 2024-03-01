@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://oawfcifwqyje"]
+
+[ext_resource type="Script" path="res://scripts/GlobalShortcuts.gd" id="1_mnj3p"]
+[ext_resource type="PackedScene" uid="uid://nwddf3iocxkg" path="res://objects/creatures/Player.tscn" id="2_m52g4"]
+[ext_resource type="Script" path="res://scripts/Camera.gd" id="4_0glbp"]
+[ext_resource type="PackedScene" uid="uid://yiiypvgp5ngy" path="res://objects/collectables/TestBlue.tscn" id="4_5kuas"]
+[ext_resource type="PackedScene" uid="uid://cmebmddd5i0hf" path="res://objects/collectables/TestRed.tscn" id="5_3ivmm"]
+
+[node name="Root" type="Node"]
+
+[node name="GlobalShortcuts" type="Node" parent="."]
+script = ExtResource("1_mnj3p")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("4_0glbp")
+followSpeed = 20.0
+
+[node name="Player" parent="." instance=ExtResource("2_m52g4")]
+
+[node name="Collectable" parent="." instance=ExtResource("4_5kuas")]
+position = Vector2(-204, 84)
+
+[node name="Collectable2" parent="." instance=ExtResource("4_5kuas")]
+position = Vector2(-211, -74)
+
+[node name="Collectable3" parent="." instance=ExtResource("4_5kuas")]
+position = Vector2(-71, -32)
+
+[node name="Collectable4" parent="." instance=ExtResource("5_3ivmm")]
+position = Vector2(-141, 17)
+
+[node name="Collectable5" parent="." instance=ExtResource("5_3ivmm")]
+position = Vector2(-25, 104)
+
+[node name="Collectable6" parent="." instance=ExtResource("5_3ivmm")]
+position = Vector2(103, 76)
+
+[node name="Collectable7" parent="." instance=ExtResource("5_3ivmm")]
+position = Vector2(55, -109)
+
+[node name="Collectable8" parent="." instance=ExtResource("4_5kuas")]
+position = Vector2(182, -34)
+
+[node name="Collectable9" parent="." instance=ExtResource("4_5kuas")]
+position = Vector2(205, 133)
+
+[node name="Collectable10" parent="." instance=ExtResource("5_3ivmm")]
+position = Vector2(221, -130)
+
+[node name="Collectable11" parent="." instance=ExtResource("5_3ivmm")]
+position = Vector2(-128, -129)
