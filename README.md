@@ -30,7 +30,7 @@ This repo contains my entry for [Acerola Jam 0](https://itch.io/jam/acerola-jam-
 -   player ai: there is limited carry capacity, the beast will decide what food items to pick up and what throw away
 -   make player grow over time if feed well, increasing health and damage dealt
 -   make respawn animation where player hatches from egg and his parents chase him away
--   create recolor shader to make player look different from its spiecies and parents
+-   ~~recolor spiecies to make player look different from its spiecies and parents~~
 -   critters and enemies should use the same ai, based on size difference between creature and player decide when to attack and when to run away
 -   create more enemies with various size (maybe boar, stag, giant snake)
 -   swimming for player and creatures (sprite mask, slower movement). swimming based on points connected to feet, if all feet touch water tile then swim otherwise walk with water splatter particles. bigger creatures will be able to walk on bigger bodies of water.

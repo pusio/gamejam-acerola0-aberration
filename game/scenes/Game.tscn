@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://oawfcifwqyje"]
+[gd_scene load_steps=10 format=3 uid="uid://oawfcifwqyje"]
 
 [ext_resource type="Script" path="res://scripts/GlobalShortcuts.gd" id="1_mnj3p"]
 [ext_resource type="PackedScene" uid="uid://dehr3q0im1uil" path="res://objects/terrain/TileMap.tscn" id="1_qdo8x"]
-[ext_resource type="PackedScene" uid="uid://nwddf3iocxkg" path="res://objects/creatures/Player.tscn" id="2_m52g4"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="4_0glbp"]
 [ext_resource type="PackedScene" uid="uid://yiiypvgp5ngy" path="res://objects/collectables/TestBlue.tscn" id="4_5kuas"]
+[ext_resource type="Script" path="res://scripts/PlayerSpawnPoint.gd" id="4_b5rrg"]
 [ext_resource type="PackedScene" uid="uid://cmebmddd5i0hf" path="res://objects/collectables/TestRed.tscn" id="5_3ivmm"]
+[ext_resource type="PackedScene" uid="uid://nwddf3iocxkg" path="res://objects/creatures/Ocelot.tscn" id="5_70dhb"]
+[ext_resource type="Texture2D" uid="uid://boa1yvniuds1l" path="res://textures/player.png" id="5_e5rry"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="7_xk5xm"]
 
 [node name="Root" type="Node"]
 
@@ -21,8 +24,17 @@ position_smoothing_enabled = true
 script = ExtResource("4_0glbp")
 followSpeed = 20.0
 
-[node name="Player" parent="." instance=ExtResource("2_m52g4")]
-movementSpeed = 50.0
+[node name="PlayerSpawnPoint" type="Node2D" parent="."]
+position = Vector2(137, -103)
+script = ExtResource("4_b5rrg")
+playerSpiecies = ExtResource("5_70dhb")
+playerTexture = ExtResource("5_e5rry")
+playerScript = ExtResource("7_xk5xm")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerSpawnPoint"]
+texture = ExtResource("5_e5rry")
+region_enabled = true
+region_rect = Rect2(18, 156, 28, 13)
 
 [node name="Collectable" parent="." instance=ExtResource("4_5kuas")]
 position = Vector2(-204, 84)
@@ -56,3 +68,18 @@ position = Vector2(221, -130)
 
 [node name="Collectable11" parent="." instance=ExtResource("5_3ivmm")]
 position = Vector2(-128, -129)
+
+[node name="Ocelot" parent="." instance=ExtResource("5_70dhb")]
+position = Vector2(259, -96)
+
+[node name="Ocelot2" parent="." instance=ExtResource("5_70dhb")]
+position = Vector2(282, -25)
+
+[node name="Ocelot3" parent="." instance=ExtResource("5_70dhb")]
+position = Vector2(389, -118)
+
+[node name="Ocelot4" parent="." instance=ExtResource("5_70dhb")]
+position = Vector2(69, -25)
+
+[node name="Ocelot5" parent="." instance=ExtResource("5_70dhb")]
+position = Vector2(86, -155)
