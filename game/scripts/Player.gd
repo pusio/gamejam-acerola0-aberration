@@ -3,10 +3,17 @@ class_name Player
 
 @onready var spieciesController: Spiecies = $SpieciesController
 
+# func _ready()->void:
+# 	spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
+# 	return
+
 
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
 	spieciesController.process(self, delta, direction)
+	# tmp particle test
+	if Input.is_action_just_pressed("ui_accept"):
+		spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
 	return
 
 

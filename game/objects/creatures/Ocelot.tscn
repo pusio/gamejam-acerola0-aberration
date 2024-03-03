@@ -579,8 +579,9 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_a0h05")
 
-[node name="SpieciesController" type="Node" parent="."]
+[node name="SpieciesController" type="Node" parent="." node_paths=PackedStringArray("particleAttachmentPoint")]
 script = ExtResource("2_u1ydl")
+particleAttachmentPoint = NodePath("../Origin/Anchor/Body/ParticleAttachmentPoint")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
@@ -597,6 +598,9 @@ texture = ExtResource("2_goj0e")
 centered = false
 region_enabled = true
 region_rect = Rect2(62, 229, 39, 15)
+
+[node name="ParticleAttachmentPoint" type="Node2D" parent="Origin/Anchor/Body"]
+position = Vector2(11, 4)
 
 [node name="Head" type="Sprite2D" parent="Origin/Anchor/Body"]
 position = Vector2(-8, -10)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://oyhokuxdrras"]
+
+[ext_resource type="Texture2D" uid="uid://dnbrxehg1hbeh" path="res://textures/particle-death.png" id="1_g0qbg"]
+[ext_resource type="Script" path="res://scripts/ParticleOneShot.gd" id="2_o2ekg"]
+
+[sub_resource type="Gradient" id="Gradient_n02mv"]
+offsets = PackedFloat32Array(0, 0.753333, 1)
+colors = PackedColorArray(0.627706, 0, 0.649351, 0.682353, 0.29, 0, 0.3, 0.54902, 0.0666667, 0, 0.0705882, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+z_index = -1
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.5
+randomness = 0.5
+lifetime_randomness = 0.5
+texture = ExtResource("1_g0qbg")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.2
+scale_amount_max = 0.4
+color_ramp = SubResource("Gradient_n02mv")
+script = ExtResource("2_o2ekg")
