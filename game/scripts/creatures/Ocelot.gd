@@ -15,13 +15,13 @@ var directionSnapshot: Vector2 = Vector2.ZERO
 var rotationSnapshot: float = 0.0
 var lastInputCooldown: float = 0.0
 var isAttacking: bool = false
+var isEmoting: bool = false
 
 
 func _ready() -> void:
 	updateBodyAP()
 	headAP.play("forward")
-	eyesAP.play("normal")
-	# mouthAP.play("todo")
+	updateFace()
 	return
 
 
@@ -135,4 +135,54 @@ func lookAt(vector: Vector2) -> void:
 	elif vector.y < 0:
 		anim = "up"
 	headAP.play(anim)
+	return
+
+
+func showEmotion(emotion: Emotion) -> void:
+	if isEmoting:
+		return
+	isEmoting = true
+	match emotion:
+		Emotion.Sad:
+			eyesAP.play("sad")
+			mouthAP.play("normal")
+			await Tools.wait(self, 0.5)
+			eyesAP.play("sad_half")
+			await Tools.wait(self, 0.5)
+			mouthAP.play("open")
+			await Tools.wait(self, 0.5)
+			eyesAP.play("sad")
+			await Tools.wait(self, 0.5)
+	updateFace()
+	isEmoting = false
+	return
+
+
+func updateFace() -> void:
+	var mood: int = floor((hunger + health) / 2.0)
+	if hunger <= 20:
+		mouthAP.play("open")
+	elif mood >= 95:
+		mouthAP.play("smile")
+	else:
+		mouthAP.play("normal")
+
+	if health == 100:
+		eyesAP.play("normal")
+	elif health > 80:
+		if mood >= 50:
+			eyesAP.play("mad")
+		else:
+			eyesAP.play("normal")
+	elif health >= 50:
+		eyesAP.play("sad")
+	elif health >= 25:
+		eyesAP.play("sad_half")
+	else:
+		eyesAP.play("closed")
+
+	$"../DebugLabel".text = (
+		"Mood: %s\nHealth: %s\nHunger: %s\nEyes: %s\nFace: %s"
+		% [mood, health, hunger, eyesAP.current_animation, mouthAP.current_animation]
+	)
 	return

@@ -15,3 +15,7 @@ static func getRelativeMousePosition(owner: Node) -> Vector2:
 	var viewportRect = owner.get_viewport_rect()
 	var mousePosition = owner.get_viewport().get_mouse_position()
 	return mousePosition / viewportRect.size - Vector2(0.5, 0.5)
+
+
+static func wait(owner: Node, time: float) -> Signal:
+	return owner.get_tree().create_timer(time).timeout

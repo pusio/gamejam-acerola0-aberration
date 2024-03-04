@@ -10,11 +10,16 @@ class_name Player
 
 func prepare(playerTexture: Texture2D) -> void:
 	name = "Player"
+	spieciesController.health = 100
+	spieciesController.hunger = 80
+	spieciesController.updateFace()
 	# add_to_group("player")
-	await get_tree().create_timer(1.0).timeout
+	await Tools.wait(self, 1.0)
 	spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
-	await get_tree().create_timer(0.5).timeout
+	await Tools.wait(self, 0.5)
 	Tools.replaceTextureInChildren(self, playerTexture)
+	await Tools.wait(self, 2.0)
+	spieciesController.showEmotion(Spiecies.Emotion.Sad)
 	return
 
 

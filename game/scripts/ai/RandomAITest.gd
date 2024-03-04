@@ -9,6 +9,9 @@ var followTarget: Node2D = null
 
 func _ready() -> void:
 	decisionCooldown = randf_range(0.5, 2.0)
+	spieciesController.hunger = randi_range(1, 100)
+	spieciesController.health = randi_range(1, 100)
+	spieciesController.updateFace()
 	return
 
 

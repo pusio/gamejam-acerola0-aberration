@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://nwddf3iocxkg"]
+[gd_scene load_steps=32 format=3 uid="uid://nwddf3iocxkg"]
 
 [ext_resource type="Script" path="res://scripts/ai/RandomAITest.gd" id="1_a0h05"]
 [ext_resource type="Texture2D" uid="uid://doq55lghvtbcw" path="res://textures/ocelot.png" id="2_goj0e"]
@@ -876,6 +876,126 @@ _data = {
 "sad_half": SubResource("Animation_6w5v4")
 }
 
+[sub_resource type="Animation" id="Animation_57g76"]
+resource_name = "normal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Origin/Anchor/Body/Head/FaceClippingArea/FaceOffset/Mouth:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(22, 139, 3, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Origin/Anchor/Body/Head/FaceClippingArea/FaceOffset/Mouth:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yqp56"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Origin/Anchor/Body/Head/FaceClippingArea/FaceOffset/Mouth:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Origin/Anchor/Body/Head/FaceClippingArea/FaceOffset/Mouth:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(29, 139, 3, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_wjb8p"]
+resource_name = "smile"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Origin/Anchor/Body/Head/FaceClippingArea/FaceOffset/Mouth:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(29, 139, 3, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Origin/Anchor/Body/Head/FaceClippingArea/FaceOffset/Mouth:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xgd3i"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Origin/Anchor/Body/Head/FaceClippingArea/FaceOffset/Mouth:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(35, 139, 3, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Origin/Anchor/Body/Head/FaceClippingArea/FaceOffset/Mouth:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gkk3e"]
+_data = {
+"RESET": SubResource("Animation_yqp56"),
+"normal": SubResource("Animation_57g76"),
+"open": SubResource("Animation_xgd3i"),
+"smile": SubResource("Animation_wjb8p")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_idoqm"]
+font_size = 6
+font_color = Color(1, 1, 1, 0.631373)
+
 [node name="Ocelot" type="CharacterBody2D" groups=["beast", "ocelot"]]
 motion_mode = 1
 wall_min_slide_angle = 0.0
@@ -940,7 +1060,7 @@ position = Vector2(12, 8)
 texture = ExtResource("2_goj0e")
 centered = false
 region_enabled = true
-region_rect = Rect2(22, 139, 3, 2)
+region_rect = Rect2(29, 139, 3, 2)
 
 [node name="BodyAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -958,3 +1078,18 @@ libraries = {
 }
 
 [node name="MouthAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gkk3e")
+}
+
+[node name="DebugLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_right = 40.0
+offset_bottom = 80.0
+grow_horizontal = 2
+text = "Debug"
+label_settings = SubResource("LabelSettings_idoqm")
+horizontal_alignment = 1
