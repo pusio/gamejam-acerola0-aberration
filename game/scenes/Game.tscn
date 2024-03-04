@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://oawfcifwqyje"]
+[gd_scene load_steps=13 format=3 uid="uid://oawfcifwqyje"]
 
 [ext_resource type="Script" path="res://scripts/GlobalShortcuts.gd" id="1_mnj3p"]
 [ext_resource type="PackedScene" uid="uid://dehr3q0im1uil" path="res://objects/terrain/TileMap.tscn" id="1_qdo8x"]
@@ -10,10 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://boa1yvniuds1l" path="res://textures/player.png" id="5_e5rry"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="7_xk5xm"]
 [ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="10_wn14f"]
+[ext_resource type="Script" path="res://scripts/Unrotate.gd" id="11_n6bxr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6tay"]
-radius = 8.0
-height = 26.0
+radius = 10.0
+height = 32.0
 
 [node name="Root" type="Node2D"]
 y_sort_enabled = true
@@ -153,5 +154,15 @@ region_enabled = true
 region_rect = Rect2(114, 218, 6, 6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tree"]
+position = Vector2(1, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_a6tay")
+
+[node name="-Shadow" type="Sprite2D" parent="Tree"]
+z_index = -10
+position = Vector2(-2, 2)
+scale = Vector2(2, 1)
+texture = ExtResource("10_wn14f")
+region_enabled = true
+region_rect = Rect2(152, 2, 38, 38)
+script = ExtResource("11_n6bxr")

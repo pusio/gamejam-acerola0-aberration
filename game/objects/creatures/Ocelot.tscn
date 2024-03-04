@@ -1,12 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://nwddf3iocxkg"]
+[gd_scene load_steps=26 format=3 uid="uid://nwddf3iocxkg"]
 
 [ext_resource type="Script" path="res://scripts/ai/RandomAITest.gd" id="1_a0h05"]
 [ext_resource type="Texture2D" uid="uid://doq55lghvtbcw" path="res://textures/ocelot.png" id="2_goj0e"]
 [ext_resource type="Script" path="res://scripts/creatures/Ocelot.gd" id="2_u1ydl"]
+[ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="3_pedm7"]
+[ext_resource type="Script" path="res://scripts/Unrotate.gd" id="5_brmr7"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y0f6m"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_l5hxu"]
 radius = 6.0
-height = 22.0
 
 [sub_resource type="Animation" id="Animation_p2j5j"]
 length = 0.001
@@ -45,6 +46,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Origin/Anchor/Body/-Shadow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 9)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Origin/Anchor/Body/-Shadow:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_r22c0"]
@@ -87,6 +112,47 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(0, -3), Vector2(-4, -3), Vector2(-9, -3), Vector2(0, -3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Origin/Anchor/Body/-Shadow:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Origin/Anchor/Body/-Shadow:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 9)]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SpieciesController")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"attack_execute"
+}, {
+"args": [],
+"method": &"attack_end"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_mua52"]
@@ -145,6 +211,30 @@ tracks/3/keys = {
 "method": &"move_jump_end"
 }]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Origin/Anchor/Body/-Shadow:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 9)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Origin/Anchor/Body/-Shadow:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_56y4g"]
 resource_name = "sit"
@@ -184,6 +274,30 @@ tracks/2/keys = {
 "update": 1,
 "values": [Vector2(0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Origin/Anchor/Body/-Shadow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 7)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Origin/Anchor/Body/-Shadow:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_olkoa"]
 resource_name = "stand"
@@ -222,6 +336,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Origin/Anchor/Body/-Shadow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 9)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Origin/Anchor/Body/-Shadow:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_73r3w"]
@@ -748,13 +886,14 @@ script = ExtResource("2_u1ydl")
 particleAttachmentPoint = NodePath("../Origin/Anchor/Body/ParticleAttachmentPoint")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_y0f6m")
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_l5hxu")
 
 [node name="Origin" type="Node2D" parent="."]
+position = Vector2(-3, 0)
 
 [node name="Anchor" type="Node2D" parent="Origin"]
+position = Vector2(7, 0)
 
 [node name="Body" type="Sprite2D" parent="Origin/Anchor"]
 position = Vector2(-8, -12)
@@ -762,6 +901,15 @@ texture = ExtResource("2_goj0e")
 centered = false
 region_enabled = true
 region_rect = Rect2(62, 229, 39, 15)
+
+[node name="-Shadow" type="Sprite2D" parent="Origin/Anchor/Body"]
+z_index = -10
+position = Vector2(15, 9)
+scale = Vector2(2, 1)
+texture = ExtResource("3_pedm7")
+region_enabled = true
+region_rect = Rect2(52, 7, 12, 12)
+script = ExtResource("5_brmr7")
 
 [node name="ParticleAttachmentPoint" type="Node2D" parent="Origin/Anchor/Body"]
 position = Vector2(11, 4)

@@ -8,13 +8,23 @@ class_name Player
 # 	return
 
 
+func prepare(playerTexture: Texture2D) -> void:
+	name = "Player"
+	# add_to_group("player")
+	await get_tree().create_timer(1.0).timeout
+	spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
+	await get_tree().create_timer(0.5).timeout
+	Tools.replaceTextureInChildren(self, playerTexture)
+	return
+
+
 func _physics_process(delta: float) -> void:
-	spieciesController.lookAt(Tools.getRelativeMousePosition(self))
+	var mouseVec = Tools.getRelativeMousePosition(self)
+	spieciesController.lookAt(mouseVec)
 	var direction = Input.get_vector("left", "right", "up", "down")
 	spieciesController.process(self, delta, direction)
-	# tmp particle test
-	if Input.is_action_just_pressed("ui_accept"):
-		spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
+	if Input.is_action_pressed("attack"):
+		spieciesController.attack(mouseVec)
 	return
 
 

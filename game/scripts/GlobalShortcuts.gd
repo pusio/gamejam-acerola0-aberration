@@ -2,7 +2,7 @@ extends Node
 
 
 func _ready() -> void:
-	# toggle_fullscreen()
+	toggle_fullscreen()
 	return
 
 

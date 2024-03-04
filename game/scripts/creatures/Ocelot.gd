@@ -14,31 +14,30 @@ var isJumping: bool = false
 var directionSnapshot: Vector2 = Vector2.ZERO
 var rotationSnapshot: float = 0.0
 var lastInputCooldown: float = 0.0
+var isAttacking: bool = false
 
 
 func _ready() -> void:
-	playBodyIdle()
+	updateBodyAP()
 	headAP.play("forward")
 	eyesAP.play("normal")
 	# mouthAP.play("todo")
 	return
 
 
+# executed by AI or player input
 func process(body: CharacterBody2D, delta: float, direction: Vector2) -> void:
 	# input
 	if direction:
 		lastInputCooldown = 0.5
 		directionSnapshot = direction
 		hasInput = true
-		# if there is an input you can start movement
-		bodyAP.play("move")
 		# accelerate animation speed
 		bodyAP.speed_scale = move_toward(bodyAP.speed_scale, 2.5, delta)
 	else:
 		# when input is lost you can stop only if not mid-jump
 		hasInput = false
 		if !isJumping:
-			playBodyIdle()
 			# decelerate animation speed
 			bodyAP.speed_scale = move_toward(bodyAP.speed_scale, 1.0, delta * 0.5)
 
@@ -74,30 +73,56 @@ func process(body: CharacterBody2D, delta: float, direction: Vector2) -> void:
 	# dissipate speed burst gained from jump
 	speedBurst = move_toward(speedBurst, 0.1, delta)
 
+	updateBodyAP()
 	return
 
 
-func playBodyIdle() -> void:
-	if bodyAP.speed_scale == 1.0:
+func updateBodyAP() -> void:
+	if isAttacking:
+		bodyAP.play("attack")
+	elif hasInput || isJumping:
+		bodyAP.play("move")
+	elif bodyAP.speed_scale == 1.0:
 		bodyAP.play("sit")
 	else:
 		bodyAP.play("stand")
 	return
 
 
+# triggered by animation
 func move_jump_start() -> void:
 	speedBurst = 2.5
 	isJumping = true
 	return
 
 
+# triggered by animation
 func move_jump_end() -> void:
 	isJumping = false
-	if !hasInput:
-		playBodyIdle()
 	return
 
 
+# triggered by animation
+func attack_execute() -> void:
+	print("kamehameha")
+	return
+
+
+# triggered by animation
+func attack_end() -> void:
+	isAttacking = false
+	return
+
+
+# executed by AI or player input
+func attack(_vector: Vector2) -> void:
+	isAttacking = true
+	isJumping = false
+	bodyAP.speed_scale = (bodyAP.speed_scale + 1.5) / 2.0
+	return
+
+
+# executed by AI or player input
 func lookAt(vector: Vector2) -> void:
 	var anim = "forward"
 	if abs(vector.x) > abs(vector.y):

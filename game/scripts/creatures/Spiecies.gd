@@ -13,3 +13,7 @@ func attachParticle(particleTscn: Resource):
 	particleAttachmentPoint.add_child(particle)
 	particle.position = Vector2.ZERO
 	return
+
+
+func attack(_vector: Vector2) -> void:
+	return
