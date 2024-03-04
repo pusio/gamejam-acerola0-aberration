@@ -12,7 +12,8 @@ func _ready() -> void:
 	player.set_script(playerScript)
 	player.name = "Player"
 	player.add_to_group("player")
-	$"../Camera2D".target = player
+	var cam: GameCamera = $"../Camera2D"
+	cam.prepare(player)
 	Tools.replaceTextureInChildren(player, playerTexture)
 	queue_free()
 	return

@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name Spiecies
 
 @export var particleAttachmentPoint: Node2D

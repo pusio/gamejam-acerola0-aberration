@@ -18,7 +18,7 @@ var lastInputCooldown: float = 0.0
 
 func _ready() -> void:
 	playBodyIdle()
-	headAP.play("front")
+	headAP.play("forward")
 	eyesAP.play("normal")
 	# mouthAP.play("todo")
 	return
@@ -74,12 +74,6 @@ func process(body: CharacterBody2D, delta: float, direction: Vector2) -> void:
 	# dissipate speed burst gained from jump
 	speedBurst = move_toward(speedBurst, 0.1, delta)
 
-	# face front if no input for a while
-	lastInputCooldown -= delta
-	if lastInputCooldown > 0:
-		headAP.play("forward")
-	else:
-		headAP.play("front")
 	return
 
 
@@ -101,4 +95,19 @@ func move_jump_end() -> void:
 	isJumping = false
 	if !hasInput:
 		playBodyIdle()
+	return
+
+
+func lookAt(vector: Vector2) -> void:
+	var anim = "forward"
+	if abs(vector.x) > abs(vector.y):
+		if vector.x * origin.scale.x < 0:
+			anim = "forward"
+		elif vector.x * origin.scale.x > 0:
+			anim = "backward"
+	elif vector.y > 0:
+		anim = "down"
+	elif vector.y < 0:
+		anim = "up"
+	headAP.play(anim)
 	return

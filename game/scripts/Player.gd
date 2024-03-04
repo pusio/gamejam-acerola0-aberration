@@ -9,6 +9,7 @@ class_name Player
 
 
 func _physics_process(delta: float) -> void:
+	spieciesController.lookAt(Tools.getRelativeMousePosition(self))
 	var direction = Input.get_vector("left", "right", "up", "down")
 	spieciesController.process(self, delta, direction)
 	# tmp particle test

@@ -14,11 +14,14 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if followTarget != null:
+		spieciesController.lookAt(followTarget.position - position)
 		var dist = position.distance_squared_to(followTarget.position)
 		if dist > 64 * 64:
 			direction = (followTarget.position - position).normalized()
 		else:
 			direction = Vector2.ZERO
+	else:
+		spieciesController.lookAt(Vector2.ZERO)
 	spieciesController.process(self, delta, direction)
 	decisionCooldown -= delta
 	if decisionCooldown > 0:
