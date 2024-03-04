@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dikxe6gjuexga"]
+
+[ext_resource type="Script" path="res://scripts/objects/Food.gd" id="1_r2udh"]
+[ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="2_ruwqw"]
+[ext_resource type="Script" path="res://scripts/Unrotate.gd" id="3_c0tv4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2pgvy"]
+radius = 4.0
+
+[node name="Fruit" type="Area2D"]
+script = ExtResource("1_r2udh")
+nutrition = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_ruwqw")
+centered = false
+offset = Vector2(-1, 0)
+region_enabled = true
+region_rect = Rect2(116, 205, 3, 5)
+
+[node name="-Shadow" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(0, 4)
+texture = ExtResource("2_ruwqw")
+region_enabled = true
+region_rect = Rect2(6, 13, 4, 4)
+script = ExtResource("3_c0tv4")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_2pgvy")

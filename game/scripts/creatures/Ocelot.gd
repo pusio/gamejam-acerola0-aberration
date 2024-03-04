@@ -25,8 +25,7 @@ func _ready() -> void:
 	return
 
 
-# executed by AI or player input
-func process(body: CharacterBody2D, delta: float, direction: Vector2) -> void:
+func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) -> void:
 	# input
 	if direction:
 		lastInputCooldown = 0.5
@@ -74,6 +73,7 @@ func process(body: CharacterBody2D, delta: float, direction: Vector2) -> void:
 	speedBurst = move_toward(speedBurst, 0.1, delta)
 
 	updateBodyAP()
+	updateFace()
 	return
 
 
@@ -114,16 +114,14 @@ func attack_end() -> void:
 	return
 
 
-# executed by AI or player input
-func attack(_vector: Vector2) -> void:
+func virtual_attack(_vector: Vector2) -> void:
 	isAttacking = true
 	isJumping = false
 	bodyAP.speed_scale = (bodyAP.speed_scale + 1.5) / 2.0
 	return
 
 
-# executed by AI or player input
-func lookAt(vector: Vector2) -> void:
+func virtual_lookAt(vector: Vector2) -> void:
 	var anim = "forward"
 	if abs(vector.x) > abs(vector.y):
 		if vector.x * origin.scale.x < 0:
@@ -138,7 +136,7 @@ func lookAt(vector: Vector2) -> void:
 	return
 
 
-func showEmotion(emotion: Emotion) -> void:
+func virtual_showEmotion(emotion: Emotion) -> void:
 	if isEmoting:
 		return
 	isEmoting = true
@@ -153,12 +151,13 @@ func showEmotion(emotion: Emotion) -> void:
 			await Tools.wait(self, 0.5)
 			eyesAP.play("sad")
 			await Tools.wait(self, 0.5)
-	updateFace()
 	isEmoting = false
 	return
 
 
 func updateFace() -> void:
+	if isEmoting:
+		return
 	var mood: int = floor((hunger + health) / 2.0)
 	if hunger <= 20:
 		mouthAP.play("open")

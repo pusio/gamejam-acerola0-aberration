@@ -9,7 +9,7 @@ var hunger: int = 100
 var health: int = 100
 
 
-func process(_body: CharacterBody2D, _delta: float, _direction: Vector2) -> void:
+func virtual_process(_body: CharacterBody2D, _delta: float, _direction: Vector2) -> void:
 	return
 
 
@@ -20,9 +20,13 @@ func attachParticle(particleTscn: Resource):
 	return
 
 
-func attack(_vector: Vector2) -> void:
+func virtual_attack(_vector: Vector2) -> void:
 	return
 
 
-func showEmotion(_emotion: Emotion) -> void:
+func virtual_showEmotion(_emotion: Emotion) -> void:
+	return
+
+
+func virtual_lookAt(_vector: Vector2) -> void:
 	return

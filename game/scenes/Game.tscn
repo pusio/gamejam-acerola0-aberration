@@ -1,23 +1,29 @@
-[gd_scene load_steps=13 format=3 uid="uid://oawfcifwqyje"]
+[gd_scene load_steps=21 format=3 uid="uid://oawfcifwqyje"]
 
 [ext_resource type="Script" path="res://scripts/GlobalShortcuts.gd" id="1_mnj3p"]
 [ext_resource type="PackedScene" uid="uid://dehr3q0im1uil" path="res://objects/terrain/TileMap.tscn" id="1_qdo8x"]
+[ext_resource type="Script" path="res://scripts/GameRoot.gd" id="1_tjyia"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="4_0glbp"]
-[ext_resource type="PackedScene" uid="uid://yiiypvgp5ngy" path="res://objects/collectables/TestBlue.tscn" id="4_5kuas"]
 [ext_resource type="Script" path="res://scripts/PlayerSpawnPoint.gd" id="4_b5rrg"]
-[ext_resource type="PackedScene" uid="uid://cmebmddd5i0hf" path="res://objects/collectables/TestRed.tscn" id="5_3ivmm"]
 [ext_resource type="PackedScene" uid="uid://nwddf3iocxkg" path="res://objects/creatures/Ocelot.tscn" id="5_70dhb"]
 [ext_resource type="Texture2D" uid="uid://boa1yvniuds1l" path="res://textures/player.png" id="5_e5rry"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="7_xk5xm"]
-[ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="10_wn14f"]
-[ext_resource type="Script" path="res://scripts/Unrotate.gd" id="11_n6bxr"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6tay"]
-radius = 10.0
-height = 32.0
+[ext_resource type="PackedScene" uid="uid://cg158fmxfo02l" path="res://objects/collectables/fruits/Grape.tscn" id="9_2dt58"]
+[ext_resource type="PackedScene" uid="uid://biwpiey4h8g1v" path="res://objects/destroyable/TreeBig.tscn" id="10_75ewe"]
+[ext_resource type="PackedScene" uid="uid://fpov2j7j1v2e" path="res://objects/collectables/fruits/Apple.tscn" id="10_bjuq6"]
+[ext_resource type="PackedScene" uid="uid://bdinsed6tuo2u" path="res://objects/destroyable/TreeMedium.tscn" id="10_oeyfm"]
+[ext_resource type="PackedScene" uid="uid://3at7tjtswynr" path="res://objects/collectables/fruits/Banana.tscn" id="11_npuqn"]
+[ext_resource type="PackedScene" uid="uid://cli1vbwvl7fq1" path="res://objects/collectables/fruits/Cherry.tscn" id="12_8421f"]
+[ext_resource type="PackedScene" uid="uid://cjtjwbom0252x" path="res://objects/collectables/fruits/Lemon.tscn" id="14_j2ymj"]
+[ext_resource type="PackedScene" uid="uid://cysf4oqjtwa7e" path="res://objects/collectables/fruits/Peach.tscn" id="15_ckvx1"]
+[ext_resource type="PackedScene" uid="uid://bj3ha1jcygg1v" path="res://objects/destroyable/TreeSmall.tscn" id="17_8xgfi"]
+[ext_resource type="PackedScene" uid="uid://bp478hg6getdp" path="res://objects/destroyable/BushBig.tscn" id="18_tua43"]
+[ext_resource type="PackedScene" uid="uid://bo2xtfdkdx06v" path="res://objects/destroyable/BushMedium.tscn" id="19_atpxp"]
+[ext_resource type="PackedScene" uid="uid://b0hdlmm8cvhj7" path="res://objects/destroyable/BushSmall.tscn" id="20_l4b0t"]
 
 [node name="Root" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_tjyia")
 
 [node name="TileMap" parent="." instance=ExtResource("1_qdo8x")]
 z_index = -100
@@ -44,39 +50,6 @@ texture = ExtResource("5_e5rry")
 region_enabled = true
 region_rect = Rect2(18, 156, 28, 13)
 
-[node name="Collectable" parent="." instance=ExtResource("4_5kuas")]
-position = Vector2(-204, 84)
-
-[node name="Collectable2" parent="." instance=ExtResource("4_5kuas")]
-position = Vector2(-211, -74)
-
-[node name="Collectable3" parent="." instance=ExtResource("4_5kuas")]
-position = Vector2(-71, -32)
-
-[node name="Collectable4" parent="." instance=ExtResource("5_3ivmm")]
-position = Vector2(-141, 17)
-
-[node name="Collectable5" parent="." instance=ExtResource("5_3ivmm")]
-position = Vector2(-25, 104)
-
-[node name="Collectable6" parent="." instance=ExtResource("5_3ivmm")]
-position = Vector2(103, 76)
-
-[node name="Collectable7" parent="." instance=ExtResource("5_3ivmm")]
-position = Vector2(55, -109)
-
-[node name="Collectable8" parent="." instance=ExtResource("4_5kuas")]
-position = Vector2(182, -34)
-
-[node name="Collectable9" parent="." instance=ExtResource("4_5kuas")]
-position = Vector2(205, 133)
-
-[node name="Collectable10" parent="." instance=ExtResource("5_3ivmm")]
-position = Vector2(221, -130)
-
-[node name="Collectable11" parent="." instance=ExtResource("5_3ivmm")]
-position = Vector2(-128, -129)
-
 [node name="Ocelot" parent="." instance=ExtResource("5_70dhb")]
 position = Vector2(259, -96)
 
@@ -92,77 +65,101 @@ position = Vector2(67, -7)
 [node name="Ocelot5" parent="." instance=ExtResource("5_70dhb")]
 position = Vector2(86, -155)
 
-[node name="Tree" type="RigidBody2D" parent="."]
+[node name="Tree" parent="." instance=ExtResource("10_75ewe")]
+position = Vector2(-96, -30)
 
-[node name="Stump" type="Sprite2D" parent="Tree"]
-visible = false
-texture = ExtResource("10_wn14f")
-centered = false
-offset = Vector2(-16, -8)
-region_enabled = true
-region_rect = Rect2(249, 8, 37, 18)
+[node name="Tree2" parent="." instance=ExtResource("10_75ewe")]
+position = Vector2(2, -86)
 
-[node name="Core" type="Sprite2D" parent="Tree"]
-texture = ExtResource("10_wn14f")
-centered = false
-offset = Vector2(-50, -112)
-region_enabled = true
-region_rect = Rect2(127, 47, 89, 122)
+[node name="Tree3" parent="." instance=ExtResource("10_75ewe")]
+position = Vector2(169, 51)
 
-[node name="Leaves" type="Sprite2D" parent="Tree"]
-texture = ExtResource("10_wn14f")
-centered = false
-offset = Vector2(-47, -116)
-region_enabled = true
-region_rect = Rect2(21, 110, 86, 62)
+[node name="Tree4" parent="." instance=ExtResource("10_75ewe")]
+position = Vector2(25, 38)
 
-[node name="Fruit" type="Sprite2D" parent="Tree"]
-position = Vector2(18, -99)
-texture = ExtResource("10_wn14f")
-centered = false
-region_enabled = true
-region_rect = Rect2(114, 218, 6, 6)
+[node name="Tree5" parent="." instance=ExtResource("10_oeyfm")]
+position = Vector2(-120, 106)
 
-[node name="Fruit2" type="Sprite2D" parent="Tree"]
-position = Vector2(4, -74)
-texture = ExtResource("10_wn14f")
-centered = false
-flip_h = true
-region_enabled = true
-region_rect = Rect2(114, 218, 6, 6)
+[node name="Tree6" parent="." instance=ExtResource("10_oeyfm")]
+position = Vector2(417, 23)
 
-[node name="Fruit3" type="Sprite2D" parent="Tree"]
-position = Vector2(-27, -99)
-texture = ExtResource("10_wn14f")
-centered = false
-region_enabled = true
-region_rect = Rect2(114, 218, 6, 6)
+[node name="Tree7" parent="." instance=ExtResource("10_oeyfm")]
+position = Vector2(309, 122)
 
-[node name="Fruit4" type="Sprite2D" parent="Tree"]
-position = Vector2(-13, -94)
-texture = ExtResource("10_wn14f")
-centered = false
-flip_h = true
-region_enabled = true
-region_rect = Rect2(114, 218, 6, 6)
+[node name="Fruit" parent="." instance=ExtResource("10_bjuq6")]
+position = Vector2(117, -202)
 
-[node name="Fruit5" type="Sprite2D" parent="Tree"]
-position = Vector2(17, -66)
-texture = ExtResource("10_wn14f")
-centered = false
-region_enabled = true
-region_rect = Rect2(114, 218, 6, 6)
+[node name="Fruit2" parent="." instance=ExtResource("11_npuqn")]
+position = Vector2(139, -202)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree"]
-position = Vector2(1, 1)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_a6tay")
+[node name="Fruit3" parent="." instance=ExtResource("12_8421f")]
+position = Vector2(159, -201)
 
-[node name="-Shadow" type="Sprite2D" parent="Tree"]
-z_index = -10
-position = Vector2(-2, 2)
-scale = Vector2(2, 1)
-texture = ExtResource("10_wn14f")
-region_enabled = true
-region_rect = Rect2(152, 2, 38, 38)
-script = ExtResource("11_n6bxr")
+[node name="Fruit4" parent="." instance=ExtResource("9_2dt58")]
+position = Vector2(177, -203)
+
+[node name="Fruit5" parent="." instance=ExtResource("14_j2ymj")]
+position = Vector2(196, -202)
+
+[node name="Fruit6" parent="." instance=ExtResource("15_ckvx1")]
+position = Vector2(213, -202)
+
+[node name="Tree8" parent="." instance=ExtResource("17_8xgfi")]
+position = Vector2(-30, 87)
+
+[node name="Tree9" parent="." instance=ExtResource("17_8xgfi")]
+position = Vector2(84, -63)
+
+[node name="Tree10" parent="." instance=ExtResource("17_8xgfi")]
+position = Vector2(82, 70)
+
+[node name="Tree11" parent="." instance=ExtResource("17_8xgfi")]
+position = Vector2(249, -42)
+
+[node name="Bush" parent="." instance=ExtResource("18_tua43")]
+position = Vector2(37, 132)
+
+[node name="Bush2" parent="." instance=ExtResource("18_tua43")]
+position = Vector2(125, 111)
+
+[node name="Bush3" parent="." instance=ExtResource("18_tua43")]
+position = Vector2(103, 166)
+
+[node name="Bush4" parent="." instance=ExtResource("18_tua43")]
+position = Vector2(188, 134)
+
+[node name="Bush5" parent="." instance=ExtResource("18_tua43")]
+position = Vector2(183, 193)
+
+[node name="Bush6" parent="." instance=ExtResource("19_atpxp")]
+position = Vector2(-47, 135)
+
+[node name="Bush7" parent="." instance=ExtResource("19_atpxp")]
+position = Vector2(-30, 159)
+
+[node name="Bush8" parent="." instance=ExtResource("19_atpxp")]
+position = Vector2(-35, 186)
+
+[node name="Bush9" parent="." instance=ExtResource("19_atpxp")]
+position = Vector2(-74, 165)
+
+[node name="Bush10" parent="." instance=ExtResource("19_atpxp")]
+position = Vector2(-112, 141)
+
+[node name="Bush11" parent="." instance=ExtResource("19_atpxp")]
+position = Vector2(-105, 190)
+
+[node name="Bush12" parent="." instance=ExtResource("20_l4b0t")]
+position = Vector2(-212, 139)
+
+[node name="Bush13" parent="." instance=ExtResource("20_l4b0t")]
+position = Vector2(-181, 144)
+
+[node name="Bush14" parent="." instance=ExtResource("20_l4b0t")]
+position = Vector2(-209, 169)
+
+[node name="Bush15" parent="." instance=ExtResource("20_l4b0t")]
+position = Vector2(-176, 172)
+
+[node name="Bush16" parent="." instance=ExtResource("20_l4b0t")]
+position = Vector2(-244, 152)

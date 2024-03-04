@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://bo2xtfdkdx06v"]
+
+[ext_resource type="Script" path="res://scripts/objects/Bush.gd" id="1_hvcki"]
+[ext_resource type="PackedScene" uid="uid://dikxe6gjuexga" path="res://objects/collectables/berries/BlackBerry.tscn" id="2_5r0g3"]
+[ext_resource type="PackedScene" uid="uid://bsccilipgyl2o" path="res://objects/collectables/berries/BlueBerry.tscn" id="3_lhfh3"]
+[ext_resource type="PackedScene" uid="uid://dqrrgsgsbihfq" path="res://objects/collectables/berries/GreenBerry.tscn" id="4_2okxa"]
+[ext_resource type="PackedScene" uid="uid://dcrqaaqajpq5i" path="res://objects/collectables/berries/PurpleBerry.tscn" id="5_51n5o"]
+[ext_resource type="PackedScene" uid="uid://diwuibpmn80pr" path="res://objects/collectables/berries/RedBerry.tscn" id="6_ae5hf"]
+[ext_resource type="PackedScene" uid="uid://b7pey3xj5v0f1" path="res://objects/collectables/berries/YellowBerry.tscn" id="7_2dd7w"]
+[ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="8_mtnja"]
+[ext_resource type="Script" path="res://scripts/Unrotate.gd" id="9_xsg2v"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6tay"]
+radius = 3.0
+height = 14.0
+
+[node name="Bush" type="RigidBody2D"]
+mass = 200.0
+freeze = true
+script = ExtResource("1_hvcki")
+possibleFruits = Array[PackedScene]([ExtResource("2_5r0g3"), ExtResource("3_lhfh3"), ExtResource("4_2okxa"), ExtResource("5_51n5o"), ExtResource("6_ae5hf"), ExtResource("7_2dd7w")])
+fruitRange = Vector2i(3, 6)
+
+[node name="Leaves" type="Sprite2D" parent="."]
+texture = ExtResource("8_mtnja")
+centered = false
+offset = Vector2(-10, -10)
+region_enabled = true
+region_rect = Rect2(43, 205, 20, 12)
+
+[node name="FruitSpawn1" type="Node2D" parent="Leaves"]
+position = Vector2(-8, -9)
+
+[node name="FruitSpawn2" type="Node2D" parent="Leaves"]
+position = Vector2(-5, -8)
+
+[node name="FruitSpawn3" type="Node2D" parent="Leaves"]
+position = Vector2(0, -9)
+
+[node name="FruitSpawn4" type="Node2D" parent="Leaves"]
+position = Vector2(3, -8)
+
+[node name="FruitSpawn5" type="Node2D" parent="Leaves"]
+position = Vector2(7, -5)
+
+[node name="FruitSpawn6" type="Node2D" parent="Leaves"]
+position = Vector2(4, -3)
+
+[node name="FruitSpawn7" type="Node2D" parent="Leaves"]
+position = Vector2(-8, -5)
+
+[node name="FruitSpawn8" type="Node2D" parent="Leaves"]
+position = Vector2(-4, -5)
+
+[node name="FruitSpawn9" type="Node2D" parent="Leaves"]
+position = Vector2(-1, -5)
+
+[node name="FruitSpawn10" type="Node2D" parent="Leaves"]
+position = Vector2(0, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_a6tay")
+
+[node name="-Shadow" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(1, -1)
+scale = Vector2(2, 1)
+texture = ExtResource("8_mtnja")
+region_enabled = true
+region_rect = Rect2(37, 9, 10, 10)
+script = ExtResource("9_xsg2v")

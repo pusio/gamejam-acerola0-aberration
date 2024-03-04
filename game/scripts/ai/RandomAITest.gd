@@ -17,15 +17,15 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if followTarget != null:
-		spieciesController.lookAt(followTarget.position - position)
+		spieciesController.virtual_lookAt(followTarget.position - position)
 		var dist = position.distance_squared_to(followTarget.position)
 		if dist > 64 * 64:
 			direction = (followTarget.position - position).normalized()
 		else:
 			direction = Vector2.ZERO
 	else:
-		spieciesController.lookAt(Vector2.ZERO)
-	spieciesController.process(self, delta, direction)
+		spieciesController.virtual_lookAt(Vector2.ZERO)
+	spieciesController.virtual_process(self, delta, direction)
 	decisionCooldown -= delta
 	if decisionCooldown > 0:
 		return
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		followTarget = findClosestBeast(6400.0)
 		if followTarget != null:
 			decisionCooldown *= 10
-			print(self.name + " follows " + followTarget.name)
+			# print(self.name + " follows " + followTarget.name)
 			return
 	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	return
