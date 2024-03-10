@@ -14,6 +14,7 @@ func _ready() -> void:
 	spieciesController.health = randi_range(1, 100)
 	spieciesController.updateFace()
 	spieciesController.mainBody = self
+	spieciesController.setSize(randf_range(0.5, 1.0))
 	return
 
 
@@ -60,3 +61,8 @@ func findClosestBeast(searchDistance: float) -> Node2D:
 			closestDistance = dist
 			closestBeast = beast
 	return closestBeast
+
+
+func onHit(damage: float, _attacker: Node2D) -> void:
+	print(name, "hit", damage)
+	return

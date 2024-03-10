@@ -5,30 +5,31 @@ class_name AttackProjectile
 @export var speed: float
 
 var direction: Vector2
-var damage: int
+var damage: float
 var source: Node2D
 var exclude: Array[Node]
 var parentVelocity: Vector2
 
 
-func prepare(dir: Vector2, dmg: int, vel: Vector2, src: Node2D, excl: Array[Node]) -> void:
+func prepare(dir: Vector2, dmg: float, srcSize: float, vel: Vector2, src: Node2D, excl: Array[Node]) -> void:
 	direction = dir.normalized()
 	global_position = src.global_position
 	rotation = Vector2.RIGHT.angle_to(direction)
 	if rotation_degrees < -90 || rotation_degrees > 90:
 		scale.x *= -1
 		rotation_degrees -= 180
-	damage = dmg
+	damage = dmg * srcSize
 	exclude = []
 	source = src
 	parentVelocity = vel
+	speed *= srcSize
 	for ex in excl:
 		exclude.append(ex)
 	get_tree().create_timer(timeToLive).connect("timeout", queue_free)
 	var sprite: Sprite2D = $Sprite
 	var fadeTime = 0.15
-	var targetScale = scale
-	scale *= 0.3
+	var targetScale = scale * srcSize
+	scale *= srcSize * 0.3
 	create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC).tween_property(
 		self, "scale", targetScale, timeToLive
 	)

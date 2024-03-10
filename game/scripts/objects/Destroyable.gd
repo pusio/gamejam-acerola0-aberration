@@ -2,7 +2,7 @@ extends RigidBody2D
 class_name Destroyable
 
 @export var maxHealth: Array[int]
-var currentHealth: int
+var currentHealth: float
 var currentHealthId: int
 
 
@@ -20,7 +20,8 @@ func virtual_onReady() -> void:
 	return
 
 
-func onHit(damage: int, _attacker: Node2D) -> void:
+func onHit(damage: float, _attacker: Node2D) -> void:
+	print("%s hit %s for %.02f" % [_attacker.name, name, damage])
 	currentHealth -= damage
 	virtual_onDamage()
 	if currentHealth > 0:

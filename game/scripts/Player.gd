@@ -16,6 +16,7 @@ func prepare(playerTexture: Texture2D) -> void:
 	spieciesController.hunger = 80
 	spieciesController.updateFace()
 	spieciesController.mainBody = self
+	spieciesController.setSize(0.5)
 	await Tools.wait(self, 1.0)
 	spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
 	await Tools.wait(self, 0.5)
@@ -36,5 +37,10 @@ func _physics_process(delta: float) -> void:
 
 
 func eatFood(nutrition: int) -> void:
-	spieciesController.hunger = clampi(spieciesController.hunger + nutrition, 0, 100)
+	spieciesController.hunger = spieciesController.hunger + nutrition
+	return
+
+
+func onHit(damage: float, _attacker: Node2D) -> void:
+	print(name, "hit", damage)
 	return

@@ -23,3 +23,15 @@ static func wait(owner: Node, time: float) -> Signal:
 
 static func getRoot(owner: Node) -> Node:
 	return owner.get_tree().root.get_node("Root")
+
+
+static func bodySizeToHeadSize(bodySize: float) -> float:
+	var minBodySize: float = 0.5
+	var maxBodySize: float = 1.0
+	var minHeadSize: float = 1.4
+	var maxHeadSize: float = 1.0
+	var calcSize = (
+		minHeadSize
+		+ ((maxHeadSize - minHeadSize) / (maxBodySize - minBodySize)) * (bodySize - minBodySize)
+	)
+	return clampf(calcSize, maxHeadSize, minHeadSize)

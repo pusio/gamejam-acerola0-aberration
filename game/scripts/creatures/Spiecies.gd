@@ -9,6 +9,8 @@ var hunger: int = 100
 var health: int = 100
 var familyGroupTag: String
 var mainBody: CharacterBody2D
+var size: float
+
 
 func virtual_process(_body: CharacterBody2D, _delta: float, _direction: Vector2) -> void:
 	return
@@ -30,4 +32,14 @@ func virtual_showEmotion(_emotion: Emotion) -> void:
 
 
 func virtual_lookAt(_vector: Vector2) -> void:
+	return
+
+
+func setSize(s: float) -> void:
+	size = s
+	virtual_onSetSize()
+	return
+
+
+func virtual_onSetSize() -> void:
 	return

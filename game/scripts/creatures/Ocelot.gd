@@ -6,6 +6,9 @@ extends Spiecies
 @onready var mouthAP: AnimationPlayer = $"../MouthAnimationPlayer"
 @onready var origin: Node2D = $"../Origin"
 @onready var anchor: Node2D = $"../Origin/Anchor"
+@onready var headScaler: Node2D = $"../Origin/Anchor/Body/HeadScaler"
+@onready var collisionShape2D: CollisionShape2D = $"../CollisionShape2D"
+
 @export var movementSpeed: float = 50.0
 
 var speedBurst: float = 1.0
@@ -17,6 +20,7 @@ var lastInputCooldown: float = 0.0
 var isAttacking: bool = false
 var isEmoting: bool = false
 var attackVector: Vector2
+var hungerTick: float = 5
 
 
 func _ready() -> void:
@@ -45,17 +49,17 @@ func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) ->
 	# velocity
 	if hasInput || isJumping:
 		# during input or mid-jump apply velocity
-		body.velocity = directionSnapshot * movementSpeed * speedBurst
+		body.velocity = directionSnapshot * movementSpeed * speedBurst * size
 	else:
 		# otherwise stop
-		body.velocity.x = move_toward(body.velocity.x, 0, movementSpeed)
-		body.velocity.y = move_toward(body.velocity.y, 0, movementSpeed)
+		body.velocity.x = move_toward(body.velocity.x, 0, movementSpeed * size)
+		body.velocity.y = move_toward(body.velocity.y, 0, movementSpeed * size)
 
 	# flip facing direction
 	if directionSnapshot.x < 0:
-		origin.scale.x = 1.0
+		origin.scale.x = abs(origin.scale.x)
 	elif directionSnapshot.x > 0:
-		origin.scale.x = -1.0
+		origin.scale.x = abs(origin.scale.x) * -1
 
 	# rotate towards vertical movement
 	if body.velocity && hasInput:
@@ -76,6 +80,7 @@ func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) ->
 
 	updateBodyAP()
 	updateFace()
+	updateHunger(delta)
 	return
 
 
@@ -109,7 +114,14 @@ func attack_execute() -> void:
 	var atkTscn: PackedScene = preload("res://objects/projectiles/BasicAttack.tscn")
 	var atk: AttackProjectile = atkTscn.instantiate()
 	Tools.getRoot(self).add_child(atk)
-	atk.prepare(attackVector, 1, mainBody.velocity, mainBody, get_tree().get_nodes_in_group(familyGroupTag))
+	atk.prepare(
+		attackVector,
+		1,
+		size,
+		mainBody.velocity,
+		mainBody,
+		get_tree().get_nodes_in_group(familyGroupTag)
+	)
 	return
 
 
@@ -165,7 +177,7 @@ func virtual_showEmotion(emotion: Emotion) -> void:
 func updateFace() -> void:
 	if isEmoting:
 		return
-	var mood: int = floor((hunger + health) / 2.0)
+	var mood: int = floor((clampi(hunger, 0, 100) + health) / 2.0)
 	if hunger <= 20:
 		mouthAP.play("open")
 	elif mood >= 95:
@@ -186,9 +198,35 @@ func updateFace() -> void:
 		eyesAP.play("sad_half")
 	else:
 		eyesAP.play("closed")
+	return
 
-	$"../DebugLabel".text = (
-		"Mood: %s\nHealth: %s\nHunger: %s\nEyes: %s\nFace: %s"
-		% [mood, health, hunger, eyesAP.current_animation, mouthAP.current_animation]
-	)
+
+func virtual_onSetSize() -> void:
+	origin.scale.x = sign(origin.scale.x) * size
+	origin.scale.y = size
+	var headSize = Tools.bodySizeToHeadSize(size)
+	headScaler.scale = Vector2(headSize, headSize)
+	collisionShape2D.scale = Vector2(size, size)
+	# print("%s body %.02f head %.02f" % [get_parent().name, size, headSize])
+	return
+
+
+func updateHunger(delta: float) -> void:
+	hungerTick -= delta
+	if hungerTick > 0:
+		return
+	hungerTick = randf_range(4.0, 8.0)
+	# starving
+	if hunger <= 0:
+		hunger = 0
+		mainBody.onHit(size, null)
+	# hunger over time
+	hunger -= 1
+	# grow if well fed
+	if hunger > 80 && size < 1.0:
+		setSize(clampf(size + 0.01, 0.5, 1.0))
+		hunger -= 4
+	# faster decay if overfed
+	if hunger > 100:
+		hunger -= roundi(0.1 * (hunger - 100))
 	return
