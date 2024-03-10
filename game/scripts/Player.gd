@@ -9,10 +9,13 @@ class_name Player
 
 func prepare(playerTexture: Texture2D) -> void:
 	name = "Player"
+	remove_from_group("ocelot")
+	add_to_group("player")
+	spieciesController.set_deferred("familyGroupTag", "player")
 	spieciesController.health = 100
 	spieciesController.hunger = 80
 	spieciesController.updateFace()
-	# add_to_group("player")
+	spieciesController.mainBody = self
 	await Tools.wait(self, 1.0)
 	spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
 	await Tools.wait(self, 0.5)

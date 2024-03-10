@@ -1003,6 +1003,7 @@ script = ExtResource("1_a0h05")
 
 [node name="SpieciesController" type="Node2D" parent="." node_paths=PackedStringArray("particleAttachmentPoint")]
 script = ExtResource("2_u1ydl")
+movementSpeed = null
 particleAttachmentPoint = NodePath("../Origin/Anchor/Body/ParticleAttachmentPoint")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

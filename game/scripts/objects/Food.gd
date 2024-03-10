@@ -7,6 +7,7 @@ class_name Food
 @onready var shadow: Sprite2D = $"-Shadow"
 var isOnGround: bool = true
 
+
 # override
 func virtual_onReady() -> void:
 	type = CollectableType.Food
@@ -14,11 +15,13 @@ func virtual_onReady() -> void:
 		scale.x *= -1
 	return
 
+
 # override
-func virtual_onPickup(player: Player) -> void:
-	print("pick up " + name)
-	player.eatFood(nutrition)
-	queue_free()
+func virtual_onPickup(body: Node2D) -> void:
+	if body is Player:
+		var player = body as Player
+		player.eatFood(nutrition)
+		queue_free()
 	return
 
 

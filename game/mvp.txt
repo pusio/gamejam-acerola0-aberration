@@ -2,7 +2,7 @@ deadline is comming..
 
 needed for mvp:
 xxxxx - rock assets
-- attack sends dmg packet projectile
+xxxxx - attack sends dmg packet projectile
 - destruction of trees/bushes/rocks
 - resize beast (keeping head less scaled)
 - floating text upon various actions (eating)

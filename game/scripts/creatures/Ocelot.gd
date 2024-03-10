@@ -16,9 +16,11 @@ var rotationSnapshot: float = 0.0
 var lastInputCooldown: float = 0.0
 var isAttacking: bool = false
 var isEmoting: bool = false
+var attackVector: Vector2
 
 
 func _ready() -> void:
+	familyGroupTag = "ocelot"
 	updateBodyAP()
 	headAP.play("forward")
 	updateFace()
@@ -104,7 +106,10 @@ func move_jump_end() -> void:
 
 # triggered by animation
 func attack_execute() -> void:
-	print("kamehameha")
+	var atkTscn: PackedScene = preload("res://objects/projectiles/BasicAttack.tscn")
+	var atk: AttackProjectile = atkTscn.instantiate()
+	get_tree().root.add_child(atk)
+	atk.prepare(attackVector, 1, mainBody.velocity, mainBody, get_tree().get_nodes_in_group(familyGroupTag))
 	return
 
 
@@ -114,7 +119,9 @@ func attack_end() -> void:
 	return
 
 
-func virtual_attack(_vector: Vector2) -> void:
+func virtual_attack(vector: Vector2) -> void:
+	if !isAttacking:
+		attackVector = vector
 	isAttacking = true
 	isJumping = false
 	bodyAP.speed_scale = (bodyAP.speed_scale + 1.5) / 2.0

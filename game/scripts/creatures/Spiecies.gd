@@ -7,7 +7,8 @@ enum Emotion { Normal, Sad, Mad, Cry }
 
 var hunger: int = 100
 var health: int = 100
-
+var familyGroupTag: String
+var mainBody: CharacterBody2D
 
 func virtual_process(_body: CharacterBody2D, _delta: float, _direction: Vector2) -> void:
 	return

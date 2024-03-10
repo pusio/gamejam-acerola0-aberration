@@ -1,7 +1,7 @@
 extends Area2D
 class_name Collectable
 
-enum CollectableType { Unknown = 0, Food = 1 }
+enum CollectableType { Unknown = 0, Food = 1, Damage = 2 }
 
 var type: CollectableType = CollectableType.Unknown
 
@@ -13,12 +13,11 @@ func _ready() -> void:
 
 
 func on_body_entered(body: Node2D) -> void:
-	if body is Player:
-		virtual_onPickup(body as Player)
+	virtual_onPickup(body)
 	return
 
 
-func virtual_onPickup(_player: Player) -> void:
+func virtual_onPickup(_body: Node2D) -> void:
 	return
 
 

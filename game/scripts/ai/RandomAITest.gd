@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name RandomAI
 
 @onready var spieciesController: Spiecies = $SpieciesController
 
@@ -12,6 +13,7 @@ func _ready() -> void:
 	spieciesController.hunger = randi_range(1, 100)
 	spieciesController.health = randi_range(1, 100)
 	spieciesController.updateFace()
+	spieciesController.mainBody = self
 	return
 
 
