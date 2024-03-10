@@ -13,7 +13,7 @@ xxxxx - resize beast (keeping head less scaled)
 xxxxx - change random ai to something that patrols, detects player, follows and attacks
 - win condition - all 4 bosses dead in single timeline
 - passing magic buffs between timelines
-- intro scene
+xxxxx - intro scene
 - ending scene
 - ambient music
 - sfx

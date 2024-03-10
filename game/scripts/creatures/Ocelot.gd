@@ -176,6 +176,20 @@ func virtual_showEmotion(emotion: Emotion) -> void:
 			await Tools.wait(self, 0.5)
 			eyesAP.play("sad")
 			await Tools.wait(self, 0.5)
+		Emotion.Mad:
+			eyesAP.play("mad")
+			mouthAP.play("normal")
+			await Tools.wait(self, 0.5)
+			mouthAP.play("open")
+			await Tools.wait(self, 0.5)
+			mouthAP.play("normal")
+			await Tools.wait(self, 0.5)
+			mouthAP.play("open")
+			await Tools.wait(self, 0.5)
+			mouthAP.play("normal")
+			await Tools.wait(self, 0.5)
+			mouthAP.play("open")
+			await Tools.wait(self, 0.5)
 	isEmoting = false
 	return
 

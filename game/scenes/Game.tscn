@@ -38,7 +38,6 @@ script = ExtResource("1_mnj3p")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
-position_smoothing_enabled = true
 script = ExtResource("4_0glbp")
 followSpeed = 20.0
 

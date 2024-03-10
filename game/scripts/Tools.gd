@@ -22,7 +22,7 @@ static func wait(owner: Node, time: float) -> Signal:
 
 
 static func getRoot(owner: Node) -> Node:
-	return owner.get_tree().root.get_node("Root")
+	return owner.get_tree().root.get_child(0)
 
 
 static func bodySizeToHeadSize(bodySize: float) -> float:

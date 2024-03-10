@@ -12,14 +12,12 @@ func prepare(playerTexture: Texture2D) -> void:
 	remove_from_group("ocelot")
 	add_to_group("player")
 	spieciesController.set_deferred("familyGroupTag", "player")
-	spieciesController.health = 10
-	spieciesController.hunger = 50
-	spieciesController.updateFace()
 	spieciesController.mainBody = self
 	spieciesController.setSize(0.5)
-	await Tools.wait(self, 1.0)
+	spieciesController.health = spieciesController.maxHealth * 0.45
+	spieciesController.hunger = 50
+	spieciesController.updateFace()
 	spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
-	await Tools.wait(self, 0.5)
 	Tools.replaceTextureInChildren(self, playerTexture)
 	await Tools.wait(self, 2.0)
 	spieciesController.virtual_showEmotion(Spiecies.Emotion.Sad)
