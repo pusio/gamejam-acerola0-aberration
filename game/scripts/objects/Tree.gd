@@ -2,6 +2,7 @@ extends Destroyable
 
 @export var possibleFruits: Array[PackedScene]
 @export var fruitRange: Vector2i
+@export var height: int
 
 @onready var fadeArea: Area2D = $FadeArea
 @onready var stump: Sprite2D = $Stump
@@ -11,7 +12,7 @@ extends Destroyable
 @onready var collisionShape: CollisionShape2D = $CollisionShape2D
 
 
-func _ready() -> void:
+func virtual_onReady() -> void:
 	prepareVariants()
 	prepareFade()
 	prepareFruits()
@@ -91,12 +92,52 @@ func prepareFruits() -> void:
 		myFruits.append(fruit)
 		fruit.scale *= 1.0 / abs(core.scale.x)
 	return
+
+
 # endregion
 
-# when hit drop fruits
+func virtual_onDamage() -> void:
+	if myFruits.size() > 0:
+		for i in range(1, randi_range(1, 3) + 1):
+			if myFruits.size() == 0:
+				break
+			var fruit = myFruits.pick_random()
+			myFruits.erase(fruit)
+			fruit.dropOnGround(height)
+	rotation_degrees = randf_range(2.0, 5.0)
+	if randi_range(0, 1) == 1:
+		rotation_degrees *= -1
+	create_tween().set_trans(Tween.TRANS_BOUNCE).tween_property(self, "rotation", 0, 0.1)
+	var fxTscn = preload("res://objects/fx/BrownSmall.tscn")
+	var fx = fxTscn.instantiate()
+	Tools.getRoot(self).add_child(fx)
+	fx.global_position = stump.global_position
+	return
 
-# when hit again destroy leaves (fruits no longer grow), smaller shadow
 
-# when hit again destroy core and spawn logs
+func virtual_onDestroy() -> void:
+	var fxTscn = preload("res://objects/fx/BrownBig.tscn")
+	var fx = fxTscn.instantiate()
+	Tools.getRoot(self).add_child(fx)
+	fx.global_position = stump.global_position
+	return
 
-# when hit again destroy this object
+
+func virtual_onNextStage() -> void:
+	if myFruits.size() > 0:
+		for fruit in myFruits:
+			fruit.dropOnGround(height)
+		myFruits = []
+	if currentHealthId == 1:
+		leaves.visible = false
+		var fxTscn = preload("res://objects/fx/GreenBig.tscn")
+		var fx = fxTscn.instantiate()
+		Tools.getRoot(self).add_child(fx)
+		fx.global_position = leaves.global_position + leaves.offset + leaves.region_rect.size / 2
+	if currentHealthId == 2:
+		core.visible = false
+		var fxTscn = preload("res://objects/fx/BrownBig.tscn")
+		var fx = fxTscn.instantiate()
+		Tools.getRoot(self).add_child(fx)
+		fx.global_position = core.global_position + core.offset + core.region_rect.size / 2
+	return

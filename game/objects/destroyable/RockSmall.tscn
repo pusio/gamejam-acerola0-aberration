@@ -12,6 +12,7 @@ height = 8.0
 mass = 200.0
 freeze = true
 script = ExtResource("1_qehab")
+maxHealth = Array[int]([8])
 
 [node name="Rock" type="Sprite2D" parent="."]
 texture = ExtResource("8_rs2nv")

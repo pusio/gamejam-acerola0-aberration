@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3bn74y5xjp24"]
+
+[ext_resource type="Script" path="res://scripts/ParticleOneShot.gd" id="1_omvmq"]
+
+[sub_resource type="Gradient" id="Gradient_tcsl5"]
+offsets = PackedFloat32Array(0, 0.713333, 1)
+colors = PackedColorArray(0.560784, 0.301961, 0.121569, 1, 0.560784, 0.301961, 0.121569, 1, 0.560784, 0.305882, 0.121569, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+randomness = 0.6
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_tcsl5")
+script = ExtResource("1_omvmq")

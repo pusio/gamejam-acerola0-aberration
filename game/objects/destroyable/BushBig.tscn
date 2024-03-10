@@ -20,6 +20,8 @@ freeze = true
 script = ExtResource("1_shf0t")
 possibleFruits = Array[PackedScene]([ExtResource("2_7fs2o"), ExtResource("3_quruv"), ExtResource("4_grfo8"), ExtResource("5_42tsu"), ExtResource("6_clt4x"), ExtResource("7_oei5h")])
 fruitRange = Vector2i(5, 10)
+height = 15
+maxHealth = Array[int]([8])
 
 [node name="Leaves" type="Sprite2D" parent="."]
 texture = ExtResource("8_76ldb")

@@ -19,3 +19,7 @@ static func getRelativeMousePosition(owner: Node) -> Vector2:
 
 static func wait(owner: Node, time: float) -> Signal:
 	return owner.get_tree().create_timer(time).timeout
+
+
+static func getRoot(owner: Node) -> Node:
+	return owner.get_tree().root.get_node("Root")

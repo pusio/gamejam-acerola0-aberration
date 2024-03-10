@@ -24,6 +24,8 @@ freeze = true
 script = ExtResource("1_sc5qt")
 possibleFruits = Array[PackedScene]([ExtResource("2_8j77f"), ExtResource("3_cf7eo"), ExtResource("4_6ulk6"), ExtResource("5_mqrtq"), ExtResource("6_ssw13"), ExtResource("7_ldfmn")])
 fruitRange = Vector2i(1, 4)
+height = 40
+maxHealth = Array[int]([2, 2, 1])
 
 [node name="Stump" type="Sprite2D" parent="."]
 texture = ExtResource("1_jwiyb")

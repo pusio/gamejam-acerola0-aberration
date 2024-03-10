@@ -33,6 +33,29 @@ func notCollectableYet() -> void:
 	return
 
 
+func dropOnGround(height: int) -> void:
+	if isOnGround:
+		return
+	isOnGround = true
+	var root = Tools.getRoot(self)
+	var pos = global_position
+	get_parent().call_deferred("remove_child", self)
+	root.call_deferred("add_child", self)
+	set_deferred("global_position", pos)
+	var scaleDir = sign(scale.x)
+	set_deferred("scale", Vector2(scaleDir, 1))
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_BOUNCE)
+	var fallHeight = height * randf_range(0.8, 1.2)
+	var fallDuration: float = min(abs(fallHeight), 20.0) / 20.0
+	var randomPosition = Vector2(randf_range(-10, 10), fallHeight)
+	tween.tween_property(self, "global_position", pos + randomPosition, fallDuration)
+	await tween.finished
+	collision.disabled = false
+	shadow.visible = true
+
+
 func animateRotate() -> void:
 	if isOnGround:
 		return

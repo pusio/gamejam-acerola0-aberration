@@ -10,10 +10,11 @@ height = 36.0
 [node name="Projectile" type="Area2D"]
 y_sort_enabled = true
 script = ExtResource("1_a0wws")
-timeToLive = 0.35
+timeToLive = 0.4
 speed = 150.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.784314)
 y_sort_enabled = true
 rotation = 1.14639
 texture = ExtResource("2_82qht")

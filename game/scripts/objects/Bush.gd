@@ -2,13 +2,14 @@ extends Destroyable
 
 @export var possibleFruits: Array[PackedScene]
 @export var fruitRange: Vector2i
+@export var height: int
 
 @onready var leaves: Sprite2D = $Leaves
 @onready var shadow: Sprite2D = $"-Shadow"
 @onready var collisionShape: CollisionShape2D = $CollisionShape2D
 
 
-func _ready() -> void:
+func virtual_onReady() -> void:
 	prepareVariants()
 	prepareFruits()
 	return
@@ -51,6 +52,33 @@ func prepareFruits() -> void:
 	return
 # endregion
 
-# when hit drop fruits
+func virtual_onDamage() -> void:
+	if myFruits.size() > 0:
+		for i in range(1, randi_range(1, 3) + 1):
+			if myFruits.size() == 0:
+				break
+			var fruit = myFruits.pick_random()
+			myFruits.erase(fruit)
+			fruit.dropOnGround(height)
+	rotation_degrees = randf_range(2.0, 5.0)
+	if randi_range(0, 1) == 1:
+		rotation_degrees *= -1
+	create_tween().set_trans(Tween.TRANS_BOUNCE).tween_property(self, "rotation", 0, 0.1)
+	var fxTscn = preload("res://objects/fx/GreenSmall.tscn")
+	var fx = fxTscn.instantiate()
+	Tools.getRoot(self).add_child(fx)
+	fx.global_position = leaves.global_position
+	return
 
-# when hit again destroy this object
+
+func virtual_onDestroy() -> void:
+	if myFruits.size() > 0:
+		for fruit in myFruits:
+			fruit.dropOnGround(height)
+		myFruits = []
+	var fxTscn = preload("res://objects/fx/GreenBig.tscn")
+	var fx = fxTscn.instantiate()
+	Tools.getRoot(self).add_child(fx)
+	fx.global_position = leaves.global_position + leaves.offset + leaves.region_rect.size / 2
+	return
+

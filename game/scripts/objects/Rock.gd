@@ -6,7 +6,7 @@ extends Destroyable
 @onready var collisionShape: CollisionShape2D = $CollisionShape2D
 
 
-func _ready() -> void:
+func virtual_onReady() -> void:
 	prepareVariants()
 	return
 
@@ -26,4 +26,22 @@ func prepareVariants() -> void:
 
 # endregion
 
-# when hit drop rocks, destroy this object
+func virtual_onDamage() -> void:
+	rotation_degrees = randf_range(2.0, 5.0)
+	if randi_range(0, 1) == 1:
+		rotation_degrees *= -1
+	create_tween().set_trans(Tween.TRANS_BOUNCE).tween_property(self, "rotation", 0, 0.1)
+	var fxTscn = preload("res://objects/fx/GraySmall.tscn")
+	var fx = fxTscn.instantiate()
+	Tools.getRoot(self).add_child(fx)
+	fx.global_position = rock.global_position
+	return
+
+
+func virtual_onDestroy() -> void:
+	var fxTscn = preload("res://objects/fx/GrayBig.tscn")
+	var fx = fxTscn.instantiate()
+	Tools.getRoot(self).add_child(fx)
+	fx.global_position = rock.global_position + rock.offset + rock.region_rect.size / 2
+	return
+

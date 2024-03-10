@@ -108,7 +108,7 @@ func move_jump_end() -> void:
 func attack_execute() -> void:
 	var atkTscn: PackedScene = preload("res://objects/projectiles/BasicAttack.tscn")
 	var atk: AttackProjectile = atkTscn.instantiate()
-	get_tree().root.add_child(atk)
+	Tools.getRoot(self).add_child(atk)
 	atk.prepare(attackVector, 1, mainBody.velocity, mainBody, get_tree().get_nodes_in_group(familyGroupTag))
 	return
 
