@@ -42,27 +42,3 @@ Rombobombolini's spell hit a little ocelot kitten. As it happens, this kitten li
 The player's beast is Purr Purr.
 
 The game can only end in one way: Rombobombolini's victory. Either Purr Purr kills all the other familiars and wins the tournament, or time in Little Garden loops until eventually Purr Purr lives long enough that all other familiars die of old age.
-
-# todo
-
--   ~~terrain tileset: grass, dirt, water~~
--   ~~player animation: movement~~
--   player animation: attack
--   player animation: death
--   object: tree (few variants)
--   object: bush (few variants)
--   critter: bird
--   critter: mouse
--   critter ai: run way based on line of sight
--   player ai: focus on nearest point of interest (enemy > critter > object) and face towards poi. else face forward
--   player ai: facial expressions based on health, pain, mood
--   collectable food: berries (from destroyed bushes) meat (from critters)
--   facial animation for eating (restores health over time)
--   render collected food items on player's back. eating removes items. getting hit scatters items
--   player ai: there is limited carry capacity, the beast will decide what food items to pick up and what throw away
--   make player grow over time if feed well, increasing health and damage dealt
--   make respawn animation where player hatches from egg and his parents chase him away
--   ~~recolor spiecies to make player look different from its spiecies and parents~~
--   critters and enemies should use the same ai, based on size difference between creature and player decide when to attack and when to run away
--   create more enemies with various size (maybe boar, stag, giant snake)
--   swimming for player and creatures (sprite mask, slower movement). swimming based on points connected to feet, if all feet touch water tile then swim otherwise walk with water splatter particles. bigger creatures will be able to walk on bigger bodies of water.

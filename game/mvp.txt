@@ -1,0 +1,20 @@
+deadline is comming..
+
+needed for mvp:
+xxxxx - rock assets
+- attack sends dmg packet projectile
+- destruction of trees/bushes/rocks
+- resize beast (keeping head less scaled)
+- floating text upon various actions (eating)
+- boar lair + boss
+- spider lair + boss
+- snake lair + boss
+- pain world using assets, placing 4 beast lairs in 4 corners
+- change random ai to something that patrols, detects player, follows and attacks
+- win condition - all 4 bosses dead in single timeline
+- passing magic buffs between timelines
+- intro scene
+- ending scene
+- ambient music
+- sfx
+- if there is time left add swimming sprite mask

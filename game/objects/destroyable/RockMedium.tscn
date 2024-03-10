@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://crjfibppr5ft5"]
+
+[ext_resource type="Script" path="res://scripts/objects/Rock.gd" id="1_kb4k4"]
+[ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="2_gbacg"]
+[ext_resource type="Script" path="res://scripts/Unrotate.gd" id="3_alkfc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6tay"]
+radius = 3.0
+height = 12.0
+
+[node name="Rock" type="RigidBody2D"]
+mass = 200.0
+freeze = true
+script = ExtResource("1_kb4k4")
+
+[node name="Rock" type="Sprite2D" parent="."]
+texture = ExtResource("2_gbacg")
+centered = false
+offset = Vector2(-9, -11)
+region_enabled = true
+region_rect = Rect2(69, 184, 18, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_a6tay")
+
+[node name="-Shadow" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(-1, -2)
+scale = Vector2(2, 1)
+texture = ExtResource("2_gbacg")
+region_enabled = true
+region_rect = Rect2(26, 11, 7, 7)
+script = ExtResource("3_alkfc")

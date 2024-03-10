@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://oawfcifwqyje"]
+[gd_scene load_steps=25 format=3 uid="uid://oawfcifwqyje"]
 
 [ext_resource type="Script" path="res://scripts/GlobalShortcuts.gd" id="1_mnj3p"]
 [ext_resource type="PackedScene" uid="uid://dehr3q0im1uil" path="res://objects/terrain/TileMap.tscn" id="1_qdo8x"]
@@ -20,6 +20,10 @@
 [ext_resource type="PackedScene" uid="uid://bp478hg6getdp" path="res://objects/destroyable/BushBig.tscn" id="18_tua43"]
 [ext_resource type="PackedScene" uid="uid://bo2xtfdkdx06v" path="res://objects/destroyable/BushMedium.tscn" id="19_atpxp"]
 [ext_resource type="PackedScene" uid="uid://b0hdlmm8cvhj7" path="res://objects/destroyable/BushSmall.tscn" id="20_l4b0t"]
+[ext_resource type="PackedScene" uid="uid://bv55i3ytc0lft" path="res://objects/destroyable/RockTiny.tscn" id="21_7wmvv"]
+[ext_resource type="PackedScene" uid="uid://b2hok81dfxwh1" path="res://objects/destroyable/RockSmall.tscn" id="22_dwymp"]
+[ext_resource type="PackedScene" uid="uid://crjfibppr5ft5" path="res://objects/destroyable/RockMedium.tscn" id="23_oo2l8"]
+[ext_resource type="PackedScene" uid="uid://bd5tc504g0265" path="res://objects/destroyable/RockBig.tscn" id="24_ej0ed"]
 
 [node name="Root" type="Node2D"]
 y_sort_enabled = true
@@ -163,3 +167,39 @@ position = Vector2(-176, 172)
 
 [node name="Bush16" parent="." instance=ExtResource("20_l4b0t")]
 position = Vector2(-244, 152)
+
+[node name="Rock" parent="." instance=ExtResource("21_7wmvv")]
+position = Vector2(-110, -276)
+
+[node name="Rock2" parent="." instance=ExtResource("21_7wmvv")]
+position = Vector2(-85, -289)
+
+[node name="Rock3" parent="." instance=ExtResource("21_7wmvv")]
+position = Vector2(-86, -263)
+
+[node name="Rock4" parent="." instance=ExtResource("22_dwymp")]
+position = Vector2(-46, -290)
+
+[node name="Rock5" parent="." instance=ExtResource("22_dwymp")]
+position = Vector2(-46, -262)
+
+[node name="Rock6" parent="." instance=ExtResource("22_dwymp")]
+position = Vector2(-14, -278)
+
+[node name="Rock7" parent="." instance=ExtResource("23_oo2l8")]
+position = Vector2(32, -256)
+
+[node name="Rock8" parent="." instance=ExtResource("23_oo2l8")]
+position = Vector2(29, -292)
+
+[node name="Rock9" parent="." instance=ExtResource("23_oo2l8")]
+position = Vector2(64, -277)
+
+[node name="Rock10" parent="." instance=ExtResource("24_ej0ed")]
+position = Vector2(106, -271)
+
+[node name="Rock11" parent="." instance=ExtResource("24_ej0ed")]
+position = Vector2(139, -295)
+
+[node name="Rock12" parent="." instance=ExtResource("24_ej0ed")]
+position = Vector2(147, -256)
