@@ -10,7 +10,7 @@ xxxxx - resize beast (keeping head less scaled)
 - spider lair + boss
 - snake lair + boss
 - paint world using assets, placing 4 beast lairs in 4 corners
-- change random ai to something that patrols, detects player, follows and attacks
+xxxxx - change random ai to something that patrols, detects player, follows and attacks
 - win condition - all 4 bosses dead in single timeline
 - passing magic buffs between timelines
 - intro scene

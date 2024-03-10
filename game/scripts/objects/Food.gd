@@ -18,9 +18,8 @@ func virtual_onReady() -> void:
 
 # override
 func virtual_onPickup(body: Node2D) -> void:
-	if body is Player:
-		var player = body as Player
-		player.eatFood(nutrition)
+	if body.has_method("eatFood"):
+		body.eatFood(nutrition)
 		queue_free()
 	return
 

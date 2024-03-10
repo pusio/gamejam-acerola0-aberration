@@ -12,7 +12,13 @@ func _ready() -> void:
 	return
 
 
-func on_body_entered(body: Node2D) -> void:
+func on_body_entered(body) -> void:
+	if is_queued_for_deletion():
+		return
+	if body.is_queued_for_deletion():
+		return
+	if !body is Node2D:
+		return
 	virtual_onPickup(body)
 	return
 

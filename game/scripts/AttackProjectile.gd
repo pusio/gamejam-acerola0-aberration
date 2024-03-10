@@ -11,7 +11,9 @@ var exclude: Array[Node]
 var parentVelocity: Vector2
 
 
-func prepare(dir: Vector2, dmg: float, srcSize: float, vel: Vector2, src: Node2D, excl: Array[Node]) -> void:
+func prepare(
+	dir: Vector2, dmg: float, srcSize: float, vel: Vector2, src: Node2D, excl: Array[Node]
+) -> void:
 	direction = dir.normalized()
 	global_position = src.global_position
 	rotation = Vector2.RIGHT.angle_to(direction)
@@ -57,6 +59,8 @@ func virtual_onReady() -> void:
 
 # override
 func virtual_onPickup(body: Node2D) -> void:
+	if !is_instance_valid(body):
+		return
 	if body == source:  # don't hit yourself
 		# print("exclude self")
 		return

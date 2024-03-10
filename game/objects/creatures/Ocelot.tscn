@@ -1,6 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://nwddf3iocxkg"]
+[gd_scene load_steps=32 format=3 uid="uid://nwddf3iocxkg"]
 
-[ext_resource type="Script" path="res://scripts/ai/RandomAITest.gd" id="1_a0h05"]
+[ext_resource type="Script" path="res://scripts/ai/BeastAI.gd" id="1_xuhpb"]
 [ext_resource type="Texture2D" uid="uid://doq55lghvtbcw" path="res://textures/ocelot.png" id="2_goj0e"]
 [ext_resource type="Script" path="res://scripts/creatures/Ocelot.gd" id="2_u1ydl"]
 [ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="3_pedm7"]
@@ -8,6 +8,10 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l5hxu"]
 radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x8g3u"]
+radius = 150.0
+height = 400.0
 
 [sub_resource type="Animation" id="Animation_p2j5j"]
 length = 0.001
@@ -995,7 +999,7 @@ _data = {
 [node name="Ocelot" type="CharacterBody2D" groups=["beast", "ocelot"]]
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_a0h05")
+script = ExtResource("1_xuhpb")
 
 [node name="SpieciesController" type="Node2D" parent="." node_paths=PackedStringArray("particleAttachmentPoint")]
 script = ExtResource("2_u1ydl")
@@ -1004,6 +1008,14 @@ particleAttachmentPoint = NodePath("../Origin/Anchor/Body/ParticleAttachmentPoin
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_l5hxu")
+
+[node name="SightArea" type="Area2D" parent="."]
+position = Vector2(0, -4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SightArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_x8g3u")
+debug_color = Color(0.701961, 0.0745098, 0, 0.419608)
 
 [node name="Origin" type="Node2D" parent="."]
 position = Vector2(-3, 0)

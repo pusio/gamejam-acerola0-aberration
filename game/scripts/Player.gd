@@ -12,8 +12,8 @@ func prepare(playerTexture: Texture2D) -> void:
 	remove_from_group("ocelot")
 	add_to_group("player")
 	spieciesController.set_deferred("familyGroupTag", "player")
-	spieciesController.health = 100
-	spieciesController.hunger = 80
+	spieciesController.health = 10
+	spieciesController.hunger = 50
 	spieciesController.updateFace()
 	spieciesController.mainBody = self
 	spieciesController.setSize(0.5)
@@ -41,6 +41,6 @@ func eatFood(nutrition: int) -> void:
 	return
 
 
-func onHit(damage: float, _attacker: Node2D) -> void:
+func onHit(damage: float, _attacker) -> void:
 	print(name, "hit", damage)
 	return

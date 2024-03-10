@@ -6,7 +6,9 @@ class_name Spiecies
 enum Emotion { Normal, Sad, Mad, Cry }
 
 var hunger: int = 100
-var health: int = 100
+var health: float
+var maxHealth: float
+var maxHealthUnscaled: float
 var familyGroupTag: String
 var mainBody: CharacterBody2D
 var size: float
@@ -37,6 +39,7 @@ func virtual_lookAt(_vector: Vector2) -> void:
 
 func setSize(s: float) -> void:
 	size = s
+	maxHealth = maxHealthUnscaled * s
 	virtual_onSetSize()
 	return
 

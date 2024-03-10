@@ -1,4 +1,5 @@
 extends Spiecies
+class_name Ocelot
 
 @onready var bodyAP: AnimationPlayer = $"../BodyAnimationPlayer"
 @onready var headAP: AnimationPlayer = $"../HeadAnimationPlayer"
@@ -23,8 +24,13 @@ var attackVector: Vector2
 var hungerTick: float = 5
 
 
-func _ready() -> void:
+func _init() -> void:
+	maxHealthUnscaled = 20.0
 	familyGroupTag = "ocelot"
+	return
+
+
+func _ready() -> void:
 	updateBodyAP()
 	headAP.play("forward")
 	updateFace()
@@ -56,9 +62,9 @@ func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) ->
 		body.velocity.y = move_toward(body.velocity.y, 0, movementSpeed * size)
 
 	# flip facing direction
-	if directionSnapshot.x < 0:
+	if directionSnapshot.x < 0.1:
 		origin.scale.x = abs(origin.scale.x)
-	elif directionSnapshot.x > 0:
+	elif directionSnapshot.x > -0.1:
 		origin.scale.x = abs(origin.scale.x) * -1
 
 	# rotate towards vertical movement
@@ -177,7 +183,8 @@ func virtual_showEmotion(emotion: Emotion) -> void:
 func updateFace() -> void:
 	if isEmoting:
 		return
-	var mood: int = floor((clampi(hunger, 0, 100) + health) / 2.0)
+	var health100 = roundi(health / maxHealth * 100)
+	var mood: int = floor((clampi(hunger, 0, 100) + health100) / 2.0)
 	if hunger <= 20:
 		mouthAP.play("open")
 	elif mood >= 95:
@@ -185,16 +192,16 @@ func updateFace() -> void:
 	else:
 		mouthAP.play("normal")
 
-	if health == 100:
+	if health100 == 100:
 		eyesAP.play("normal")
-	elif health > 80:
+	elif health100 > 80:
 		if mood >= 50:
 			eyesAP.play("mad")
 		else:
 			eyesAP.play("normal")
-	elif health >= 50:
+	elif health100 >= 50:
 		eyesAP.play("sad")
-	elif health >= 25:
+	elif health100 >= 25:
 		eyesAP.play("sad_half")
 	else:
 		eyesAP.play("closed")
@@ -222,6 +229,10 @@ func updateHunger(delta: float) -> void:
 		mainBody.onHit(size, null)
 	# hunger over time
 	hunger -= 1
+	# heal if well fed
+	if hunger > 20 && health < maxHealth:
+		hunger -= 1
+		health = clamp(health + 0.05 * maxHealth, 0, maxHealth)
 	# grow if well fed
 	if hunger > 80 && size < 1.0:
 		setSize(clampf(size + 0.01, 0.5, 1.0))

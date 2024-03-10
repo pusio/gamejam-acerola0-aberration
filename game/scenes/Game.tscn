@@ -54,20 +54,17 @@ texture = ExtResource("5_e5rry")
 region_enabled = true
 region_rect = Rect2(18, 156, 28, 13)
 
-[node name="Ocelot" parent="." instance=ExtResource("5_70dhb")]
-position = Vector2(259, -96)
+[node name="Ocelot7" parent="." instance=ExtResource("5_70dhb")]
+position = Vector2(119, -101)
 
-[node name="Ocelot2" parent="." instance=ExtResource("5_70dhb")]
-position = Vector2(282, -25)
-
-[node name="Ocelot3" parent="." instance=ExtResource("5_70dhb")]
-position = Vector2(389, -118)
-
-[node name="Ocelot4" parent="." instance=ExtResource("5_70dhb")]
-position = Vector2(67, -7)
+[node name="Ocelot6" parent="." instance=ExtResource("5_70dhb")]
+position = Vector2(201, -21)
 
 [node name="Ocelot5" parent="." instance=ExtResource("5_70dhb")]
-position = Vector2(86, -155)
+position = Vector2(0, 173)
+
+[node name="Ocelot4" parent="." instance=ExtResource("5_70dhb")]
+position = Vector2(-173, 14)
 
 [node name="Tree" parent="." instance=ExtResource("10_75ewe")]
 position = Vector2(-96, -30)
