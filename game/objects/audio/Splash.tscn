@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcs14xe43m63p"]
+
+[ext_resource type="AudioStream" uid="uid://b0f8y5xfn0sxm" path="res://misc/sound/splash.wav" id="1_hpoit"]
+
+[node name="Audio2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_hpoit")

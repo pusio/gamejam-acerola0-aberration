@@ -42,3 +42,11 @@ Rombobombolini's spell hit a little ocelot kitten. As it happens, this kitten li
 The player's beast is Purr Purr.
 
 The game can only end in one way: Rombobombolini's victory. Either Purr Purr kills all the other familiars and wins the tournament, or time in Little Garden loops until eventually Purr Purr lives long enough that all other familiars die of old age.
+
+# credits
+
+Sound effects were generated using [rFXGen](https://raylibtech.itch.io/rfxgen).
+
+Music track is [Creepy Forest (F)](https://opengameart.org/content/creepy-forest-f) by [Brandon Morris](https://opengameart.org/users/haeldb) under [CC0](https://creativecommons.org/publicdomain/zero/1.0/) license.
+
+Font is [Press Start 2P](https://zone38.net/font/#pressstart) by [codeman38](https://www.zone38.net/) under [SIL Open Font License](https://openfontlicense.org/).

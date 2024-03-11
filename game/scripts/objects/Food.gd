@@ -19,6 +19,7 @@ func virtual_onReady() -> void:
 # override
 func virtual_onPickup(body: Node2D) -> void:
 	if body.has_method("eatFood"):
+		Tools.playSound(body, "Eat", Tools.sizeToPitch(nutrition / 4.0))
 		body.eatFood(nutrition)
 		queue_free()
 	return

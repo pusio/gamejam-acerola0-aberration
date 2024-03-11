@@ -35,3 +35,19 @@ static func bodySizeToHeadSize(bodySize: float) -> float:
 		+ ((maxHeadSize - minHeadSize) / (maxBodySize - minBodySize)) * (bodySize - minBodySize)
 	)
 	return clampf(calcSize, maxHeadSize, minHeadSize)
+
+
+static func playSound(owner: Node2D, fileName: String, pitch: float = 1.0) -> void:
+	var sfx = load("res://objects/audio/%s.tscn" % fileName).instantiate()
+	getRoot(owner).add_child(sfx)
+	sfx.global_position = owner.global_position
+	sfx.pitch_scale = pitch
+	sfx.max_distance = 500
+	sfx.attenuation = 2.0
+	sfx.connect("finished", sfx.queue_free)
+	sfx.play()
+	return
+
+
+static func sizeToPitch(size: float) -> float:
+	return clampf(1.0 / size, 0.25, 2.0)

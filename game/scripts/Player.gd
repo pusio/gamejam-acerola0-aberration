@@ -8,16 +8,22 @@ class_name Player
 
 
 func prepare(playerTexture: Texture2D) -> void:
+	# groups
 	name = "Player"
 	remove_from_group("ocelot")
 	add_to_group("player")
 	spieciesController.set_deferred("familyGroupTag", "player")
+	# stats
 	spieciesController.mainBody = self
 	spieciesController.setSize(0.5)
 	spieciesController.health = spieciesController.maxHealth * 0.45
 	spieciesController.hunger = 50
 	spieciesController.updateFace()
-	spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
+	# audio listener
+	var audioListener: AudioListener2D = preload("res://objects/audio/AudioListener.tscn").instantiate()
+	add_child(audioListener)
+	audioListener.make_current()
+	# texture
 	Tools.replaceTextureInChildren(self, playerTexture)
 	await Tools.wait(self, 2.0)
 	spieciesController.virtual_showEmotion(Spiecies.Emotion.Sad)

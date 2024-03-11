@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca5m2nv34b81"]
+
+[ext_resource type="AudioStream" uid="uid://mnhsxss83a1r" path="res://misc/sound/thump.wav" id="1_rchwt"]
+
+[node name="Audio2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_rchwt")

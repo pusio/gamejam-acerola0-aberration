@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cewrpcrln2cq8"]
+
+[ext_resource type="AudioStream" uid="uid://bueckscbgybhm" path="res://misc/sound/raise.wav" id="1_v5qls"]
+
+[node name="Audio2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_v5qls")

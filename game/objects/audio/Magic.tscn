@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://1o6jojeitub5"]
+
+[ext_resource type="AudioStream" uid="uid://bvn2wwtg5kfr8" path="res://misc/sound/magic.wav" id="1_g70vs"]
+
+[node name="Audio2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_g70vs")

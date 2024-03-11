@@ -15,6 +15,6 @@ xxxxx - change random ai to something that patrols, detects player, follows and 
 - passing magic buffs between timelines
 xxxxx - intro scene
 - ending scene
-- ambient music
-- sfx
+xxxxx - ambient music
+xxxxx - sfx
 - if there is time left add swimming sprite mask

@@ -128,6 +128,7 @@ func attack_execute() -> void:
 		mainBody,
 		get_tree().get_nodes_in_group(familyGroupTag)
 	)
+	Tools.playSound(self, "Hit", Tools.sizeToPitch(size))
 	return
 
 
@@ -173,23 +174,33 @@ func virtual_showEmotion(emotion: Emotion) -> void:
 			eyesAP.play("sad_half")
 			await Tools.wait(self, 0.5)
 			mouthAP.play("open")
+			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			eyesAP.play("sad")
 			await Tools.wait(self, 0.5)
 		Emotion.Mad:
 			eyesAP.play("mad")
 			mouthAP.play("normal")
-			await Tools.wait(self, 0.5)
+			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
+			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			mouthAP.play("normal")
-			await Tools.wait(self, 0.5)
+			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
+			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			mouthAP.play("normal")
-			await Tools.wait(self, 0.5)
+			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
+			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
+		Emotion.Cry:
+			mouthAP.play("open")
+			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
+			await Tools.wait(self, randf_range(0.3, 0.5))
+			mouthAP.play("normal")
+			await Tools.wait(self, randf_range(0.5, 2.5))
 	isEmoting = false
 	return
 

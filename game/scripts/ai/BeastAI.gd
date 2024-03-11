@@ -125,7 +125,13 @@ func logicIdle() -> void:
 			logicBusy = false
 			return
 		# ai beasts agro on other spiecies
-		if body is BeastAI && (body as BeastAI).spieciesController.familyGroupTag != spieciesController.familyGroupTag:
+		if (
+			body is BeastAI
+			&& (
+				(body as BeastAI).spieciesController.familyGroupTag
+				!= spieciesController.familyGroupTag
+			)
+		):
 			enemyToFollow = body
 			logicBusy = false
 			return
@@ -233,13 +239,14 @@ func onHit(damage: float, attacker) -> void:
 		):
 			enemyToFollow = attacker
 	spieciesController.health -= damage
-	print(spieciesController.health)
+	spieciesController.virtual_showEmotion(Spiecies.Emotion.Cry)
 	if spieciesController.health <= 0:
 		var fxTscn = preload("res://objects/fx/RedBig.tscn")
 		var fx = fxTscn.instantiate()
 		Tools.getRoot(self).add_child(fx)
 		fx.global_position = self.global_position
 		queue_free()
+		Tools.playSound(self, "Death", Tools.sizeToPitch(spieciesController.size))
 	else:
 		var fxTscn = preload("res://objects/fx/RedSmall.tscn")
 		var fx = fxTscn.instantiate()
@@ -248,6 +255,7 @@ func onHit(damage: float, attacker) -> void:
 		modulate = Color(1, 0, 0, 1)
 		var tween = create_tween()
 		tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.2)
+		Tools.playSound(self, "Thump", Tools.sizeToPitch(spieciesController.size))
 	return
 
 

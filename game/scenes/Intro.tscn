@@ -1,10 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://b8xnwa7w6xn7b"]
+[gd_scene load_steps=23 format=3 uid="uid://b8xnwa7w6xn7b"]
 
 [ext_resource type="Script" path="res://scripts/GameRoot.gd" id="1_04a7j"]
 [ext_resource type="TileSet" uid="uid://5t2dsv1ml3u7" path="res://objects/terrain/TileSet.tres" id="1_7oca4"]
 [ext_resource type="PackedScene" uid="uid://bdinsed6tuo2u" path="res://objects/destroyable/TreeMedium.tscn" id="2_4667h"]
 [ext_resource type="PackedScene" uid="uid://bj3ha1jcygg1v" path="res://objects/destroyable/TreeSmall.tscn" id="3_1fi4w"]
-[ext_resource type="Script" path="res://scripts/GlobalShortcuts.gd" id="3_lyvxt"]
 [ext_resource type="PackedScene" uid="uid://biwpiey4h8g1v" path="res://objects/destroyable/TreeBig.tscn" id="4_w7uox"]
 [ext_resource type="PackedScene" uid="uid://bd5tc504g0265" path="res://objects/destroyable/RockBig.tscn" id="5_8hjfx"]
 [ext_resource type="PackedScene" uid="uid://crjfibppr5ft5" path="res://objects/destroyable/RockMedium.tscn" id="6_mfhtc"]
@@ -16,7 +15,85 @@
 [ext_resource type="PackedScene" uid="uid://nwddf3iocxkg" path="res://objects/creatures/Ocelot.tscn" id="13_gwumi"]
 [ext_resource type="Script" path="res://scripts/ai/IntroAI.gd" id="14_micp4"]
 [ext_resource type="Texture2D" uid="uid://boa1yvniuds1l" path="res://textures/player.png" id="15_8xl74"]
+[ext_resource type="PackedScene" uid="uid://ddvu1ia0qbplv" path="res://objects/audio/AudioListener.tscn" id="16_h04c6"]
 [ext_resource type="Script" path="res://scripts/Intro.gd" id="17_h7fda"]
+[ext_resource type="Texture2D" uid="uid://dnbrxehg1hbeh" path="res://textures/particle-death.png" id="18_2nbdo"]
+[ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="19_wr4lp"]
+
+[sub_resource type="Animation" id="Animation_infgq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/MomoTarget:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(130, -26)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Cub1Target:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-92, -57)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Actors/Cub2Target:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-100, 54)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Actors/Adult1Target:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(18, -129)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Actors/Adult2Target:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(106, 120)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Actors/PurrPurrTarget:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-110, 3)]
+}
 
 [sub_resource type="Animation" id="Animation_ixx17"]
 resource_name = "intro"
@@ -48,7 +125,7 @@ tracks/1/path = NodePath("Actors/PurrPurr")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(5.1, 5.6),
+"times": PackedFloat32Array(0.5, 5.6),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -216,81 +293,6 @@ tracks/12/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_infgq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Actors/MomoTarget:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(130, -26)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Actors/Cub1Target:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-92, -57)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Actors/Cub2Target:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-100, 54)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Actors/Adult1Target:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(18, -129)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Actors/Adult2Target:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(106, 120)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Actors/PurrPurrTarget:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-110, 3)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wwqif"]
 _data = {
 "RESET": SubResource("Animation_infgq"),
@@ -312,9 +314,6 @@ layer_1/name = "dirt"
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "water"
 layer_2/tile_data = PackedInt32Array()
-
-[node name="GlobalShortcuts" type="Node" parent="."]
-script = ExtResource("3_lyvxt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
@@ -406,7 +405,6 @@ script = ExtResource("14_micp4")
 size = 2.0
 playerTexture = ExtResource("15_8xl74")
 canMove = true
-canAttack = false
 
 [node name="MomoTarget" type="Node2D" parent="Actors"]
 position = Vector2(130, -26)
@@ -417,7 +415,26 @@ script = ExtResource("14_micp4")
 size = 0.5
 playerTexture = ExtResource("15_8xl74")
 canMove = true
-canAttack = false
+
+[node name="AudioListener2D" parent="Actors/PurrPurr" instance=ExtResource("16_h04c6")]
+
+[node name="Thunder" type="Sprite2D" parent="Actors/PurrPurr"]
+visible = false
+position = Vector2(-2, -2)
+rotation = -0.469501
+texture = ExtResource("19_wr4lp")
+centered = false
+offset = Vector2(0, -75)
+region_enabled = true
+region_rect = Rect2(152, 239, 137, 76)
+
+[node name="EvilMagic" type="Sprite2D" parent="Actors/PurrPurr"]
+visible = false
+z_index = -1
+position = Vector2(-2, -2)
+scale = Vector2(5, 5)
+texture = ExtResource("18_2nbdo")
+region_rect = Rect2(152, 239, 137, 76)
 
 [node name="PurrPurrTarget" type="Node2D" parent="Actors"]
 position = Vector2(-110, 3)
@@ -428,7 +445,6 @@ script = ExtResource("14_micp4")
 size = 0.5
 playerTexture = ExtResource("15_8xl74")
 canMove = true
-canAttack = false
 
 [node name="Cub1Target" type="Node2D" parent="Actors"]
 position = Vector2(-92, -57)
@@ -439,7 +455,6 @@ script = ExtResource("14_micp4")
 size = 0.5
 playerTexture = ExtResource("15_8xl74")
 canMove = true
-canAttack = false
 
 [node name="Cub2Target" type="Node2D" parent="Actors"]
 position = Vector2(-100, 54)
@@ -450,7 +465,6 @@ script = ExtResource("14_micp4")
 size = 1.0
 playerTexture = ExtResource("15_8xl74")
 canMove = true
-canAttack = false
 
 [node name="Adult1Target" type="Node2D" parent="Actors"]
 position = Vector2(18, -129)
@@ -461,7 +475,6 @@ script = ExtResource("14_micp4")
 size = 1.0
 playerTexture = ExtResource("15_8xl74")
 canMove = true
-canAttack = false
 
 [node name="Adult2Target" type="Node2D" parent="Actors"]
 position = Vector2(106, 120)

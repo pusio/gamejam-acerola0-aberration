@@ -97,6 +97,7 @@ func prepareFruits() -> void:
 # endregion
 
 func virtual_onDamage() -> void:
+	Tools.playSound(self, "Thump", randf_range(2.0, 3.0))
 	if myFruits.size() > 0:
 		for i in range(1, randi_range(1, 3) + 1):
 			if myFruits.size() == 0:
@@ -116,6 +117,7 @@ func virtual_onDamage() -> void:
 
 
 func virtual_onDestroy() -> void:
+	Tools.playSound(self, "Destroy", randf_range(0.9, 1.1))
 	var fxTscn = preload("res://objects/fx/BrownBig.tscn")
 	var fx = fxTscn.instantiate()
 	Tools.getRoot(self).add_child(fx)
@@ -124,6 +126,7 @@ func virtual_onDestroy() -> void:
 
 
 func virtual_onNextStage() -> void:
+	Tools.playSound(self, "Break", randf_range(0.9, 1.1))
 	if myFruits.size() > 0:
 		for fruit in myFruits:
 			fruit.dropOnGround(height)

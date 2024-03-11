@@ -21,7 +21,7 @@ func virtual_onReady() -> void:
 
 
 func onHit(damage: float, _attacker) -> void:
-	print("%s hit %s for %.02f" % [_attacker.name, name, damage])
+	# print("%s hit %s for %.02f" % [_attacker.name, name, damage])
 	currentHealth -= damage
 	virtual_onDamage()
 	if currentHealth > 0:
