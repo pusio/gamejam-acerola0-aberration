@@ -10,7 +10,7 @@ class_name Boar
 @onready var headScaler: Node2D = $"../Origin/Anchor/Body/HeadScaler"
 @onready var collisionShape2D: CollisionShape2D = $"../CollisionShape2D"
 
-@export var movementSpeed: float = 120.0
+@export var movementSpeed: float = 80.0
 
 var hasInput: bool = false
 var directionSnapshot: Vector2 = Vector2.ZERO

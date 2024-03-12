@@ -241,6 +241,7 @@ func onHit(damage: float, attacker) -> void:
 			)
 		):
 			enemyToFollow = attacker
+			spieciesController.virtual_showEmotion(Spiecies.Emotion.Mad)
 	spieciesController.health -= damage
 	spieciesController.virtual_showEmotion(Spiecies.Emotion.Cry)
 	if spieciesController.health <= 0:
