@@ -5,6 +5,7 @@ class_name Food
 @export var ownerSpiecies: String
 @export var randomSize: Vector2 = Vector2(1.0, 1.0)
 @export var dropSpread: float = 5
+@export var megaMode: bool = false
 @onready var collision: CollisionShape2D = $Collision
 @onready var sprite: Sprite2D = $Sprite
 @onready var shadow: Sprite2D = $"-Shadow"
@@ -20,6 +21,10 @@ func virtual_onReady() -> void:
 	var size: float = randf_range(randomSize.x, randomSize.y)
 	nutrition = roundi(nutrition * size)
 	scale *= size
+	if megaMode:
+		var megaScale = randf_range(2.0, 5.0)
+		scale *= megaScale
+		nutrition = roundi(nutrition * megaScale)
 	return
 
 

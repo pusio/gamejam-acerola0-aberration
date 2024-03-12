@@ -124,6 +124,8 @@ func spawnAttack() -> void:
 func attack_end() -> void:
 	isAttacking = false
 	var attackCooldown: float = randf_range(0.5, 0.55)
+	if isBoss:
+		attackCooldown += 1.0
 	await Tools.wait(self, attackCooldown)
 	isAttackOnCooldown = false
 	return

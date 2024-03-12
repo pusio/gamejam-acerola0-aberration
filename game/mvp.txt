@@ -5,10 +5,10 @@ xxxxx - rock assets
 xxxxx - attack sends dmg packet projectile
 xxxxx - destruction of trees/bushes/rocks
 xxxxx - resize beast (keeping head less scaled)
-- boar lair + boss
-- spider lair + boss
-- snake lair + boss
-- paint world using assets, placing 4 beast lairs in 4 corners, add world bounds
+xxxxx - aboar lair + boss
+xxxxx - aspider lair + boss
+xxxxx - asnake lair + boss
+xxxxx - apaint world using assets, placing 4 beast lairs in 4 corners, add world bounds
 xxxxx - change random ai to something that patrols, detects player, follows and attacks
 - win condition - all 4 bosses dead in single timeline
 xxxxx - passing magic buffs between timelines
