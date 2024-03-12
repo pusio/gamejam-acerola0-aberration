@@ -38,6 +38,8 @@ func _ready() -> void:
 
 
 func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) -> void:
+	if health <= 0:
+		return
 	# input
 	if direction:
 		directionSnapshot = direction
@@ -151,6 +153,8 @@ func attack_end() -> void:
 
 
 func virtual_attack(vector: Vector2) -> void:
+	if health <= 0:
+		return
 	bodyAP.speed_scale = (bodyAP.speed_scale + 1.5) / 2.0
 	if isAttackOnCooldown:
 		return
@@ -163,6 +167,8 @@ func virtual_attack(vector: Vector2) -> void:
 
 
 func virtual_lookAt(vector: Vector2) -> void:
+	if health <= 0:
+		return
 	var anim = "forward"
 	if abs(vector.x) > abs(vector.y):
 		if vector.x * origin.scale.x < 0:
@@ -178,7 +184,7 @@ func virtual_lookAt(vector: Vector2) -> void:
 
 
 func virtual_showEmotion(emotion: Emotion) -> void:
-	if isEmoting:
+	if isEmoting || health <= 0:
 		return
 	isEmoting = true
 	match emotion:

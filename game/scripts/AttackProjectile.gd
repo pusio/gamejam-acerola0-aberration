@@ -38,6 +38,8 @@ func prepare(
 	)
 	if timeToLive > fadeTime:
 		await Tools.wait(self, timeToLive - fadeTime)
+		if !is_inside_tree():
+			return
 	create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).tween_property(
 		sprite,
 		"self_modulate",
