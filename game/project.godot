@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="game"
-run/main_scene="res://scenes/Game.tscn"
+config/name="Bound in the Wizard's Scheme"
+run/main_scene="res://scenes/Intro.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [autoload]
 
@@ -25,6 +25,7 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/resizable=false
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://textures/cursor.png"
 
 [filesystem]
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdk5n1wqlneec"]
+[gd_scene load_steps=5 format=3 uid="uid://cdk5n1wqlneec"]
 
 [ext_resource type="Script" path="res://scripts/GameRoot.gd" id="1_ghjgo"]
 [ext_resource type="Script" path="res://scripts/DelayedLabel.gd" id="2_wyypo"]
+[ext_resource type="Script" path="res://scripts/Ending.gd" id="2_x2jje"]
 
 [sub_resource type="Theme" id="Theme_pfyts"]
 default_font_size = 12
@@ -11,6 +12,7 @@ y_sort_enabled = true
 script = ExtResource("1_ghjgo")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("2_x2jje")
 
 [node name="FadeBlock" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 15
@@ -138,3 +140,12 @@ horizontal_alignment = 1
 autowrap_mode = 2
 script = ExtResource("2_wyypo")
 delay = 40.0
+
+[node name="Quit" type="Button" parent="CanvasLayer"]
+offset_left = 552.0
+offset_top = 320.0
+offset_right = 624.0
+offset_bottom = 344.0
+text = "Quit"
+script = ExtResource("2_wyypo")
+delay = 45.0

@@ -1,14 +1,28 @@
-# untitled game
+# Bound in the Wizard's Scheme
 
 This repo contains my entry for [Acerola Jam 0](https://itch.io/jam/acerola-jam-0). The theme of this game jam is `Aberration`.
 
-# world and constraints
+# Player Tips:
 
-Currently, game dev progress may seem smooth, but it lacks direction. This game is nothing more than a bunch of random ideas, as it lacks glue to connect everything. I will now define a world. This world is here not to provide a story, but to provide constraints. By outlining the characters and rules within this world, we can better determine the end goal of this game.
+It's encouraged to explore and figure things out on your own, yet if the game feels too challenging, consider these hints:
 
-As a disclaimer: almost all of this story will not be present in the game itself, as it is nothing more than a mold to make the game take a shape.
+-   Pay attention to a beast's eyes to estimate its health.
+-   Larger beasts have more health and deal greater damage.
+-   Consuming food helps in your growth and healing.
+-   Berries provide less sustenance compared to fruits; meat offers the most.
+-   The size of a defeated beast determines the amount of meat dropped.
+-   Nearby beasts will attempt to steal your fruits and berries, but they won't consume meat from their own species.
+-   Ocelots are the least aggressive; they won't attack you unless provoked.
+-   You can flee from combat in hopes that other spiecies aggro upon your enemy.
+-   Well-fed enemies will regenerate health if left alone for too long.
+-   Your objective is to locate and defeat four beast kings in a single lifetime.
+-   Defeating a beast king bestows a persistent magical buff upon you. (Those buffs persist through death.)
+-   The Boar King is more resilient than regular boars; defeating it will reduce incoming damage.
+-   The Spider King has superior speed compared to other spiders; defeating it will increase your attack speed.
+-   The Snake King consistently regenerates health, even when hungry; defeating it doubles the saturation from consumed food.
+-   The Ocelot King is larger than its counterparts; defeating it will enhance your growth speed and maximum growth size.
 
-### story:
+# Secret Story:
 
 Four magic students have been living together in conflict for many years. Their names are: Gerward, Bimbolious, Bert, and Roger Moore. They study magic under the watchful eye of the archmage Rombobombolini. One day, their rivalry reached its peak during a quarrel in a tavern, resulting in Bert getting a beer mug to the head and ending up with a black eye. To prevent further incidents like this in the future, Archmage Rombobombolini persuaded his students to settle all disputes once and for all with a magical tournament.
 
@@ -34,31 +48,11 @@ The player's beast is Purr Purr.
 
 The game can only end in one way: Rombobombolini's victory. Either Purr Purr kills all the other familiars and wins the tournament, or time in Little Garden loops until eventually Purr Purr lives long enough that all other familiars die of old age.
 
-# player tips:
-
-It's encouraged to explore and figure things out on your own, yet if the game feels too challenging, consider these hints:
-
--   Pay attention to a beast's eyes to estimate its health.
--   Larger beasts have more health and deal greater damage.
--   Consuming food helps in your growth and healing.
--   Berries provide less sustenance compared to fruits; meat offers the most.
--   The size of a defeated beast determines the amount of meat dropped.
--   Nearby beasts will attempt to steal your fruits and berries, but they won't consume meat from their own species.
--   Ocelots are the least aggressive; they won't attack you unless provoked.
--   You can flee from combat.
--   Well-fed enemies will regenerate health if left alone for too long.
--   Your objective is to locate and defeat four beast kings in a single lifetime.
--   Defeating a beast king bestows a persistent magical buff upon you. (Those buffs persist through death.)
--   The Boar King is more resilient than regular boars; defeating it will reduce incoming damage.
--   The Spider King has superior speed compared to other spiders; defeating it will increase your attack speed.
--   The Snake King consistently regenerates health, even when hungry; defeating it doubles the saturation from consumed food.
--   The Ocelot King is larger than its counterparts; defeating it will enhance your growth speed and maximum growth size.
-
-# credits
+# Credits
 
 Sound effects were generated using [rFXGen](https://raylibtech.itch.io/rfxgen).
 
-Music track is [Creepy Forest (F)](https://opengameart.org/content/creepy-forest-f) by [Brandon Morris](https://opengameart.org/users/haeldb) under [CC0](https://creativecommons.org/publicdomain/zero/1.0/) license.
+Music track is [Creepy Forest (F)](https://opengameart.org/content/creepy-forest-f) by [Brandon Morris](https://opengameart.org/users/haeldb) under [CC0 License](https://creativecommons.org/publicdomain/zero/1.0/).
 
 Font is [Press Start 2P](https://zone38.net/font/#pressstart) by [codeman38](https://www.zone38.net/) under [SIL Open Font License](https://openfontlicense.org/).
 

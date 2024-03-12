@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b8xnwa7w6xn7b"]
+[gd_scene load_steps=26 format=3 uid="uid://b8xnwa7w6xn7b"]
 
 [ext_resource type="Script" path="res://scripts/GameRoot.gd" id="1_04a7j"]
 [ext_resource type="PackedScene" uid="uid://bdinsed6tuo2u" path="res://objects/destroyable/TreeMedium.tscn" id="2_4667h"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bv55i3ytc0lft" path="res://objects/destroyable/RockTiny.tscn" id="8_rfed2"]
 [ext_resource type="PackedScene" uid="uid://bp478hg6getdp" path="res://objects/destroyable/BushBig.tscn" id="9_i8m72"]
 [ext_resource type="PackedScene" uid="uid://bo2xtfdkdx06v" path="res://objects/destroyable/BushMedium.tscn" id="10_g6lov"]
+[ext_resource type="Script" path="res://scripts/DelayedLabel.gd" id="10_hgvpy"]
 [ext_resource type="PackedScene" uid="uid://b0hdlmm8cvhj7" path="res://objects/destroyable/BushSmall.tscn" id="11_3e6ni"]
 [ext_resource type="PackedScene" uid="uid://nwddf3iocxkg" path="res://objects/creatures/Ocelot.tscn" id="13_gwumi"]
 [ext_resource type="Script" path="res://scripts/ai/IntroAI.gd" id="14_micp4"]
@@ -299,6 +300,15 @@ _data = {
 "intro": SubResource("Animation_ixx17")
 }
 
+[sub_resource type="Theme" id="Theme_lynwc"]
+default_font_size = 36
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.682353)
+Label/constants/shadow_offset_x = 3
+Label/constants/shadow_offset_y = 3
+
+[sub_resource type="Theme" id="Theme_plgc6"]
+default_font_size = 12
+
 [node name="Intro" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_04a7j")
@@ -397,11 +407,300 @@ canMove = true
 [node name="Adult2Target" type="Node2D" parent="Actors"]
 position = Vector2(106, 120)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("playBtn", "creditsBtn", "helpBtn", "backBtn", "back2Btn", "view1", "view2", "view3", "canvas")]
 libraries = {
 "": SubResource("AnimationLibrary_wwqif")
 }
 script = ExtResource("17_h7fda")
+playBtn = NodePath("CanvasLayer/View1/Play")
+creditsBtn = NodePath("CanvasLayer/View1/Credits")
+helpBtn = NodePath("CanvasLayer/View1/Help")
+backBtn = NodePath("CanvasLayer/View2/Back")
+back2Btn = NodePath("CanvasLayer/View3/Back")
+view1 = NodePath("CanvasLayer/View1")
+view2 = NodePath("CanvasLayer/View2")
+view3 = NodePath("CanvasLayer/View3")
+canvas = NodePath("CanvasLayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="AnimationPlayer"]
+
+[node name="View1" type="Node2D" parent="AnimationPlayer/CanvasLayer"]
+
+[node name="Play" type="Button" parent="AnimationPlayer/CanvasLayer/View1"]
+offset_left = 16.0
+offset_top = 320.0
+offset_right = 88.0
+offset_bottom = 344.0
+text = "Play"
+script = ExtResource("10_hgvpy")
+delay = 6.0
+
+[node name="Credits" type="Button" parent="AnimationPlayer/CanvasLayer/View1"]
+offset_left = 504.0
+offset_top = 320.0
+offset_right = 624.0
+offset_bottom = 344.0
+text = "Credits"
+script = ExtResource("10_hgvpy")
+delay = 7.0
+
+[node name="Help" type="Button" parent="AnimationPlayer/CanvasLayer/View1"]
+offset_left = 504.0
+offset_top = 288.0
+offset_right = 624.0
+offset_bottom = 312.0
+text = "Help"
+script = ExtResource("10_hgvpy")
+delay = 8.0
+
+[node name="Title" type="Label" parent="AnimationPlayer/CanvasLayer/View1"]
+self_modulate = Color(1, 0.92549, 0.717647, 1)
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 560.0
+offset_bottom = 91.0
+theme = SubResource("Theme_lynwc")
+text = "Bound in the
+Wizard's Scheme"
+horizontal_alignment = 1
+script = ExtResource("10_hgvpy")
+delay = 5.0
+
+[node name="View2" type="Node2D" parent="AnimationPlayer/CanvasLayer"]
+visible = false
+
+[node name="Block" type="ColorRect" parent="AnimationPlayer/CanvasLayer/View2"]
+anchors_preset = -1
+anchor_left = 5.0
+anchor_top = 5.0
+anchor_right = 5.0
+anchor_bottom = 5.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.831373)
+
+[node name="Back" type="Button" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 552.0
+offset_top = 320.0
+offset_right = 624.0
+offset_bottom = 344.0
+text = "Back"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 616.0
+offset_bottom = 304.0
+theme = SubResource("Theme_plgc6")
+bbcode_enabled = true
+text = "Sound effects were generated using [color=#b0fffc]rFXGen[/color].
+
+
+Music track is [color=#b0fffc]Creepy Forest (F)[/color] by 
+[color=#b0fffc]Brandon Morris[/color] under [color=#b0fffc]CC0 License[/color].
+
+
+Font is [color=#b0fffc]Press Start 2P[/color] by [color=#b0fffc]codeman38[/color] under 
+[color=#b0fffc]SIL Open Font License[/color].
+
+
+Engine is [color=#b0fffc]Godot 4.2.1[/color].
+
+
+This game was made by [color=#b0fffc]Jacek Czajkowski (Pusio)[/color] for [color=#b0fffc]Acerola Jam 0[/color]."
+scroll_active = false
+
+[node name="LinkButton" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 440.0
+offset_top = 24.0
+offset_right = 520.0
+offset_bottom = 40.0
+theme = SubResource("Theme_plgc6")
+text = "       "
+underline = 1
+uri = "https://raylibtech.itch.io/rfxgen"
+
+[node name="LinkButton2" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 200.0
+offset_top = 56.0
+offset_right = 280.0
+offset_bottom = 72.0
+theme = SubResource("Theme_plgc6")
+text = "                 "
+underline = 1
+uri = "https://opengameart.org/content/creepy-forest-f"
+
+[node name="LinkButton3" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 24.0
+offset_top = 72.0
+offset_right = 104.0
+offset_bottom = 88.0
+theme = SubResource("Theme_plgc6")
+text = "              "
+underline = 1
+uri = "https://opengameart.org/users/haeldb"
+
+[node name="LinkButton4" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 272.0
+offset_top = 72.0
+offset_right = 352.0
+offset_bottom = 88.0
+theme = SubResource("Theme_plgc6")
+text = "            "
+underline = 1
+uri = "https://creativecommons.org/publicdomain/zero/1.0/"
+
+[node name="LinkButton5" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 120.0
+offset_top = 104.0
+offset_right = 200.0
+offset_bottom = 120.0
+theme = SubResource("Theme_plgc6")
+text = "              "
+underline = 1
+uri = "https://zone38.net/font/#pressstart"
+
+[node name="LinkButton6" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 336.0
+offset_top = 104.0
+offset_right = 444.0
+offset_bottom = 120.0
+theme = SubResource("Theme_plgc6")
+text = "         "
+underline = 1
+uri = "https://www.zone38.net/"
+
+[node name="LinkButton7" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 24.0
+offset_top = 120.0
+offset_right = 104.0
+offset_bottom = 136.0
+theme = SubResource("Theme_plgc6")
+text = "                     "
+underline = 1
+uri = "https://openfontlicense.org/"
+
+[node name="LinkButton8" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 144.0
+offset_top = 152.0
+offset_right = 224.0
+offset_bottom = 168.0
+theme = SubResource("Theme_plgc6")
+text = "           "
+underline = 1
+uri = "https://godotengine.org/"
+
+[node name="LinkButton9" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 288.0
+offset_top = 192.0
+offset_right = 368.0
+offset_bottom = 208.0
+theme = SubResource("Theme_plgc6")
+text = "                        "
+underline = 1
+uri = "https://github.com/pusio/gamejam-acerola0-aberration"
+
+[node name="LinkButton10" type="LinkButton" parent="AnimationPlayer/CanvasLayer/View2"]
+offset_left = 72.0
+offset_top = 200.0
+offset_right = 152.0
+offset_bottom = 216.0
+theme = SubResource("Theme_plgc6")
+text = "             "
+underline = 1
+uri = "https://itch.io/jam/acerola-jam-0"
+
+[node name="View3" type="Node2D" parent="AnimationPlayer/CanvasLayer"]
+visible = false
+
+[node name="Block" type="ColorRect" parent="AnimationPlayer/CanvasLayer/View3"]
+anchors_preset = -1
+anchor_left = 5.0
+anchor_top = 5.0
+anchor_right = 5.0
+anchor_bottom = 5.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.831373)
+
+[node name="Back" type="Button" parent="AnimationPlayer/CanvasLayer/View3"]
+offset_left = 552.0
+offset_top = 320.0
+offset_right = 624.0
+offset_bottom = 344.0
+text = "Back"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AnimationPlayer/CanvasLayer/View3"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 616.0
+offset_bottom = 304.0
+theme = SubResource("Theme_plgc6")
+bbcode_enabled = true
+text = "[center]Controlls:
+
+
+To move your beast, use the [color=#93ff80]WSAD[/color] keys. 
+
+Aim by moving the [color=#93ff80]mouse[/color]. 
+
+Press the [color=#93ff80]left mouse button[/color] to attack. 
+
+To quit the game, press [color=#93ff80]Ctrl+Q[/color]. 
+
+Toggle fullscreen mode by pressing [color=#93ff80]F11[/color].
+
+
+
+
+
+
+
+
+
+[color=#ff2929]VVV[/color] Scroll down to view gameplay tips [color=#ff2929]VVV[/color]
+(spoilers ahead)[/center]
+
+It's encouraged to explore and figure things out on your own, yet if the game feels too challenging, consider these hints:
+
+
+* Pay attention to a beast's eyes to estimate its health.
+
+* Larger beasts have more health and deal greater damage.
+
+* Consuming food helps in your growth and healing.
+
+* Berries provide less sustenance compared to fruits; meat offers the most.
+
+* The size of a defeated beast determines the amount of meat dropped.
+
+* Nearby beasts will attempt to steal your fruits and berries, but they won't consume meat from their own species.
+
+* Ocelots are the least aggressive; they won't attack you unless provoked.
+
+* You can flee from combat in hopes that other spiecies aggro upon your enemy.
+
+* Well-fed enemies will regenerate health if left alone for too long.
+
+* Your objective is to locate and defeat four beast kings in a single lifetime.
+
+* Defeating a beast king bestows a persistent magical buff upon you. (Those buffs persist through death.)
+
+* The Boar King is more resilient than regular boars; defeating it will reduce incoming damage.
+
+* The Spider King has superior speed compared to other spiders; defeating it will increase your attack speed.
+
+* The Snake King consistently regenerates health, even when hungry; defeating it doubles the saturation from consumed food.
+
+* The Ocelot King is larger than its counterparts; defeating it will enhance your growth speed and maximum growth size."
 
 [node name="Rock" parent="." instance=ExtResource("5_8hjfx")]
 position = Vector2(-19, -202)
