@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://hmc4hwy0xsnp"]
+
+[ext_resource type="AudioStream" uid="uid://bmyiotoxrcd6f" path="res://misc/sound/wierd.wav" id="1_7o6ws"]
+
+[node name="Audio2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_7o6ws")

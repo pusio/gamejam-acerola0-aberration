@@ -24,7 +24,8 @@ func prepare(
 	exclude = []
 	source = src
 	parentVelocity = vel
-	speed *= srcSize
+	if srcSize > 1.0:
+		speed *= srcSize
 	for ex in excl:
 		exclude.append(ex)
 	get_tree().create_timer(timeToLive).connect("timeout", queue_free)

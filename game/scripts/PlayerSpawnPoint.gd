@@ -6,6 +6,8 @@ extends Node2D
 
 
 func _ready() -> void:
+	if Global.deaths > 0:
+		Tools.playSound(self, "Wierd", clampf(1.2 - Global.deaths * 0.01, 0.75, 1.2))
 	# setup player
 	var player = playerSpiecies.instantiate()
 	get_parent().call_deferred("add_child", player)

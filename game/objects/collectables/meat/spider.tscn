@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6qf224dd8ugs"]
+
+[ext_resource type="Script" path="res://scripts/objects/Food.gd" id="1_ptc5a"]
+[ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="2_vswnv"]
+[ext_resource type="Script" path="res://scripts/Unrotate.gd" id="3_2j44k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2pgvy"]
+radius = 8.0
+
+[node name="Meat" type="Area2D"]
+script = ExtResource("1_ptc5a")
+nutrition = 9
+ownerSpiecies = "spider"
+randomSize = Vector2(0.8, 1.2)
+dropSpread = 50.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_vswnv")
+centered = false
+offset = Vector2(-8, -7)
+region_enabled = true
+region_rect = Rect2(129, 256, 16, 14)
+
+[node name="-Shadow" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(0, 1)
+scale = Vector2(1.5, 1)
+texture = ExtResource("2_vswnv")
+region_enabled = true
+region_rect = Rect2(37, 9, 10, 10)
+script = ExtResource("3_2j44k")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2pgvy")

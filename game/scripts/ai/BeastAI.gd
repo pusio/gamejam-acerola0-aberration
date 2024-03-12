@@ -114,6 +114,9 @@ func logicIdle() -> void:
 	# look for food
 	for area in sightArea.get_overlapping_areas():
 		if area is Food && (area as Food).isOnGround:
+			# not interested in meat of my own spiecies
+			if (area as Food).ownerSpiecies == spieciesController.familyGroupTag:
+				continue
 			foodToFollow = area
 			logicBusy = false
 			return
@@ -243,10 +246,22 @@ func onHit(damage: float, attacker) -> void:
 	if spieciesController.health <= 0:
 		var fxTscn = preload("res://objects/fx/RedBig.tscn")
 		var fx = fxTscn.instantiate()
-		Tools.getRoot(self).add_child(fx)
+		var root = Tools.getRoot(self)
+		root.add_child(fx)
 		fx.global_position = self.global_position
-		queue_free()
 		Tools.playSound(self, "Death", Tools.sizeToPitch(spieciesController.size))
+		var meatTscn = load(
+			"res://objects/collectables/meat/%s.tscn" % spieciesController.familyGroupTag
+		)
+		var meatCount = roundi(spieciesController.size / 0.1725)
+		for i in range(meatCount):
+			var meat = meatTscn.instantiate()
+			root.add_child(meat)
+			meat.global_position = global_position
+			meat.call_deferred("notCollectableYet")
+			meat.call_deferred("dropFromBody")
+			pass
+		call_deferred("queue_free")
 	else:
 		var fxTscn = preload("res://objects/fx/RedSmall.tscn")
 		var fx = fxTscn.instantiate()

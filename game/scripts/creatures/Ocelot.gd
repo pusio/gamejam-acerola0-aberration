@@ -22,6 +22,7 @@ var isAttacking: bool = false
 var isEmoting: bool = false
 var attackVector: Vector2
 var hungerTick: float = 5
+var isAttackOnCooldown: bool = false
 
 
 func _init() -> void:
@@ -135,15 +136,24 @@ func attack_execute() -> void:
 # triggered by animation
 func attack_end() -> void:
 	isAttacking = false
+	var attackCooldown: float = randf_range(0.3, 0.35)
+	if mainBody is Player && Global.websterDefeated:
+		attackCooldown = 0.0
+	if attackCooldown > 0.0:
+		await Tools.wait(self, attackCooldown)
+	isAttackOnCooldown = false
 	return
 
 
 func virtual_attack(vector: Vector2) -> void:
+	bodyAP.speed_scale = (bodyAP.speed_scale + 1.5) / 2.0
+	if isAttackOnCooldown:
+		return
 	if !isAttacking:
 		attackVector = vector
 	isAttacking = true
+	isAttackOnCooldown = true
 	isJumping = false
-	bodyAP.speed_scale = (bodyAP.speed_scale + 1.5) / 2.0
 	return
 
 
@@ -212,7 +222,7 @@ func updateFace() -> void:
 	var mood: int = floor((clampi(hunger, 0, 100) + health100) / 2.0)
 	if hunger <= 20:
 		mouthAP.play("open")
-	elif mood >= 95:
+	elif mood >= 95 && !mainBody is Player:
 		mouthAP.play("smile")
 	else:
 		mouthAP.play("normal")
@@ -220,7 +230,7 @@ func updateFace() -> void:
 	if health100 == 100:
 		eyesAP.play("normal")
 	elif health100 > 80:
-		if mood >= 50:
+		if mood >= 50 && !mainBody is Player:
 			eyesAP.play("mad")
 		else:
 			eyesAP.play("normal")
@@ -259,10 +269,20 @@ func updateHunger(delta: float) -> void:
 		hunger -= 1
 		health = clamp(health + 0.05 * maxHealth, 0, maxHealth)
 	# grow if well fed
-	if hunger > 80 && size < 1.0:
-		setSize(clampf(size + 0.01, 0.5, 1.0))
+	var maxGrowthSize = 1.0
+	if mainBody is Player && Global.momoDefeated:
+		maxGrowthSize = 2.0
+	if hunger > 80 && size < maxGrowthSize:
+		var growthValue = 0.015
+		if mainBody is Player && Global.momoDefeated:
+			growthValue *= 2
+		setSize(clampf(size + growthValue, 0.5, maxGrowthSize))
 		hunger -= 4
 	# faster decay if overfed
 	if hunger > 100:
-		hunger -= roundi(0.1 * (hunger - 100))
+		var overfedValue: float = 1 + 0.1 * (hunger - 100)
+		hunger -= roundi(overfedValue)
+		# player heals by overeating
+		if mainBody is Player:
+			health = clamp(health + overfedValue, 0, maxHealth)
 	return

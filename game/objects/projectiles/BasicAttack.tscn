@@ -4,14 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="2_82qht"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2bq7u"]
-radius = 9.0
-height = 36.0
+radius = 11.3963
+height = 46.0514
 
 [node name="Projectile" type="Area2D"]
 y_sort_enabled = true
 script = ExtResource("1_a0wws")
-timeToLive = 0.4
-speed = 150.0
+timeToLive = 0.45
+speed = 160.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.784314)

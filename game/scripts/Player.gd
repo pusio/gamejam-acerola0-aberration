@@ -20,7 +20,9 @@ func prepare(playerTexture: Texture2D) -> void:
 	spieciesController.hunger = 50
 	spieciesController.updateFace()
 	# audio listener
-	var audioListener: AudioListener2D = preload("res://objects/audio/AudioListener.tscn").instantiate()
+	var audioListener: AudioListener2D = (
+		preload("res://objects/audio/AudioListener.tscn").instantiate()
+	)
 	add_child(audioListener)
 	audioListener.make_current()
 	# texture
@@ -41,10 +43,34 @@ func _physics_process(delta: float) -> void:
 
 
 func eatFood(nutrition: int) -> void:
-	spieciesController.hunger = spieciesController.hunger + nutrition
+	var nutriMulti: float = 1.0
+	if Global.sneksquikDefeated:
+		nutriMulti = 2.0
+	spieciesController.hunger = spieciesController.hunger + roundi(nutrition * nutriMulti)
 	return
 
 
 func onHit(damage: float, _attacker) -> void:
-	print(name, "hit", damage)
+	if Global.boarisDefeated:
+		spieciesController.health -= damage * 0.5
+	else:
+		spieciesController.health -= damage
+	spieciesController.virtual_showEmotion(Spiecies.Emotion.Cry)
+	if spieciesController.health <= 0:
+		var fxTscn = preload("res://objects/fx/RedBig.tscn")
+		var fx = fxTscn.instantiate()
+		Tools.getRoot(self).add_child(fx)
+		fx.global_position = self.global_position
+		queue_free()
+		Tools.playSound(self, "Death", Tools.sizeToPitch(spieciesController.size))
+		Global.die()
+	else:
+		var fxTscn = preload("res://objects/fx/RedSmall.tscn")
+		var fx = fxTscn.instantiate()
+		Tools.getRoot(self).add_child(fx)
+		fx.global_position = self.global_position
+		modulate = Color(1, 0, 0, 1)
+		var tween = create_tween()
+		tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.2)
+		Tools.playSound(self, "Thump", Tools.sizeToPitch(spieciesController.size))
 	return

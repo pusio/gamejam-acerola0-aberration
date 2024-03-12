@@ -5,16 +5,32 @@ xxxxx - rock assets
 xxxxx - attack sends dmg packet projectile
 xxxxx - destruction of trees/bushes/rocks
 xxxxx - resize beast (keeping head less scaled)
-- floating text upon various actions (eating)
 - boar lair + boss
 - spider lair + boss
 - snake lair + boss
-- paint world using assets, placing 4 beast lairs in 4 corners
+- paint world using assets, placing 4 beast lairs in 4 corners, add world bounds
 xxxxx - change random ai to something that patrols, detects player, follows and attacks
 - win condition - all 4 bosses dead in single timeline
-- passing magic buffs between timelines
+xxxxx - passing magic buffs between timelines
 xxxxx - intro scene
 - ending scene
 xxxxx - ambient music
 xxxxx - sfx
-- if there is time left add swimming sprite mask
+
+tips for players:
+you should try to figure out stuff yourself, but if the game seems too hard please read the tips below:
+- look at beast's eyes to guess how healthy it is
+- bigger beasts have more health and deal more damage
+- eating food helps you grow and heal over time
+- berries give less saturation than fruits, meat gives the most
+- body size of slain beast decides how much meat will drop
+- while nearby beasts will try to steal your fruits and berries, they never eat meat of their own spiecies
+- ocelots are least hostile towards you and will not agro unless attacked
+- if you are hurt try to run away
+- enemies may heal if left alone too long, however they only heal if well fed
+- the goal is to find and defeat four beast kings during a single life
+- killing a beast king will grant you a magical buff that persist through death
+- boar king takes less damage than usual boar. defeating him will reduce your damage taken.
+- spider king is faster than other spiders. defeating him will decrease your attack cooldown.
+- snake king always regenerates life (even when hungry). defeating him will allow you to get more saturation from any food eaten.
+- ocelot king is bigger than other beasts. defeating him will increase your growth speed and max growth size.

@@ -14,8 +14,8 @@
 height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y4fox"]
-radius = 41.0
-height = 124.0
+radius = 56.0
+height = 126.0
 
 [node name="Tree" type="RigidBody2D"]
 mass = 700.0
