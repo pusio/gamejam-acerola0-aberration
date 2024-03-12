@@ -7,6 +7,8 @@ var momoDefeated: bool = false
 var boarisDefeated: bool = false
 var sneksquikDefeated: bool = false
 var websterDefeated: bool = false
+var bossesKilledInThisLife: int = 0
+
 
 func _ready() -> void:
 	# toggle_fullscreen()
@@ -37,15 +39,18 @@ func toggle_fullscreen() -> void:
 	return
 
 
-func die(really: bool = true) -> void:
+func die(really: bool = true, scene: String = "Game") -> void:
 	if really:
 		deaths += 1
+	bossesKilledInThisLife = 0
 	await Tools.wait(self, 1.0)
 	fadeBlock.visible = true
 	fadeBlock.color = Color(0, 0, 0, 0)
-	create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).tween_property(fadeBlock, "color", Color(0, 0, 0, 1), 1.0)
+	create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).tween_property(
+		fadeBlock, "color", Color(0, 0, 0, 1), 1.0
+	)
 	await Tools.wait(self, 1.5)
-	get_tree().change_scene_to_file("res://scenes/Game.tscn")
+	get_tree().change_scene_to_file("res://scenes/%s.tscn" % scene)
 	create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).tween_property(
 		fadeBlock, "color", Color(0, 0, 0, 0), 1.0
 	)

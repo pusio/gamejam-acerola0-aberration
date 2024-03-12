@@ -317,18 +317,30 @@ func onHit(damage: float, attacker) -> void:
 	spieciesController.virtual_showEmotion(Spiecies.Emotion.Cry)
 	if spieciesController.health <= 0:
 		if isBoss:
+			var player: Player = Tools.getRoot(self).get_node("Player")
+			if player != null:
+				var evilFx: EvilMagic = preload("res://objects/fx/EvilMagic.tscn").instantiate()
+				player.add_child(evilFx)
+				evilFx.position = Vector2(-2, -2)
+				evilFx.call_deferred("prepare", player)
 			if spieciesController is Ocelot:
 				Global.momoDefeated = true
+				Global.bossesKilledInThisLife += 1
 				print("momo is dead")
 			elif spieciesController is Boar:
 				Global.boarisDefeated = true
+				Global.bossesKilledInThisLife += 1
 				print("boaris is dead")
 			elif spieciesController is Spider:
 				Global.websterDefeated = true
+				Global.bossesKilledInThisLife += 1
 				print("webster is dead")
 			elif spieciesController is Snake:
 				Global.sneksquikDefeated = true
+				Global.bossesKilledInThisLife += 1
 				print("sneksquik is dead")
+		if Global.bossesKilledInThisLife >= 4:
+			Global.die(false, "Ending")
 		var fxTscn = preload("res://objects/fx/RedBig.tscn")
 		var fx = fxTscn.instantiate()
 		var root = Tools.getRoot(self)

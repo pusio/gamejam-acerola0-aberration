@@ -72,7 +72,7 @@ func virtual_onPickup(body: Node2D) -> void:
 		return
 	if body.has_method("onHit"):
 		body.onHit(damage, source)
-	else:
-		print("hit agains unsupported target: " + body.name)
+	# else:
+		# print("hit agains unsupported target: " + body.name)
 	exclude.append(body)
 	return

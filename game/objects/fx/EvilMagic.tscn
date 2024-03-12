@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cje23c0i1y4wf"]
+
+[ext_resource type="Texture2D" uid="uid://dnbrxehg1hbeh" path="res://textures/particle-death.png" id="1_3nshf"]
+[ext_resource type="Script" path="res://scripts/EvilMagic.gd" id="2_p5uk3"]
+
+[node name="EvilMagic" type="Sprite2D"]
+z_index = -1
+scale = Vector2(5, 5)
+texture = ExtResource("1_3nshf")
+region_rect = Rect2(152, 239, 137, 76)
+script = ExtResource("2_p5uk3")
