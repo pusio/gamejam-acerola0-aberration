@@ -2,15 +2,6 @@
 
 This repo contains my entry for [Acerola Jam 0](https://itch.io/jam/acerola-jam-0). The theme of this game jam is `Aberration`.
 
-# random notes
-
--   I'm using this game jam not to win, but to learn godot.
--   The engine used will be [Godot 4.2.1](https://godotengine.org/), because I see no point in learning old ass godot3. New is good. I like new.
--   The language used will be GDScript, because ["Projects written in C# using Godot 4 currently cannot be exported to the web"](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html).
--   Export target will be Web, because it seems like easy way to make multiplatform game.
--   Seems like default viewport settings on itch.io is 640x360px. Sounds good, I'll hardcode this resolution.
--   It is solo game jam, so the game will be 2D, made in mspaint. It's great that this is solo jam, as I have no friends.
-
 # world and constraints
 
 Currently, game dev progress may seem smooth, but it lacks direction. This game is nothing more than a bunch of random ideas, as it lacks glue to connect everything. I will now define a world. This world is here not to provide a story, but to provide constraints. By outlining the characters and rules within this world, we can better determine the end goal of this game.
@@ -43,6 +34,26 @@ The player's beast is Purr Purr.
 
 The game can only end in one way: Rombobombolini's victory. Either Purr Purr kills all the other familiars and wins the tournament, or time in Little Garden loops until eventually Purr Purr lives long enough that all other familiars die of old age.
 
+# player tips:
+
+It's encouraged to explore and figure things out on your own, yet if the game feels too challenging, consider these hints:
+
+-   Pay attention to a beast's eyes to estimate its health.
+-   Larger beasts have more health and deal greater damage.
+-   Consuming food helps in your growth and healing.
+-   Berries provide less sustenance compared to fruits; meat offers the most.
+-   The size of a defeated beast determines the amount of meat dropped.
+-   Nearby beasts will attempt to steal your fruits and berries, but they won't consume meat from their own species.
+-   Ocelots are the least aggressive; they won't attack you unless provoked.
+-   You can flee from combat.
+-   Well-fed enemies will regenerate health if left alone for too long.
+-   Your objective is to locate and defeat four beast kings in a single lifetime.
+-   Defeating a beast king bestows a persistent magical buff upon you. (Those buffs persist through death.)
+-   The Boar King is more resilient than regular boars; defeating it will reduce incoming damage.
+-   The Spider King has superior speed compared to other spiders; defeating it will increase your attack speed.
+-   The Snake King consistently regenerates health, even when hungry; defeating it doubles the saturation from consumed food.
+-   The Ocelot King is larger than its counterparts; defeating it will enhance your growth speed and maximum growth size.
+
 # credits
 
 Sound effects were generated using [rFXGen](https://raylibtech.itch.io/rfxgen).
@@ -50,3 +61,5 @@ Sound effects were generated using [rFXGen](https://raylibtech.itch.io/rfxgen).
 Music track is [Creepy Forest (F)](https://opengameart.org/content/creepy-forest-f) by [Brandon Morris](https://opengameart.org/users/haeldb) under [CC0](https://creativecommons.org/publicdomain/zero/1.0/) license.
 
 Font is [Press Start 2P](https://zone38.net/font/#pressstart) by [codeman38](https://www.zone38.net/) under [SIL Open Font License](https://openfontlicense.org/).
+
+Engine is [Godot 4.2.1](https://godotengine.org/).
