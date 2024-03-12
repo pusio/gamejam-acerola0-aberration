@@ -19,7 +19,7 @@ func on_body_entered(body) -> void:
 		return
 	if !body is Node2D:
 		return
-	virtual_onPickup(body)
+	call_deferred("virtual_onPickup", body)
 	return
 
 

@@ -49,7 +49,7 @@ func prepare(
 
 func _process(delta) -> void:
 	position += (direction * speed + parentVelocity) * delta
-	pass
+	return
 
 
 # override

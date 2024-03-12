@@ -1,5 +1,5 @@
 extends Spiecies
-class_name Ocelot
+class_name Boar
 
 @onready var bodyAP: AnimationPlayer = $"../BodyAnimationPlayer"
 @onready var headAP: AnimationPlayer = $"../HeadAnimationPlayer"
@@ -10,11 +10,9 @@ class_name Ocelot
 @onready var headScaler: Node2D = $"../Origin/Anchor/Body/HeadScaler"
 @onready var collisionShape2D: CollisionShape2D = $"../CollisionShape2D"
 
-@export var movementSpeed: float = 50.0
+@export var movementSpeed: float = 120.0
 
-var speedBurst: float = 1.0
 var hasInput: bool = false
-var isJumping: bool = false
 var directionSnapshot: Vector2 = Vector2.ZERO
 var rotationSnapshot: float = 0.0
 var isAttacking: bool = false
@@ -25,8 +23,8 @@ var isAttackOnCooldown: bool = false
 
 
 func _init() -> void:
-	maxHealthUnscaled = 20.0
-	familyGroupTag = "ocelot"
+	maxHealthUnscaled = 25.0
+	familyGroupTag = "boar"
 	return
 
 
@@ -39,22 +37,18 @@ func _ready() -> void:
 
 func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) -> void:
 	# input
-	if direction:
+	if direction && !isAttacking:
 		directionSnapshot = direction
 		hasInput = true
 		# accelerate animation speed
 		bodyAP.speed_scale = move_toward(bodyAP.speed_scale, 2.5, delta)
 	else:
-		# when input is lost you can stop only if not mid-jump
 		hasInput = false
-		if !isJumping:
-			# decelerate animation speed
-			bodyAP.speed_scale = move_toward(bodyAP.speed_scale, 1.0, delta * 0.5)
 
 	# velocity
-	if hasInput || isJumping:
-		# during input or mid-jump apply velocity
-		body.velocity = directionSnapshot * movementSpeed * speedBurst * size
+	if hasInput:
+		# during input apply velocity
+		body.velocity = directionSnapshot * movementSpeed * size
 	else:
 		# otherwise stop
 		body.velocity.x = move_toward(body.velocity.x, 0, movementSpeed * size)
@@ -80,9 +74,6 @@ func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) ->
 	# apply godot physics movement
 	body.move_and_slide()
 
-	# dissipate speed burst gained from jump
-	speedBurst = move_toward(speedBurst, 0.1, delta)
-
 	updateBodyAP()
 	updateFace()
 	updateHunger(delta)
@@ -92,25 +83,12 @@ func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) ->
 func updateBodyAP() -> void:
 	if isAttacking:
 		bodyAP.play("attack")
-	elif hasInput || isJumping:
+	elif hasInput:
 		bodyAP.play("move")
 	elif bodyAP.speed_scale == 1.0:
 		bodyAP.play("sit")
 	else:
 		bodyAP.play("stand")
-	return
-
-
-# triggered by animation
-func move_jump_start() -> void:
-	speedBurst = 2.5
-	isJumping = true
-	return
-
-
-# triggered by animation
-func move_jump_end() -> void:
-	isJumping = false
 	return
 
 
@@ -141,11 +119,8 @@ func spawnAttack() -> void:
 # triggered by animation
 func attack_end() -> void:
 	isAttacking = false
-	var attackCooldown: float = randf_range(0.3, 0.35)
-	if mainBody is Player && Global.websterDefeated:
-		attackCooldown = 0.0
-	if attackCooldown > 0.0:
-		await Tools.wait(self, attackCooldown)
+	var attackCooldown: float = randf_range(0.5, 0.55)
+	await Tools.wait(self, attackCooldown)
 	isAttackOnCooldown = false
 	return
 
@@ -158,7 +133,6 @@ func virtual_attack(vector: Vector2) -> void:
 		attackVector = vector
 	isAttacking = true
 	isAttackOnCooldown = true
-	isJumping = false
 	return
 
 
@@ -189,7 +163,7 @@ func virtual_showEmotion(emotion: Emotion) -> void:
 			eyesAP.play("sad_half")
 			await Tools.wait(self, 0.5)
 			mouthAP.play("open")
-			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			eyesAP.play("sad")
 			await Tools.wait(self, 0.5)
@@ -198,21 +172,21 @@ func virtual_showEmotion(emotion: Emotion) -> void:
 			mouthAP.play("normal")
 			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
-			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			mouthAP.play("normal")
 			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
-			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			mouthAP.play("normal")
 			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
-			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 		Emotion.Cry:
 			mouthAP.play("open")
-			Tools.playSound(self, "Mew", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
 			await Tools.wait(self, randf_range(0.3, 0.5))
 			mouthAP.play("normal")
 			await Tools.wait(self, randf_range(0.5, 2.5))
@@ -227,7 +201,7 @@ func updateFace() -> void:
 	var mood: int = floor((clampi(hunger, 0, 100) + health100) / 2.0)
 	if hunger <= 20:
 		mouthAP.play("open")
-	elif mood >= 95 && !mainBody is Player:
+	elif mood >= 95:
 		mouthAP.play("smile")
 	else:
 		mouthAP.play("normal")
@@ -235,7 +209,7 @@ func updateFace() -> void:
 	if health100 == 100:
 		eyesAP.play("normal")
 	elif health100 > 80:
-		if mood >= 50 && !mainBody is Player:
+		if mood >= 50:
 			eyesAP.play("mad")
 		else:
 			eyesAP.play("normal")
@@ -275,21 +249,12 @@ func updateHunger(delta: float) -> void:
 		health = clamp(health + 0.05 * maxHealth, 0, maxHealth)
 	# grow if well fed
 	var maxGrowthSize = 1.0
-	if mainBody is Player && Global.momoDefeated:
-		maxGrowthSize = 2.0
 	if hunger > 80 && size < maxGrowthSize:
 		var growthValue = 0.015
-		if mainBody is Player && Global.momoDefeated:
-			growthValue *= 2
 		setSize(clampf(size + growthValue, 0.5, maxGrowthSize))
 		hunger -= 4
 	# faster decay if overfed
 	if hunger > 100:
 		var overfedValue: float = 1 + 0.25 * (hunger - 100)
 		hunger -= roundi(overfedValue)
-		# player heals by overeating
-		if mainBody is Player:
-			var healCap = 0.1 * maxHealth
-			var heal = clampf(overfedValue / 2.0, 0, healCap)
-			health = clampf(health + heal, 0, maxHealth)
 	return

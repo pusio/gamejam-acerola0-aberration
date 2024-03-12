@@ -260,7 +260,6 @@ func onHit(damage: float, attacker) -> void:
 			meat.global_position = global_position
 			meat.call_deferred("notCollectableYet")
 			meat.call_deferred("dropFromBody")
-			pass
 		call_deferred("queue_free")
 	else:
 		var fxTscn = preload("res://objects/fx/RedSmall.tscn")

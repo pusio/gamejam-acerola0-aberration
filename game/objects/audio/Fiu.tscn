@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1sxe6djorcsn"]
+
+[ext_resource type="AudioStream" uid="uid://ci7t73j1irm2" path="res://misc/sound/fiu.wav" id="1_dwssq"]
+
+[node name="Audio2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_dwssq")

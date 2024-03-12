@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://oawfcifwqyje"]
+[gd_scene load_steps=25 format=3 uid="uid://oawfcifwqyje"]
 
 [ext_resource type="PackedScene" uid="uid://dehr3q0im1uil" path="res://objects/terrain/TileMap.tscn" id="1_qdo8x"]
 [ext_resource type="Script" path="res://scripts/GameRoot.gd" id="1_tjyia"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b2hok81dfxwh1" path="res://objects/destroyable/RockSmall.tscn" id="22_dwymp"]
 [ext_resource type="PackedScene" uid="uid://crjfibppr5ft5" path="res://objects/destroyable/RockMedium.tscn" id="23_oo2l8"]
 [ext_resource type="PackedScene" uid="uid://bd5tc504g0265" path="res://objects/destroyable/RockBig.tscn" id="24_ej0ed"]
+[ext_resource type="PackedScene" uid="uid://bt34u26qe5eu2" path="res://objects/creatures/Boar.tscn" id="24_waym4"]
 
 [node name="Root" type="Node2D"]
 y_sort_enabled = true
@@ -196,3 +197,18 @@ position = Vector2(139, -295)
 
 [node name="Rock12" parent="." instance=ExtResource("24_ej0ed")]
 position = Vector2(147, -256)
+
+[node name="Boar" parent="." instance=ExtResource("24_waym4")]
+position = Vector2(86, 234)
+
+[node name="Boar2" parent="." instance=ExtResource("24_waym4")]
+position = Vector2(-38, 242)
+
+[node name="Boar3" parent="." instance=ExtResource("24_waym4")]
+position = Vector2(38, 251)
+
+[node name="Boar4" parent="." instance=ExtResource("24_waym4")]
+position = Vector2(-26, 317)
+
+[node name="Boar5" parent="." instance=ExtResource("24_waym4")]
+position = Vector2(78, 318)

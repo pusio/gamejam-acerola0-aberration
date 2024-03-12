@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnosj1udmdxjs"]
+
+[ext_resource type="AudioStream" uid="uid://caeucr4i4vs1i" path="res://misc/sound/chrum.wav" id="1_iq2mg"]
+
+[node name="Audio2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_iq2mg")
+volume_db = 4.0
