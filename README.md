@@ -13,7 +13,7 @@ It's encouraged to explore and figure things out on your own, yet if the game fe
 -   The size of a defeated beast determines the amount of meat dropped.
 -   Nearby beasts will attempt to steal your fruits and berries, but they won't consume meat from their own species.
 -   Ocelots are the least aggressive; they won't attack you unless provoked.
--   You can flee from combat in hopes that other spiecies aggro upon your enemy.
+-   You can flee from combat in hopes that other species aggro upon your enemy.
 -   Well-fed enemies will regenerate health if left alone for too long.
 -   Your objective is to locate and defeat four beast kings in a single lifetime.
 -   Defeating a beast king bestows a persistent magical buff upon you. (Those buffs persist through death.)

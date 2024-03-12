@@ -157,7 +157,7 @@ tracks/4/keys = {
 tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("SpieciesController")
+tracks/5/path = NodePath("SpeciesController")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1312,7 +1312,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ju0uy")
 
-[node name="SpieciesController" type="Node2D" parent="." node_paths=PackedStringArray("particleAttachmentPoint")]
+[node name="SpeciesController" type="Node2D" parent="." node_paths=PackedStringArray("particleAttachmentPoint")]
 script = ExtResource("2_xnae8")
 particleAttachmentPoint = NodePath("../Origin/Anchor/Body/ParticleAttachmentPoint")
 bossTexture = ExtResource("3_n8mgy")

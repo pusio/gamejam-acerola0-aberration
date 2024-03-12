@@ -1,5 +1,5 @@
 extends Node2D
-class_name Spiecies
+class_name Species
 
 @export var particleAttachmentPoint: Node2D
 @export var bossTexture: Texture2D
@@ -7,7 +7,7 @@ var isBoss: bool
 
 enum Emotion { Normal, Sad, Mad, Cry }
 
-var spieciesScale: float
+var speciesScale: float
 var hunger: int = 100
 var health: float
 var maxHealth: float

@@ -16,8 +16,8 @@ func prepare(player: Player):
 		self, "rotation_degrees", 360 * 5, 4.0
 	)
 	await Tools.wait(self, 4.0)
-	if player.spieciesController.health > 0:
-		player.spieciesController.attachParticle(
+	if player.speciesController.health > 0:
+		player.speciesController.attachParticle(
 			preload("res://objects/fx/MagicSpell-DeathLoop.tscn")
 		)
 		Tools.playSound(self, "Mutate", 1.0)

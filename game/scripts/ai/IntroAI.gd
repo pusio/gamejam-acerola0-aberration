@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var spieciesController: Spiecies = $SpieciesController
+@onready var speciesController: Species = $SpeciesController
 
 @export var size: float
 @export var playerTexture: Texture2D
@@ -16,40 +16,40 @@ var em: int = 0
 
 func _ready() -> void:
 	if isBoss:
-		Tools.replaceTextureInChildren(self, spieciesController.bossTexture)
-	spieciesController.updateFace()
-	spieciesController.mainBody = self
-	spieciesController.setSize(size)
+		Tools.replaceTextureInChildren(self, speciesController.bossTexture)
+	speciesController.updateFace()
+	speciesController.mainBody = self
+	speciesController.setSize(size)
 	myTarget = get_parent().get_node(name + "Target")
 	call_deferred("recalculateStats")
 	return
 
 
 func recalculateStats() -> void:
-	spieciesController.hunger = randi_range(50, 500)
-	spieciesController.health = randf_range(0.8, 1.0) * spieciesController.maxHealth
+	speciesController.hunger = randi_range(50, 500)
+	speciesController.health = randf_range(0.8, 1.0) * speciesController.maxHealth
 	return
 
 
 func _physics_process(delta: float) -> void:
-	spieciesController.virtual_process(self, delta, direction)
-	spieciesController.virtual_lookAt(lookAt)
+	speciesController.virtual_process(self, delta, direction)
+	speciesController.virtual_lookAt(lookAt)
 	aiCheats()
 	followTarget()
 	if em == 1:
-		spieciesController.virtual_showEmotion(Spiecies.Emotion.Mad)
+		speciesController.virtual_showEmotion(Species.Emotion.Mad)
 	if em == 2:
-		spieciesController.virtual_showEmotion(Spiecies.Emotion.Sad)
+		speciesController.virtual_showEmotion(Species.Emotion.Sad)
 	return
 
 
 func aiCheats() -> void:
-	spieciesController.hunger = 100
+	speciesController.hunger = 100
 	return
 
 
 func followTarget() -> void:
-	spieciesController.virtual_lookAt(myTarget.position - position)
+	speciesController.virtual_lookAt(myTarget.position - position)
 
 	if canMove:
 		var dist = position.distance_squared_to(myTarget.position)
@@ -96,12 +96,12 @@ func anim_turnPlayer() -> void:
 	sprite.modulate = Color(1.0, 0.0, 0.0, 1.0)
 	tween.tween_property(sprite, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.3)
 	await Tools.wait(self, 0.1)
-	spieciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
+	speciesController.attachParticle(preload("res://objects/fx/MagicSpell-DeathLoop.tscn"))
 	await Tools.wait(self, 0.5)
 	Tools.replaceTextureInChildren(self, playerTexture)
 	return
 
 
 func anim_attack() -> void:
-	spieciesController.virtual_attack((myTarget.position - position).normalized())
+	speciesController.virtual_attack((myTarget.position - position).normalized())
 	return

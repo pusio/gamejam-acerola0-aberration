@@ -1,4 +1,4 @@
-extends Spiecies
+extends Species
 class_name Snake
 
 @onready var bodyAP: AnimationPlayer = $"../BodyAnimationPlayer"
@@ -23,7 +23,7 @@ var minMoveTime: float
 
 
 func _init() -> void:
-	spieciesScale = 0.7
+	speciesScale = 0.7
 	maxHealthUnscaled = 15.0
 	familyGroupTag = "snake"
 	return
@@ -233,8 +233,8 @@ func updateFace() -> void:
 
 
 func virtual_onSetSize() -> void:
-	origin.scale.x = sign(origin.scale.x) * size * spieciesScale
-	origin.scale.y = size * spieciesScale
+	origin.scale.x = sign(origin.scale.x) * size * speciesScale
+	origin.scale.y = size * speciesScale
 	var headSize = Tools.bodySizeToHeadSize(size)
 	headScaler.scale = Vector2(headSize, headSize)
 	collisionShape2D.scale = Vector2(size, size)

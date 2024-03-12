@@ -1,4 +1,4 @@
-extends Spiecies
+extends Species
 class_name Ocelot
 
 @onready var bodyAP: AnimationPlayer = $"../BodyAnimationPlayer"
@@ -24,7 +24,7 @@ var isAttackOnCooldown: bool = false
 
 
 func _init() -> void:
-	spieciesScale = 1.0
+	speciesScale = 1.0
 	maxHealthUnscaled = 20.0
 	familyGroupTag = "ocelot"
 	return
@@ -255,8 +255,8 @@ func updateFace() -> void:
 
 
 func virtual_onSetSize() -> void:
-	origin.scale.x = sign(origin.scale.x) * size * spieciesScale
-	origin.scale.y = size * spieciesScale
+	origin.scale.x = sign(origin.scale.x) * size * speciesScale
+	origin.scale.y = size * speciesScale
 	var headSize = Tools.bodySizeToHeadSize(size)
 	headScaler.scale = Vector2(headSize, headSize)
 	collisionShape2D.scale = Vector2(size, size)

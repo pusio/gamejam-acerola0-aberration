@@ -10,7 +10,7 @@ radius = 8.0
 [node name="Meat" type="Area2D"]
 script = ExtResource("1_ptc5a")
 nutrition = 9
-ownerSpiecies = "spider"
+ownerSpecies = "spider"
 randomSize = Vector2(0.8, 1.2)
 dropSpread = 50.0
 

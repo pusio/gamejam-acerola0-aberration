@@ -46,7 +46,7 @@ followSpeed = 20.0
 [node name="PlayerSpawnPoint" type="Node2D" parent="."]
 position = Vector2(6865, 1293)
 script = ExtResource("4_b5rrg")
-playerSpiecies = ExtResource("5_70dhb")
+playerSpecies = ExtResource("5_70dhb")
 playerTexture = ExtResource("5_e5rry")
 playerScript = ExtResource("7_xk5xm")
 

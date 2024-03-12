@@ -3,7 +3,7 @@ class_name BeastAI
 
 @export var isBoss: bool
 
-@onready var spieciesController: Spiecies = $SpieciesController
+@onready var speciesController: Species = $SpeciesController
 @onready var sightArea: Area2D = $SightArea
 
 var direction: Vector2 = Vector2.ZERO
@@ -22,17 +22,17 @@ var friendFollowTime: float
 
 
 func _ready() -> void:
-	spieciesController.isBoss = isBoss
-	spieciesController.updateFace()
-	spieciesController.mainBody = self
+	speciesController.isBoss = isBoss
+	speciesController.updateFace()
+	speciesController.mainBody = self
 	if isBoss:
-		Tools.replaceTextureInChildren(self, spieciesController.bossTexture)
-		if spieciesController is Ocelot:
-			spieciesController.setSize(2.0)
+		Tools.replaceTextureInChildren(self, speciesController.bossTexture)
+		if speciesController is Ocelot:
+			speciesController.setSize(2.0)
 		else:
-			spieciesController.setSize(1.5)
+			speciesController.setSize(1.5)
 	else:
-		spieciesController.setSize(randf_range(0.5, 1.0))
+		speciesController.setSize(randf_range(0.5, 1.0))
 
 	currentLogic = logicIdle
 	logicBusy = false
@@ -42,13 +42,13 @@ func _ready() -> void:
 
 
 func recalculateStats() -> void:
-	spieciesController.hunger = randi_range(50, 500)
-	spieciesController.health = randf_range(0.8, 1.0) * spieciesController.maxHealth
+	speciesController.hunger = randi_range(50, 500)
+	speciesController.health = randf_range(0.8, 1.0) * speciesController.maxHealth
 	return
 
 
 func _physics_process(delta: float) -> void:
-	spieciesController.virtual_process(self, delta, direction)
+	speciesController.virtual_process(self, delta, direction)
 	if shouldBeAbleToMove:
 		var lastCollision = get_last_slide_collision()
 		if lastCollision != null:
@@ -60,8 +60,8 @@ func _physics_process(delta: float) -> void:
 					|| (
 						collider is BeastAI  # attack if blocked by enemy faction
 						&& (
-							(collider as BeastAI).spieciesController.familyGroupTag
-							!= spieciesController.familyGroupTag
+							(collider as BeastAI).speciesController.familyGroupTag
+							!= speciesController.familyGroupTag
 						)
 					)
 				):
@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		anger = 0.0
 	if anger >= 0.5:
-		spieciesController.virtual_attack(direction)
+		speciesController.virtual_attack(direction)
 	aiCheats()
 	if agroTime > 0:
 		agroTime -= delta
@@ -89,8 +89,8 @@ func _physics_process(delta: float) -> void:
 
 func aiCheats() -> void:
 	# don't starve
-	if spieciesController.hunger < 10:
-		spieciesController.hunger = 10
+	if speciesController.hunger < 10:
+		speciesController.hunger = 10
 
 
 func rethinkLogic() -> void:
@@ -101,10 +101,10 @@ func rethinkLogic() -> void:
 		if !enemyToFollow.is_inside_tree():
 			enemyToFollow = null
 		elif enemyToFollow is Player:
-			if (enemyToFollow as Player).spieciesController.health <= 0:
+			if (enemyToFollow as Player).speciesController.health <= 0:
 				enemyToFollow = null
 		elif enemyToFollow is BeastAI:
-			if (enemyToFollow as BeastAI).spieciesController.health <= 0:
+			if (enemyToFollow as BeastAI).speciesController.health <= 0:
 				enemyToFollow = null
 	# cleanup destroyed food
 	if foodToFollow != null:
@@ -118,10 +118,10 @@ func rethinkLogic() -> void:
 		if !friendToFollow.is_inside_tree():
 			friendToFollow = null
 		elif friendToFollow is Player:
-			if (friendToFollow as Player).spieciesController.health <= 0:
+			if (friendToFollow as Player).speciesController.health <= 0:
 				friendToFollow = null
 		elif friendToFollow is BeastAI:
-			if (friendToFollow as BeastAI).spieciesController.health <= 0:
+			if (friendToFollow as BeastAI).speciesController.health <= 0:
 				friendToFollow = null
 	# return to spawn if wandered too far
 	if agroTime <= 0 && position.distance_squared_to(spawnPoint) > 4194304:
@@ -154,8 +154,8 @@ func logicIdle() -> void:
 	# look for food
 	for area in sightArea.get_overlapping_areas():
 		if area is Food && (area as Food).isOnGround:
-			# not interested in meat of my own spiecies
-			if (area as Food).ownerSpiecies == spieciesController.familyGroupTag:
+			# not interested in meat of my own species
+			if (area as Food).ownerSpecies == speciesController.familyGroupTag:
 				continue
 			foodToFollow = area
 			friendToFollow = null
@@ -165,16 +165,16 @@ func logicIdle() -> void:
 	# look for enemies
 	for body in sightArea.get_overlapping_bodies():
 		# non-ocelot agroes on player
-		if body is Player && !spieciesController is Ocelot:
+		if body is Player && !speciesController is Ocelot:
 			enemyToFollow = body
 			logicBusy = false
 			return
-		# ai beasts agro on other spiecies
+		# ai beasts agro on other species
 		if (
 			body is BeastAI
 			&& (
-				(body as BeastAI).spieciesController.familyGroupTag
-				!= spieciesController.familyGroupTag
+				(body as BeastAI).speciesController.familyGroupTag
+				!= speciesController.familyGroupTag
 			)
 		):
 			enemyToFollow = body
@@ -196,7 +196,7 @@ func logicIdle() -> void:
 	# wander
 	elif !isBoss:
 		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-		spieciesController.virtual_lookAt(Vector2.ZERO)
+		speciesController.virtual_lookAt(Vector2.ZERO)
 		shouldBeAbleToMove = true
 		await Tools.wait(self, randf_range(0.2, 0.8))
 	logicBusy = false
@@ -205,7 +205,7 @@ func logicIdle() -> void:
 
 func logicFollowFriend() -> void:
 	if friendToFollow != null:
-		spieciesController.virtual_lookAt(friendToFollow.position - position)
+		speciesController.virtual_lookAt(friendToFollow.position - position)
 		var dist = position.distance_squared_to(friendToFollow.position)
 		if dist > 4096:
 			direction = (friendToFollow.position - position).normalized()
@@ -213,33 +213,33 @@ func logicFollowFriend() -> void:
 		else:
 			direction = Vector2.ZERO
 	else:
-		spieciesController.virtual_lookAt(Vector2.ZERO)
+		speciesController.virtual_lookAt(Vector2.ZERO)
 	return
 
 
 func logicFollowFood() -> void:
 	if foodToFollow != null:
-		spieciesController.virtual_lookAt(foodToFollow.position - position)
+		speciesController.virtual_lookAt(foodToFollow.position - position)
 		direction = (foodToFollow.position - position).normalized()
 		shouldBeAbleToMove = true
 	else:
-		spieciesController.virtual_lookAt(Vector2.ZERO)
+		speciesController.virtual_lookAt(Vector2.ZERO)
 		foodToFollow = null
 	return
 
 
 func logicAttackEnemy() -> void:
 	if enemyToFollow != null:
-		spieciesController.virtual_lookAt(enemyToFollow.position - position)
+		speciesController.virtual_lookAt(enemyToFollow.position - position)
 		var dist = position.distance_squared_to(enemyToFollow.position)
 		if dist > 4096:
 			direction = (enemyToFollow.position - position).normalized()
 			shouldBeAbleToMove = true
 		else:
 			direction = Vector2.ZERO
-			spieciesController.virtual_attack((enemyToFollow.position - position).normalized())
+			speciesController.virtual_attack((enemyToFollow.position - position).normalized())
 	else:
-		spieciesController.virtual_lookAt(Vector2.ZERO)
+		speciesController.virtual_lookAt(Vector2.ZERO)
 	return
 
 
@@ -248,7 +248,7 @@ func logicReturnToSpawn() -> void:
 		logicLocked = true
 	else:
 		logicLocked = false
-	spieciesController.virtual_lookAt(spawnPoint - global_position)
+	speciesController.virtual_lookAt(spawnPoint - global_position)
 	direction = (spawnPoint - global_position).normalized()
 	shouldBeAbleToMove = true
 	return
@@ -261,7 +261,7 @@ func findClosestFriend(searchDistance: float) -> Node2D:
 	var searchDistanceSquared = searchDistance * searchDistance
 	var closestBeast: Node2D = null
 	var closestDistance: float = 10000
-	for beast in get_tree().get_nodes_in_group(spieciesController.familyGroupTag):
+	for beast in get_tree().get_nodes_in_group(speciesController.familyGroupTag):
 		if beast == self:
 			continue
 		var dist = position.distance_squared_to(beast.position)
@@ -275,18 +275,18 @@ func findClosestFriend(searchDistance: float) -> Node2D:
 
 func onHit(damage: float, attacker) -> void:
 	if attacker != null:
-		# get spiecies controller
+		# get species controller
 		var attackerSC = null
 		var playerSizeNerf = 1.0
 		if attacker is Player:
-			attackerSC = (attacker as Player).spieciesController
+			attackerSC = (attacker as Player).speciesController
 			# attacking player is less important than other ai
 			playerSizeNerf = 0.1
 		elif attacker is BeastAI:
-			attackerSC = (attacker as BeastAI).spieciesController
+			attackerSC = (attacker as BeastAI).speciesController
 		# if attacker is from different family
 		var shouldAggro = false
-		if attackerSC != null && attackerSC.familyGroupTag != spieciesController.familyGroupTag:
+		if attackerSC != null && attackerSC.familyGroupTag != speciesController.familyGroupTag:
 			agroTime = 10.0
 			# always attack if there is no target
 			if enemyToFollow == null:
@@ -295,13 +295,13 @@ func onHit(damage: float, attacker) -> void:
 			else:
 				var enemySC = null
 				if enemyToFollow is Player:
-					enemySC = (enemyToFollow as Player).spieciesController
+					enemySC = (enemyToFollow as Player).speciesController
 				if enemyToFollow is BeastAI:
-					enemySC = (enemyToFollow as BeastAI).spieciesController
+					enemySC = (enemyToFollow as BeastAI).speciesController
 				if enemySC != null:
 					if (
-						attackerSC.size * attackerSC.spieciesScale * playerSizeNerf
-						> enemySC.size * enemySC.spieciesScale
+						attackerSC.size * attackerSC.speciesScale * playerSizeNerf
+						> enemySC.size * enemySC.speciesScale
 					):
 						shouldAggro = true
 		# aggro
@@ -309,13 +309,13 @@ func onHit(damage: float, attacker) -> void:
 			enemyToFollow = attacker
 			friendToFollow = null
 			foodToFollow = null
-			spieciesController.virtual_showEmotion(Spiecies.Emotion.Mad)
-	if isBoss && spieciesController is Boar:
-		spieciesController.health -= damage * 0.5
+			speciesController.virtual_showEmotion(Species.Emotion.Mad)
+	if isBoss && speciesController is Boar:
+		speciesController.health -= damage * 0.5
 	else:
-		spieciesController.health -= damage
-	spieciesController.virtual_showEmotion(Spiecies.Emotion.Cry)
-	if spieciesController.health <= 0:
+		speciesController.health -= damage
+	speciesController.virtual_showEmotion(Species.Emotion.Cry)
+	if speciesController.health <= 0:
 		if isBoss:
 			var player: Player = Tools.getRoot(self).get_node("Player")
 			if player != null:
@@ -323,19 +323,19 @@ func onHit(damage: float, attacker) -> void:
 				player.add_child(evilFx)
 				evilFx.position = Vector2(-2, -2)
 				evilFx.call_deferred("prepare", player)
-			if spieciesController is Ocelot:
+			if speciesController is Ocelot:
 				Global.momoDefeated = true
 				Global.bossesKilledInThisLife += 1
 				print("momo is dead")
-			elif spieciesController is Boar:
+			elif speciesController is Boar:
 				Global.boarisDefeated = true
 				Global.bossesKilledInThisLife += 1
 				print("boaris is dead")
-			elif spieciesController is Spider:
+			elif speciesController is Spider:
 				Global.websterDefeated = true
 				Global.bossesKilledInThisLife += 1
 				print("webster is dead")
-			elif spieciesController is Snake:
+			elif speciesController is Snake:
 				Global.sneksquikDefeated = true
 				Global.bossesKilledInThisLife += 1
 				print("sneksquik is dead")
@@ -346,18 +346,18 @@ func onHit(damage: float, attacker) -> void:
 		var root = Tools.getRoot(self)
 		root.add_child(fx)
 		fx.global_position = self.global_position
-		Tools.playSound(self, "Death", Tools.sizeToPitch(spieciesController.size))
+		Tools.playSound(self, "Death", Tools.sizeToPitch(speciesController.size))
 		var meatTscn = load(
-			"res://objects/collectables/meat/%s.tscn" % spieciesController.familyGroupTag
+			"res://objects/collectables/meat/%s.tscn" % speciesController.familyGroupTag
 		)
-		var meatCount = roundi(spieciesController.size * spieciesController.spieciesScale / 0.2925)
+		var meatCount = roundi(speciesController.size * speciesController.speciesScale / 0.2925)
 		for i in range(meatCount):
 			var meat = meatTscn.instantiate()
 			root.add_child(meat)
 			meat.global_position = global_position
 			meat.call_deferred("notCollectableYet")
 			meat.call_deferred(
-				"dropFromBody", spieciesController.size * spieciesController.spieciesScale
+				"dropFromBody", speciesController.size * speciesController.speciesScale
 			)
 		call_deferred("queue_free")
 	else:
@@ -368,11 +368,11 @@ func onHit(damage: float, attacker) -> void:
 		modulate = Color(1, 0, 0, 1)
 		var tween = create_tween()
 		tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.2)
-		Tools.playSound(self, "Thump", Tools.sizeToPitch(spieciesController.size))
+		Tools.playSound(self, "Thump", Tools.sizeToPitch(speciesController.size))
 	return
 
 
 func eatFood(nutrition: int) -> void:
-	spieciesController.hunger = spieciesController.hunger + nutrition
+	speciesController.hunger = speciesController.hunger + nutrition
 	foodToFollow = null
 	return

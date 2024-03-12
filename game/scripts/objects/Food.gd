@@ -2,7 +2,7 @@ extends Collectable
 class_name Food
 
 @export var nutrition: int
-@export var ownerSpiecies: String
+@export var ownerSpecies: String
 @export var randomSize: Vector2 = Vector2(1.0, 1.0)
 @export var dropSpread: float = 5
 @export var megaMode: bool = false
@@ -32,10 +32,10 @@ func virtual_onReady() -> void:
 func virtual_onPickup(body: Node2D) -> void:
 	if isConsumed:
 		return
-	# cant eat own spiecies (ai only)
+	# cant eat own species (ai only)
 	if body is BeastAI:
 		var beast = body as BeastAI
-		if beast.spieciesController.familyGroupTag == ownerSpiecies:
+		if beast.speciesController.familyGroupTag == ownerSpecies:
 			return
 	if body.has_method("eatFood"):
 		Tools.playSound(body, "Eat", Tools.sizeToPitch(nutrition / 4.0))

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var playerSpiecies: PackedScene
+@export var playerSpecies: PackedScene
 @export var playerTexture: Texture2D
 @export var playerScript: Script
 
@@ -9,7 +9,7 @@ func _ready() -> void:
 	if Global.deaths > 0:
 		Tools.playSound(self, "Wierd", clampf(1.2 - Global.deaths * 0.01, 0.75, 1.2))
 	# setup player
-	var player = playerSpiecies.instantiate()
+	var player = playerSpecies.instantiate()
 	get_parent().call_deferred("add_child", player)
 	player.global_position = global_position
 	player.set_script(playerScript)
