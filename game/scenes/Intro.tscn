@@ -645,7 +645,7 @@ offset_right = 616.0
 offset_bottom = 304.0
 theme = SubResource("Theme_plgc6")
 bbcode_enabled = true
-text = "[center]Controlls:
+text = "[center]Controls:
 
 
 To move your beast, use the [color=#93ff80]WSAD[/color] keys. 
