@@ -5,6 +5,7 @@ class_name Spiecies
 
 enum Emotion { Normal, Sad, Mad, Cry }
 
+var spieciesScale: float
 var hunger: int = 100
 var health: float
 var maxHealth: float

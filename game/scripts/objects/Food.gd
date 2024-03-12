@@ -9,6 +9,7 @@ class_name Food
 @onready var sprite: Sprite2D = $Sprite
 @onready var shadow: Sprite2D = $"-Shadow"
 var isOnGround: bool = true
+var isConsumed = false
 
 
 # override
@@ -24,6 +25,8 @@ func virtual_onReady() -> void:
 
 # override
 func virtual_onPickup(body: Node2D) -> void:
+	if isConsumed:
+		return
 	# cant eat own spiecies (ai only)
 	if body is BeastAI:
 		var beast = body as BeastAI
@@ -32,6 +35,7 @@ func virtual_onPickup(body: Node2D) -> void:
 	if body.has_method("eatFood"):
 		Tools.playSound(body, "Eat", Tools.sizeToPitch(nutrition / 4.0))
 		body.eatFood(nutrition)
+		isConsumed = true
 		queue_free()
 	return
 
@@ -70,10 +74,12 @@ func dropOnGround(height: int) -> void:
 	shadow.visible = true
 
 
-func dropFromBody() -> void:
+func dropFromBody(bodySize: float) -> void:
 	if isOnGround:
 		return
 	isOnGround = true
+	set_deferred("scale", scale * bodySize)
+	nutrition = roundi(nutrition * bodySize)
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_QUINT)

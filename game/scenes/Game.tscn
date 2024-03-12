@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://oawfcifwqyje"]
+[gd_scene load_steps=26 format=3 uid="uid://oawfcifwqyje"]
 
 [ext_resource type="PackedScene" uid="uid://dehr3q0im1uil" path="res://objects/terrain/TileMap.tscn" id="1_qdo8x"]
 [ext_resource type="Script" path="res://scripts/GameRoot.gd" id="1_tjyia"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://crjfibppr5ft5" path="res://objects/destroyable/RockMedium.tscn" id="23_oo2l8"]
 [ext_resource type="PackedScene" uid="uid://bd5tc504g0265" path="res://objects/destroyable/RockBig.tscn" id="24_ej0ed"]
 [ext_resource type="PackedScene" uid="uid://bt34u26qe5eu2" path="res://objects/creatures/Boar.tscn" id="24_waym4"]
+[ext_resource type="PackedScene" uid="uid://dqidokn66sruh" path="res://objects/creatures/Snake.tscn" id="25_nhhcv"]
 
 [node name="Root" type="Node2D"]
 y_sort_enabled = true
@@ -212,3 +213,15 @@ position = Vector2(-26, 317)
 
 [node name="Boar5" parent="." instance=ExtResource("24_waym4")]
 position = Vector2(78, 318)
+
+[node name="Snake" parent="." instance=ExtResource("25_nhhcv")]
+position = Vector2(-222, -127)
+
+[node name="Snake2" parent="." instance=ExtResource("25_nhhcv")]
+position = Vector2(-163, -173)
+
+[node name="Snake3" parent="." instance=ExtResource("25_nhhcv")]
+position = Vector2(-232, -176)
+
+[node name="Snake4" parent="." instance=ExtResource("25_nhhcv")]
+position = Vector2(-293, -155)

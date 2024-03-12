@@ -15,6 +15,8 @@ var logicLocked: bool
 var spawnPoint: Vector2
 var shouldBeAbleToMove: bool
 var anger: float
+var agroTime: float
+var friendFollowTime: float
 
 
 func _ready() -> void:
@@ -61,6 +63,14 @@ func _physics_process(delta: float) -> void:
 	if anger >= 0.5:
 		spieciesController.virtual_attack(direction)
 	aiCheats()
+	if agroTime > 0:
+		agroTime -= delta
+		if agroTime <= 0:
+			enemyToFollow = null
+	if friendFollowTime > 0:
+		friendFollowTime -= delta
+		if friendFollowTime <= 0:
+			friendToFollow = null
 	if !logicBusy:
 		rethinkLogic()
 		currentLogic.call()
@@ -76,15 +86,35 @@ func aiCheats() -> void:
 func rethinkLogic() -> void:
 	if logicLocked:
 		return
-	# cleanup destroyed
-	if enemyToFollow != null && !enemyToFollow.is_inside_tree():
-		enemyToFollow = null
-	if foodToFollow != null && !foodToFollow.is_inside_tree():
-		foodToFollow = null
-	if friendToFollow != null && !friendToFollow.is_inside_tree():
-		friendToFollow = null
+	# cleanup destroyed enemies
+	if enemyToFollow != null:
+		if !enemyToFollow.is_inside_tree():
+			enemyToFollow = null
+		elif enemyToFollow is Player:
+			if (enemyToFollow as Player).spieciesController.health <= 0:
+				enemyToFollow = null
+		elif enemyToFollow is BeastAI:
+			if (enemyToFollow as BeastAI).spieciesController.health <= 0:
+				enemyToFollow = null
+	# cleanup destroyed food
+	if foodToFollow != null:
+		if !foodToFollow.is_inside_tree():
+			foodToFollow = null
+		elif foodToFollow is Food:
+			if (foodToFollow as Food).isConsumed:
+				foodToFollow = null
+	# cleanup destroyed friends
+	if friendToFollow != null:
+		if !friendToFollow.is_inside_tree():
+			friendToFollow = null
+		elif friendToFollow is Player:
+			if (friendToFollow as Player).spieciesController.health <= 0:
+				friendToFollow = null
+		elif friendToFollow is BeastAI:
+			if (friendToFollow as BeastAI).spieciesController.health <= 0:
+				friendToFollow = null
 	# return to spawn if wandered too far
-	if position.distance_squared_to(spawnPoint) > 65536:
+	if agroTime <= 0 && position.distance_squared_to(spawnPoint) > 4194304:
 		enemyToFollow = null
 		foodToFollow = null
 		friendToFollow = null
@@ -118,6 +148,8 @@ func logicIdle() -> void:
 			if (area as Food).ownerSpiecies == spieciesController.familyGroupTag:
 				continue
 			foodToFollow = area
+			friendToFollow = null
+			enemyToFollow = null
 			logicBusy = false
 			return
 	# look for enemies
@@ -146,6 +178,9 @@ func logicIdle() -> void:
 	# follow friend
 	elif randf() > 0.3:
 		friendToFollow = findClosestFriend(4096.0)
+		friendFollowTime = 10.0
+		enemyToFollow = null
+		foodToFollow = null
 		shouldBeAbleToMove = false
 		await Tools.wait(self, randf_range(2, 5))
 	# wander
@@ -241,6 +276,9 @@ func onHit(damage: float, attacker) -> void:
 			)
 		):
 			enemyToFollow = attacker
+			friendToFollow = null
+			foodToFollow = null
+			agroTime = 10.0
 			spieciesController.virtual_showEmotion(Spiecies.Emotion.Mad)
 	spieciesController.health -= damage
 	spieciesController.virtual_showEmotion(Spiecies.Emotion.Cry)
@@ -254,13 +292,15 @@ func onHit(damage: float, attacker) -> void:
 		var meatTscn = load(
 			"res://objects/collectables/meat/%s.tscn" % spieciesController.familyGroupTag
 		)
-		var meatCount = roundi(spieciesController.size / 0.1725)
+		var meatCount = roundi(spieciesController.size * spieciesController.spieciesScale / 0.2925)
 		for i in range(meatCount):
 			var meat = meatTscn.instantiate()
 			root.add_child(meat)
 			meat.global_position = global_position
 			meat.call_deferred("notCollectableYet")
-			meat.call_deferred("dropFromBody")
+			meat.call_deferred(
+				"dropFromBody", spieciesController.size * spieciesController.spieciesScale
+			)
 		call_deferred("queue_free")
 	else:
 		var fxTscn = preload("res://objects/fx/RedSmall.tscn")

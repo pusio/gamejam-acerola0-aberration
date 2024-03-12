@@ -4,3 +4,4 @@
 
 [node name="Audio2D" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_iy6gl")
+volume_db = 1.0

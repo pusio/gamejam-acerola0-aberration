@@ -10,8 +10,7 @@ class_name Ocelot
 @onready var headScaler: Node2D = $"../Origin/Anchor/Body/HeadScaler"
 @onready var collisionShape2D: CollisionShape2D = $"../CollisionShape2D"
 
-@export var movementSpeed: float = 50.0
-
+var movementSpeed: float = 50.0
 var speedBurst: float = 1.0
 var hasInput: bool = false
 var isJumping: bool = false
@@ -25,6 +24,7 @@ var isAttackOnCooldown: bool = false
 
 
 func _init() -> void:
+	spieciesScale = 1.0
 	maxHealthUnscaled = 20.0
 	familyGroupTag = "ocelot"
 	return
@@ -249,8 +249,8 @@ func updateFace() -> void:
 
 
 func virtual_onSetSize() -> void:
-	origin.scale.x = sign(origin.scale.x) * size
-	origin.scale.y = size
+	origin.scale.x = sign(origin.scale.x) * size * spieciesScale
+	origin.scale.y = size * spieciesScale
 	var headSize = Tools.bodySizeToHeadSize(size)
 	headScaler.scale = Vector2(headSize, headSize)
 	collisionShape2D.scale = Vector2(size, size)

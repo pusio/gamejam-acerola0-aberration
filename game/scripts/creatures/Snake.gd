@@ -1,5 +1,5 @@
 extends Spiecies
-class_name Boar
+class_name Snake
 
 @onready var bodyAP: AnimationPlayer = $"../BodyAnimationPlayer"
 @onready var headAP: AnimationPlayer = $"../HeadAnimationPlayer"
@@ -23,9 +23,9 @@ var minMoveTime: float
 
 
 func _init() -> void:
-	spieciesScale = 1.2
-	maxHealthUnscaled = 25.0
-	familyGroupTag = "boar"
+	spieciesScale = 0.7
+	maxHealthUnscaled = 10.0
+	familyGroupTag = "snake"
 	return
 
 
@@ -108,7 +108,7 @@ func spawnAttack() -> void:
 	Tools.getRoot(self).add_child(atk)
 	atk.prepare(
 		attackVector,
-		0.7,
+		0.35,
 		size,
 		mainBody.velocity,
 		mainBody,
@@ -121,7 +121,7 @@ func spawnAttack() -> void:
 # triggered by animation
 func attack_end() -> void:
 	isAttacking = false
-	var attackCooldown: float = randf_range(0.5, 0.55)
+	var attackCooldown: float = randf_range(0.4, 0.45)
 	await Tools.wait(self, attackCooldown)
 	isAttackOnCooldown = false
 	return
@@ -165,7 +165,7 @@ func virtual_showEmotion(emotion: Emotion) -> void:
 			eyesAP.play("sad_half")
 			await Tools.wait(self, 0.5)
 			mouthAP.play("open")
-			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Ssss", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			eyesAP.play("sad")
 			await Tools.wait(self, 0.5)
@@ -174,21 +174,21 @@ func virtual_showEmotion(emotion: Emotion) -> void:
 			mouthAP.play("normal")
 			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
-			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Ssss", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			mouthAP.play("normal")
 			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
-			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Ssss", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 			mouthAP.play("normal")
 			await Tools.wait(self, randf_range(0.5, 1.0))
 			mouthAP.play("open")
-			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Ssss", Tools.sizeToPitch(size))
 			await Tools.wait(self, 0.5)
 		Emotion.Cry:
 			mouthAP.play("open")
-			Tools.playSound(self, "Chrum", Tools.sizeToPitch(size))
+			Tools.playSound(self, "Ssss", Tools.sizeToPitch(size))
 			await Tools.wait(self, randf_range(0.3, 0.5))
 			mouthAP.play("normal")
 			await Tools.wait(self, randf_range(0.5, 2.5))
