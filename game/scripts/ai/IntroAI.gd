@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var size: float
 @export var playerTexture: Texture2D
 @export var canMove: bool
+@export var isBoss: bool
 
 var lookAt: Vector2
 var direction: Vector2
@@ -14,6 +15,8 @@ var em: int = 0
 
 
 func _ready() -> void:
+	if isBoss:
+		Tools.replaceTextureInChildren(self, spieciesController.bossTexture)
 	spieciesController.updateFace()
 	spieciesController.mainBody = self
 	spieciesController.setSize(size)

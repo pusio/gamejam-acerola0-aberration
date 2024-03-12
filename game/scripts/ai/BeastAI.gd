@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name BeastAI
 
+@export var isBoss: bool
+
 @onready var spieciesController: Spiecies = $SpieciesController
 @onready var sightArea: Area2D = $SightArea
 
@@ -20,9 +22,17 @@ var friendFollowTime: float
 
 
 func _ready() -> void:
+	spieciesController.isBoss = isBoss
 	spieciesController.updateFace()
 	spieciesController.mainBody = self
-	spieciesController.setSize(randf_range(0.5, 1.0))
+	if isBoss:
+		Tools.replaceTextureInChildren(self, spieciesController.bossTexture)
+		if spieciesController is Ocelot:
+			spieciesController.setSize(2.0)
+		else:
+			spieciesController.setSize(1.5)
+	else:
+		spieciesController.setSize(randf_range(0.5, 1.0))
 
 	currentLogic = logicIdle
 	logicBusy = false
@@ -176,7 +186,7 @@ func logicIdle() -> void:
 		shouldBeAbleToMove = false
 		await Tools.wait(self, randf_range(0.5, 2.0))
 	# follow friend
-	elif randf() > 0.3:
+	elif randf() > 0.3 && !isBoss:
 		friendToFollow = findClosestFriend(4096.0)
 		friendFollowTime = 10.0
 		enemyToFollow = null
@@ -184,7 +194,7 @@ func logicIdle() -> void:
 		shouldBeAbleToMove = false
 		await Tools.wait(self, randf_range(2, 5))
 	# wander
-	else:
+	elif !isBoss:
 		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 		spieciesController.virtual_lookAt(Vector2.ZERO)
 		shouldBeAbleToMove = true
@@ -264,25 +274,61 @@ func findClosestFriend(searchDistance: float) -> Node2D:
 
 
 func onHit(damage: float, attacker) -> void:
-	if enemyToFollow == null && attacker != null:
-		if (
-			attacker is Player
-			|| (
-				attacker is BeastAI
-				&& (
-					(attacker as BeastAI).spieciesController.familyGroupTag
-					!= spieciesController.familyGroupTag
-				)
-			)
-		):
+	if attacker != null:
+		# get spiecies controller
+		var attackerSC = null
+		var playerSizeNerf = 1.0
+		if attacker is Player:
+			attackerSC = (attacker as Player).spieciesController
+			# attacking player is less important than other ai
+			playerSizeNerf = 0.1
+		elif attacker is BeastAI:
+			attackerSC = (attacker as BeastAI).spieciesController
+		# if attacker is from different family
+		var shouldAggro = false
+		if attackerSC != null && attackerSC.familyGroupTag != spieciesController.familyGroupTag:
+			agroTime = 10.0
+			# always attack if there is no target
+			if enemyToFollow == null:
+				shouldAggro = true
+			# attack bigger enemy first
+			else:
+				var enemySC = null
+				if enemyToFollow is Player:
+					enemySC = (enemyToFollow as Player).spieciesController
+				if enemyToFollow is BeastAI:
+					enemySC = (enemyToFollow as BeastAI).spieciesController
+				if enemySC != null:
+					if (
+						attackerSC.size * attackerSC.spieciesScale * playerSizeNerf
+						> enemySC.size * enemySC.spieciesScale
+					):
+						shouldAggro = true
+		# aggro
+		if shouldAggro:
 			enemyToFollow = attacker
 			friendToFollow = null
 			foodToFollow = null
-			agroTime = 10.0
 			spieciesController.virtual_showEmotion(Spiecies.Emotion.Mad)
-	spieciesController.health -= damage
+	if isBoss && spieciesController is Boar:
+		spieciesController.health -= damage * 0.5
+	else:
+		spieciesController.health -= damage
 	spieciesController.virtual_showEmotion(Spiecies.Emotion.Cry)
 	if spieciesController.health <= 0:
+		if isBoss:
+			if spieciesController is Ocelot:
+				Global.momoDefeated = true
+				print("momo is dead")
+			elif spieciesController is Boar:
+				Global.boarisDefeated = true
+				print("boaris is dead")
+			elif spieciesController is Spider:
+				Global.websterDefeated = true
+				print("webster is dead")
+			elif spieciesController is Snake:
+				Global.sneksquikDefeated = true
+				print("sneksquik is dead")
 		var fxTscn = preload("res://objects/fx/RedBig.tscn")
 		var fx = fxTscn.instantiate()
 		var root = Tools.getRoot(self)

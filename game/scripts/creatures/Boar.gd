@@ -24,7 +24,7 @@ var minMoveTime: float
 
 func _init() -> void:
 	spieciesScale = 1.2
-	maxHealthUnscaled = 25.0
+	maxHealthUnscaled = 30.0
 	familyGroupTag = "boar"
 	return
 
@@ -43,7 +43,7 @@ func virtual_process(body: CharacterBody2D, delta: float, direction: Vector2) ->
 	if direction && !isAttacking:
 		directionSnapshot = direction
 		hasInput = true
-		minMoveTime = 0.5
+		minMoveTime = 0.1
 		# accelerate animation speed
 		bodyAP.speed_scale = move_toward(bodyAP.speed_scale, 2.5, delta)
 	else:

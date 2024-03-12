@@ -2,6 +2,8 @@ extends Node2D
 class_name Spiecies
 
 @export var particleAttachmentPoint: Node2D
+@export var bossTexture: Texture2D
+var isBoss: bool
 
 enum Emotion { Normal, Sad, Mad, Cry }
 

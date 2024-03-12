@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://cgnm5mclq741f"]
+[gd_scene load_steps=33 format=3 uid="uid://cgnm5mclq741f"]
 
 [ext_resource type="Script" path="res://scripts/ai/BeastAI.gd" id="1_ju0uy"]
 [ext_resource type="Script" path="res://scripts/creatures/Spider.gd" id="2_xnae8"]
 [ext_resource type="Texture2D" uid="uid://bp7d8wk2cc1wb" path="res://textures/spider.png" id="3_ah77i"]
+[ext_resource type="Texture2D" uid="uid://depmyobafum2y" path="res://textures/webster.png" id="3_n8mgy"]
 [ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="4_6nh8t"]
 [ext_resource type="Script" path="res://scripts/Unrotate.gd" id="5_y8jm3"]
 
@@ -863,6 +864,59 @@ _data = {
 "up": SubResource("Animation_6qp4c")
 }
 
+[sub_resource type="Animation" id="Animation_2f2em"]
+resource_name = "RESET"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Origin/Anchor/Body/HeadScaler/AnimR/AnimPosAnchor/Head/FaceOffset/Eyes:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(21, 131, 5, 3), Rect2(31, 132, 5, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Origin/Anchor/Body/HeadScaler/AnimR/AnimPosAnchor/Head/FaceOffset/Eyes:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, 1), Vector2(0, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Origin/Anchor/Body/HeadScaler/AnimR/AnimPosAnchor/Head/FaceOffset/Eyes2:region_rect")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(21, 131, 5, 3), Rect2(31, 132, 5, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Origin/Anchor/Body/HeadScaler/AnimR/AnimPosAnchor/Head/FaceOffset/Eyes2:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, 1), Vector2(0, 2)]
+}
+
 [sub_resource type="Animation" id="Animation_ju2hr"]
 resource_name = "closed"
 loop_mode = 1
@@ -1127,59 +1181,6 @@ tracks/3/keys = {
 "values": [Vector2(0, 2), Vector2(0, 2)]
 }
 
-[sub_resource type="Animation" id="Animation_2f2em"]
-resource_name = "RESET"
-length = 5.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Origin/Anchor/Body/HeadScaler/AnimR/AnimPosAnchor/Head/FaceOffset/Eyes:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 4.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(21, 131, 5, 3), Rect2(31, 132, 5, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Origin/Anchor/Body/HeadScaler/AnimR/AnimPosAnchor/Head/FaceOffset/Eyes:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 4.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(0, 1), Vector2(0, 2)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Origin/Anchor/Body/HeadScaler/AnimR/AnimPosAnchor/Head/FaceOffset/Eyes2:region_rect")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 4.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(21, 131, 5, 3), Rect2(31, 132, 5, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Origin/Anchor/Body/HeadScaler/AnimR/AnimPosAnchor/Head/FaceOffset/Eyes2:offset")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 4.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(0, 1), Vector2(0, 2)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iabbb"]
 _data = {
 "RESET": SubResource("Animation_2f2em"),
@@ -1314,6 +1315,7 @@ script = ExtResource("1_ju0uy")
 [node name="SpieciesController" type="Node2D" parent="." node_paths=PackedStringArray("particleAttachmentPoint")]
 script = ExtResource("2_xnae8")
 particleAttachmentPoint = NodePath("../Origin/Anchor/Body/ParticleAttachmentPoint")
+bossTexture = ExtResource("3_n8mgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://dqidokn66sruh"]
+[gd_scene load_steps=33 format=3 uid="uid://dqidokn66sruh"]
 
 [ext_resource type="Script" path="res://scripts/ai/BeastAI.gd" id="1_u4vvr"]
 [ext_resource type="Script" path="res://scripts/creatures/Snake.gd" id="2_5yodr"]
 [ext_resource type="Texture2D" uid="uid://yealp16pt681" path="res://textures/snake.png" id="3_7lg23"]
+[ext_resource type="Texture2D" uid="uid://ccg6bh4dinakp" path="res://textures/sneksquik.png" id="3_lffup"]
 [ext_resource type="Texture2D" uid="uid://bh4arvj2h0eig" path="res://textures/objects.png" id="4_u666p"]
 [ext_resource type="Script" path="res://scripts/Unrotate.gd" id="5_q83eh"]
 
@@ -1170,6 +1171,7 @@ script = ExtResource("1_u4vvr")
 [node name="SpieciesController" type="Node2D" parent="." node_paths=PackedStringArray("particleAttachmentPoint")]
 script = ExtResource("2_5yodr")
 particleAttachmentPoint = NodePath("../Origin/Anchor/Body/ParticleAttachmentPoint")
+bossTexture = ExtResource("3_lffup")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)

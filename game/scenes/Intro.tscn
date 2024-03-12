@@ -405,6 +405,7 @@ script = ExtResource("14_micp4")
 size = 2.0
 playerTexture = ExtResource("15_8xl74")
 canMove = true
+isBoss = true
 
 [node name="MomoTarget" type="Node2D" parent="Actors"]
 position = Vector2(130, -26)
