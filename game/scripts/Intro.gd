@@ -8,5 +8,5 @@ func _ready() -> void:
 
 
 func end() -> void:
-	get_tree().change_scene_to_file("res://scenes/Game.tscn")
+	Global.die(false)
 	return

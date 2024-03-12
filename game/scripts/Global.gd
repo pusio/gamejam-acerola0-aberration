@@ -37,8 +37,9 @@ func toggle_fullscreen() -> void:
 	return
 
 
-func die() -> void:
-	deaths += 1
+func die(really: bool = true) -> void:
+	if really:
+		deaths += 1
 	await Tools.wait(self, 1.0)
 	fadeBlock.visible = true
 	fadeBlock.color = Color(0, 0, 0, 0)
