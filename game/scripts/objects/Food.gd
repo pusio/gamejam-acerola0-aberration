@@ -109,3 +109,25 @@ func animateRotate() -> void:
 	)
 	tween.connect("finished", animateRotate)
 	return
+
+
+func splashInWater() -> void:
+	if isConsumed:
+		return
+	isConsumed = true
+	Tools.playSound(self, "Splash", Tools.sizeToPitch(nutrition / 4.0))
+	var fx = preload("res://objects/fx/Splash.tscn").instantiate()
+	Tools.getRoot(self).add_child(fx)
+	fx.global_position = global_position
+	queue_free()
+	return
+
+
+func _process(_delta):
+	if !isOnGround || isConsumed:
+		return
+	for body in get_overlapping_bodies():
+		if body is TileMap:
+			call_deferred("splashInWater")
+			return
+	return
