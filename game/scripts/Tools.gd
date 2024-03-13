@@ -22,14 +22,7 @@ static func wait(owner: Node, time: float) -> Signal:
 
 
 static func getRoot(owner: Node) -> Node:
-	var godotRoot = owner.get_tree().root
-	if godotRoot.has_node("Root"):
-		return godotRoot.get_node("Root")
-	if godotRoot.has_node("Intro"):
-		return godotRoot.get_node("Intro")
-	if godotRoot.has_node("Menu"):
-		return godotRoot.get_node("Menu")
-	return null
+	return owner.get_tree().current_scene
 
 
 static func bodySizeToHeadSize(bodySize: float) -> float:
