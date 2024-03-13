@@ -1417,3 +1417,5 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_gkk3e")
 }
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]

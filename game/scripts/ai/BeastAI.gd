@@ -5,8 +5,9 @@ class_name BeastAI
 
 @onready var speciesController: Species = $SpeciesController
 @onready var sightArea: Area2D = $SightArea
+@onready var navAgent: NavigationAgent2D = $NavAgent
 
-var direction: Vector2 = Vector2.ZERO
+var targetPosition: Vector2
 var friendToFollow: Node2D = null
 var enemyToFollow: Node2D = null
 var foodToFollow: Node2D = null
@@ -19,6 +20,7 @@ var shouldBeAbleToMove: bool
 var anger: float
 var agroTime: float
 var friendFollowTime: float
+var navCooldown: float = 2
 
 
 func _ready() -> void:
@@ -36,8 +38,13 @@ func _ready() -> void:
 
 	currentLogic = logicIdle
 	logicBusy = false
-	set_deferred("spawnPoint", global_position)
+	spawnPoint = global_position
+	targetPosition = spawnPoint
 	call_deferred("recalculateStats")
+	# wait for navigation map to fill
+	set_physics_process(false)
+	await get_tree().physics_frame
+	set_physics_process(true)
 	return
 
 
@@ -48,6 +55,18 @@ func recalculateStats() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if navCooldown > 0:
+		navCooldown -= delta
+		if navCooldown <= 0:
+			navCooldown = 0.1
+			navAgent.target_position = targetPosition
+	var direction: Vector2 = Vector2.ZERO
+	var navPos = navAgent.get_next_path_position()
+	var distCheck = 64
+	if foodToFollow != null:
+		distCheck = 16
+	if targetPosition.distance_squared_to(global_position) > distCheck:
+		direction = to_local(navPos).normalized()
 	speciesController.virtual_process(self, delta, direction)
 	if shouldBeAbleToMove:
 		var lastCollision = get_last_slide_collision()
@@ -71,7 +90,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		anger = 0.0
 	if anger >= 0.5:
-		speciesController.virtual_attack(direction)
+		speciesController.virtual_attack((targetPosition - global_position).normalized())
 	aiCheats()
 	if agroTime > 0:
 		agroTime -= delta
@@ -182,7 +201,7 @@ func logicIdle() -> void:
 			return
 	# sit
 	if randf() > 0.3:
-		direction = Vector2.ZERO
+		targetPosition = global_position
 		shouldBeAbleToMove = false
 		await Tools.wait(self, randf_range(0.5, 2.0))
 	# follow friend
@@ -195,7 +214,7 @@ func logicIdle() -> void:
 		await Tools.wait(self, randf_range(2, 5))
 	# wander
 	elif !isBoss:
-		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+		targetPosition = global_position + Vector2(randf_range(-100, 100), randf_range(-100, 100))
 		speciesController.virtual_lookAt(Vector2.ZERO)
 		shouldBeAbleToMove = true
 		await Tools.wait(self, randf_range(0.2, 0.8))
@@ -208,10 +227,10 @@ func logicFollowFriend() -> void:
 		speciesController.virtual_lookAt(friendToFollow.position - position)
 		var dist = position.distance_squared_to(friendToFollow.position)
 		if dist > 4096:
-			direction = (friendToFollow.position - position).normalized()
+			targetPosition = friendToFollow.global_position
 			shouldBeAbleToMove = true
 		else:
-			direction = Vector2.ZERO
+			targetPosition = global_position
 	else:
 		speciesController.virtual_lookAt(Vector2.ZERO)
 	return
@@ -220,7 +239,7 @@ func logicFollowFriend() -> void:
 func logicFollowFood() -> void:
 	if foodToFollow != null:
 		speciesController.virtual_lookAt(foodToFollow.position - position)
-		direction = (foodToFollow.position - position).normalized()
+		targetPosition = foodToFollow.global_position
 		shouldBeAbleToMove = true
 	else:
 		speciesController.virtual_lookAt(Vector2.ZERO)
@@ -233,10 +252,10 @@ func logicAttackEnemy() -> void:
 		speciesController.virtual_lookAt(enemyToFollow.position - position)
 		var dist = position.distance_squared_to(enemyToFollow.position)
 		if dist > 4096:
-			direction = (enemyToFollow.position - position).normalized()
+			targetPosition = enemyToFollow.global_position
 			shouldBeAbleToMove = true
 		else:
-			direction = Vector2.ZERO
+			targetPosition = global_position
 			speciesController.virtual_attack((enemyToFollow.position - position).normalized())
 	else:
 		speciesController.virtual_lookAt(Vector2.ZERO)
@@ -249,7 +268,7 @@ func logicReturnToSpawn() -> void:
 	else:
 		logicLocked = false
 	speciesController.virtual_lookAt(spawnPoint - global_position)
-	direction = (spawnPoint - global_position).normalized()
+	targetPosition = spawnPoint
 	shouldBeAbleToMove = true
 	return
 
