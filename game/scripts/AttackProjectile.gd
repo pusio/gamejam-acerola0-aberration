@@ -16,10 +16,7 @@ func prepare(
 ) -> void:
 	direction = dir.normalized()
 	global_position = src.global_position
-	rotation = Vector2.RIGHT.angle_to(direction)
-	if rotation_degrees < -90 || rotation_degrees > 90:
-		scale.x *= -1
-		rotation_degrees -= 180
+	rotation = Vector2.UP.angle_to(direction)
 	damage = dmg * srcSize
 	exclude = []
 	source = src

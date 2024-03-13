@@ -33,12 +33,13 @@ func prepare(playerTexture: Texture2D) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var mouseVec = Tools.getRelativeMousePosition(self)
+	var mouseVec = (get_global_mouse_position() - global_position).normalized()
 	speciesController.virtual_lookAt(mouseVec)
 	var direction = Input.get_vector("left", "right", "up", "down")
 	speciesController.virtual_process(self, delta, direction)
 	if Input.is_action_pressed("attack"):
 		speciesController.virtual_attack(mouseVec)
+		speciesController.attackVector = mouseVec
 	return
 
 

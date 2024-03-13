@@ -256,7 +256,7 @@ func logicAttackEnemy() -> void:
 			shouldBeAbleToMove = true
 		else:
 			targetPosition = global_position
-			speciesController.virtual_attack((enemyToFollow.position - position).normalized())
+			speciesController.virtual_attack((enemyToFollow.global_position - global_position).normalized())
 	else:
 		speciesController.virtual_lookAt(Vector2.ZERO)
 	return
